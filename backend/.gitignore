@@ -36,3 +36,6 @@ build/
 .cmd
 mvnw
 .idea
+.mvn
+mvnw.cmd
+pom.xml
