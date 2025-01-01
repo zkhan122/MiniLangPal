@@ -19,7 +19,15 @@ public class UserController {
     // posting the data
     @PostMapping("/users")
     User newUser(@RequestBody User newUser) {
-        return userRepository.save(newUser);
+        System.out.println("Received user: " + newUser);
+        User savedUser =  userRepository.save(newUser);
+        System.out.println("Saved user: " + savedUser);
+
+//        System.out.println("Saved user data:");
+//        System.out.println("Name: " + savedUser.getName());
+//        System.out.println("Email: " + savedUser.getEmail());
+//        System.out.println("Username: " + savedUser.getUsername());
+        return savedUser;
     }
 
     // for creating multiple users
@@ -29,9 +37,13 @@ public class UserController {
     }
 
     // getting the data
+    /* (TO FIX)
+    either:
+    1) THIS MIGHT ONLY WORK FOR 1 USER AND NOT POST OF BATCH OF USERS -> tested, not working
+    2) This GET request only works for users from post at /users and not /users/batch
+     */
     @GetMapping("/users")
-    ResponseEntity<List<User>> getAllUsers() {
-        List<User> usersRetrieved =  userRepository.findAll();
-        return ResponseEntity.ok(usersRetrieved);
+    List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 }

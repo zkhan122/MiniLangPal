@@ -18,21 +18,20 @@ public class User {
     @NotNull
     private String email;
     @NotNull
-    private String phone;
-    @NotNull
     private String username;
     @NotNull
     private String password;
-    @NotNull
-    private String profileImageURL;
+    private String phone; // can be null
+//    @NotNull
+//    private String profileImageURL;
 
     public void setUser_id(Long user_id) {
         this.user_id = user_id;
     }
-
-    public void setProfileImageURL(String profileImageURL) {
-        this.profileImageURL = profileImageURL;
-    }
+//
+//    public void setProfileImageURL(String profileImageURL) {
+//        this.profileImageURL = profileImageURL;
+//    }
 
     public void setPassword(String password) {
         this.password = password;
@@ -53,4 +52,32 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public Long getUser_id() {
+        return user_id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+//    public String getProfileImageURL() {
+//        return profileImageURL;
+//    }
 }
