@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Alert from '@mui/material/Alert';
+import { useParams } from "react-router-dom";
 
-export default function CreateUser() {
+export default function UpdateUser() {
     const navigate = useNavigate(); // link navigation
+
+    const {id} = useParams(); // getting the id from the URL
 
     // storing the user information inside state to POST
     const [user, setUser] = useState({
@@ -26,6 +29,10 @@ export default function CreateUser() {
         }));
     };
 
+    useEffect(() => {
+        loadUser()
+    }, []);
+
     const onConfirmPasswordChange = (event) => {
         setConfirmPassword(event.target.value);
     };
@@ -44,10 +51,15 @@ export default function CreateUser() {
             return;
         } else {
             // if password do match, then we can post the user by submitting the form
-            await axios.post("http://localhost:8080/users", user);
+            await axios.post("http://localhost:8080/users/${id}", user);
             setShowSuccess(true);
             setTimeout(()=>navigate('/'), 2000);
         }
+    }
+
+    const loadUser =async()=> {
+        const result = await axios.get(`http://localhost:8080/users/${id}`);
+        setUser(result.data);  
     }
 
     return (
@@ -57,7 +69,7 @@ export default function CreateUser() {
             {showSuccess && <Alert severity="success">Sign up successful!</Alert>}
             <div className="row">
                 <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
-                    <h2 className="text-center m-4">Register User</h2>
+                    <h2 className="text-center m-4">Update User</h2>
                     <form onSubmit={(event) => onSubmit(event)}>
                         <div className="mb-3">
                             <label htmlFor="name" className="form-label">

@@ -1,4 +1,3 @@
 -- To-Do -- 
 
--> add logging to fix POST/GET null returns 
 -> secure db password in application.properties
