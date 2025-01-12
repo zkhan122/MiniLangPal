@@ -61,6 +61,10 @@ public class UserController {
             user.setName(newUser.getName());
             user.setEmail(newUser.getEmail());
             user.setPhone(newUser.getPhone());
+
+            if (newUser.getPassword() != null & !newUser.getPassword().isEmpty()) {
+                user.setPassword(newUser.getPassword());
+            }
             return userRepository.save(user);
         }).orElseThrow(()->new UserNotFoundException(id));
     }
@@ -74,7 +78,10 @@ public class UserController {
         if (!(userToDelete.get().getUser_id().equals(id))) {
             throw new UserNotFoundException(id);
         }
+        User nextUser = this.getUserById(id+1);
         userRepository.deleteById(id);
+        nextUser.setUser_id(id-1);
+
         return "SUCCESS: User deleted with id " + id;
     }
 }

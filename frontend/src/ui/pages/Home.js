@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export default function Home() {
 
     const [users, setUsers] = useState([])
+
+    const {id} = useParams(); // access parameters from the URL (function to hook into react state)
 
     const loadUsers = async()=>{
         const result = await axios.get("http://localhost:8080/users")
@@ -15,6 +17,11 @@ export default function Home() {
         console.log("Console: MiniLangApp loaded..")
         loadUsers();
     }, []); 
+
+    const deleteUser = async (user_id) => {
+        await axios.delete(`http://localhost:8080/users/${user_id}`);
+        loadUsers();
+    }
 
     return (
         <div className="container">
@@ -35,17 +42,15 @@ export default function Home() {
                     {
                         users.map((user, index)=> (
                             <tr>
-                            <th scope="row" key={index}>{index+1}</th>
+                            <th scope="row" key={index}>Record{index+1}</th>
                             <td>{user.name}</td>
                             <td>{user.username}</td>
                             <td>{user.email}</td>
                             <td>{user.phone}</td>
                             <td>
-                                <button className="btn btn-primary mx-2">View</button>
-                                <Link className="btn btn-outline-primary mx-2"
-                                
-                                to={`/updateuser/${user.id}`}>Edit</Link>
-                                <button className="btn btn-danger mx-2">Delete</button>
+                                <Link className="btn btn-primary mx-2" to={`/viewuser/${user.user_id}`}>View</Link>
+                                <Link className="btn btn-outline-primary mx-2" to={`/updateuser/${user.user_id}`}>Edit</Link>
+                                <button className="btn btn-danger mx-2" onClick={()=> deleteUser(user.user_id)}>Delete</button>
                             </td>
                             </tr>
                         ))

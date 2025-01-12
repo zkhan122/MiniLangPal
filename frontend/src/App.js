@@ -5,6 +5,7 @@ import Navbar from "./ui/Navbar";
 import Home from "./ui/pages/Home";
 import CreateUser from "./users/CreateUser"
 import UpdateUser from "./users/UpdateUser"
+import ReadUser from "./users/ReadUser"
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
           <Routes>
             <Route exact path ="/" element={<Home/>}/>
             <Route exact path ="/adduser" element={<CreateUser/>}/>
-            <Route exact path ="/updateuser/:id" element={<UpdateUser/>}/>
+            <Route exact path ="/updateuser/:user_id" element={<UpdateUser/>}/>
+            <Route exact path ="/viewuser/:user_id" element={<ReadUser/>}/>
           </Routes>
 
       </Router>

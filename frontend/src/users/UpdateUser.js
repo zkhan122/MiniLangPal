@@ -7,10 +7,10 @@ import { useParams } from "react-router-dom";
 export default function UpdateUser() {
     const navigate = useNavigate(); // link navigation
 
-    const {id} = useParams(); // getting the id from the URL
+    const {user_id} = useParams(); // getting the user_id from the URL
 
-    // storing the user information inside state to POST
-    const [user, setUser] = useState({
+    // storing the user information insuser_ide state to POST
+    const [user, setUser] = useState({ // we store the user info in user and set using setUser
         name:"",
         username:"",
         email:"",
@@ -30,8 +30,13 @@ export default function UpdateUser() {
     };
 
     useEffect(() => {
-        loadUser()
-    }, []);
+        if (!user_id || user_id === 'undefined') {
+            console.error("Invaluser_id user user_id");
+            navigate('/'); // Redirect to home if invaluser_id user_id
+            return;
+        }
+        loadUser();
+    }, [user_id, navigate]);
 
     const onConfirmPasswordChange = (event) => {
         setConfirmPassword(event.target.value);
@@ -51,14 +56,14 @@ export default function UpdateUser() {
             return;
         } else {
             // if password do match, then we can post the user by submitting the form
-            await axios.post("http://localhost:8080/users/${id}", user);
+            await axios.put(`http://localhost:8080/users/${user_id}`, user);
             setShowSuccess(true);
             setTimeout(()=>navigate('/'), 2000);
         }
     }
 
     const loadUser =async()=> {
-        const result = await axios.get(`http://localhost:8080/users/${id}`);
+        const result = await axios.get(`http://localhost:8080/users/${user_id}`);
         setUser(result.data);  
     }
 
@@ -66,7 +71,7 @@ export default function UpdateUser() {
         <div className="container">
             <h1>User Page</h1>
             {showError && <Alert severity="error">Passwords do not match</Alert>}
-            {showSuccess && <Alert severity="success">Sign up successful!</Alert>}
+            {showSuccess && <Alert severity="success">User profile updated!</Alert>}
             <div className="row">
                 <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
                     <h2 className="text-center m-4">Update User</h2>
@@ -128,7 +133,7 @@ export default function UpdateUser() {
                         </div>
 
                         <div className="mb-3">
-                            <label htmlFor="passwor2d" className="form-label">
+                            <label htmlFor="password" className="form-label">
                                 Password:
                             </label>
                             <input 
