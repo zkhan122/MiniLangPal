@@ -4,6 +4,8 @@ import axios from "axios";
 import Alert from '@mui/material/Alert';
 
 export default function CreateUser() {
+
+ 
     const navigate = useNavigate(); // link navigation
 
     // storing the user information inside state to POST
@@ -116,7 +118,7 @@ export default function CreateUser() {
                         </div>
 
                         <div className="mb-3">
-                            <label htmlFor="passwor2d" className="form-label">
+                            <label htmlFor="password" className="form-label">
                                 Password:
                             </label>
                             <input 

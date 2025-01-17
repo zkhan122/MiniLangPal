@@ -6,6 +6,7 @@ import Home from "./ui/pages/Home";
 import CreateUser from "./users/CreateUser"
 import UpdateUser from "./users/UpdateUser"
 import ReadUser from "./users/ReadUser"
+import Login from "./ui/pages/Login"
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route exact path ="/adduser" element={<CreateUser/>}/>
             <Route exact path ="/updateuser/:user_id" element={<UpdateUser/>}/>
             <Route exact path ="/viewuser/:user_id" element={<ReadUser/>}/>
+            <Route exact path="/login/" element={<Login/>}/>
           </Routes>
 
       </Router>

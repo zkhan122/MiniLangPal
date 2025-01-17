@@ -1,0 +1,93 @@
+/* Ensure the wrapper takes up the whole screen */
+.wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column;  /* Stack components vertically */
+    justify-content: center;
+    width: 100%;
+    min-height: 100%;
+    padding: 20px;
+  }
+  
+  /* Style for the form container */
+  #formContent {
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: white;  /* White background for the form */
+    border-radius: 10px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+    text-align: center;
+  }
+  
+  /* Styling for the input fields */
+  input[type="text"], input[type="password"] {
+    width: 100%;  /* Full width of the container */
+    padding: 15px;
+    margin: 10px 0;  /* Vertical spacing between the inputs */
+    border: 2px solid #ccc;  /* Gray border for visibility */
+    border-radius: 5px;
+    background-color: #f6f6f6;  /* Light gray background for inputs */
+    color: #333;  /* Dark text for contrast */
+    font-size: 16px;
+    text-align: center;
+  }
+  
+  /* Styling for the input fields when focused */
+  input[type="text"]:focus, input[type="password"]:focus {
+    background-color: #fff;  /* White background on focus */
+    border-color: #56baed;  /* Highlight the border when focused */
+    outline: none;  /* Remove default outline */
+  }
+  
+  /* Submit button styling */
+  input[type="submit"] {
+    width: 100%;  /* Full width of the container */
+    padding: 15px;
+    margin: 10px 0;
+    border: none;
+    background-color: #56baed;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Submit button hover effect */
+  input[type="submit"]:hover {
+    background-color: #39ace7;
+  }
+  
+  /* Submit button active effect */
+  input[type="submit"]:active {
+    transform: scale(0.95);
+  }
+  
+  /* Styling for the placeholder text */
+  input[type="text"]::placeholder, input[type="password"]::placeholder {
+    color: #cccccc;  /* Light gray color for placeholder text */
+  }
+  
+  /* Forgot password link styling */
+  #formFooter {
+    background-color: #f6f6f6;
+    padding: 25px;
+    text-align: center;
+  }
+  
+  .underlineHover:after {
+    display: block;
+    left: 0;
+    bottom: -10px;
+    width: 0;
+    height: 2px;
+    background-color: #56baed;
+    content: "";
+    transition: width 0.2s;
+  }
+  
+  .underlineHover:hover:after {
+    width: 100%;
+  }
+  

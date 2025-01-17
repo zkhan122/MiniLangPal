@@ -38,12 +38,6 @@ public class UserController {
         return userRepository.saveAll(users);
     }
 
-    // getting the data
-    /* (TO FIX)
-    either:
-    1) THIS MIGHT ONLY WORK FOR 1 USER AND NOT POST OF BATCH OF USERS -> tested, not working
-    2) This GET request only works for users from post at /users and not /users/batch
-     */
     @GetMapping("/users")
     List<User> getAllUsers() {
         return userRepository.findAll();
@@ -78,9 +72,8 @@ public class UserController {
         if (!(userToDelete.get().getUser_id().equals(id))) {
             throw new UserNotFoundException(id);
         }
-        User nextUser = this.getUserById(id+1);
+        // User nextUser = this.getUserById(id+1);
         userRepository.deleteById(id);
-        nextUser.setUser_id(id-1);
 
         return "SUCCESS: User deleted with id " + id;
     }
