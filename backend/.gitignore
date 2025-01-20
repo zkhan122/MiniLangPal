@@ -39,4 +39,4 @@ mvnw
 mvnw.cmd
 pom.xml
 
-/main/resources/.properties
+/main/resources/application.properties
