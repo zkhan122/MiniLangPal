@@ -35,7 +35,8 @@ build/
 .xml
 .cmd
 mvnw
-.idea
 .mvn
 mvnw.cmd
 pom.xml
+
+/main/resources/.properties
