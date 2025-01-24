@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Alert from '@mui/material/Alert';
+import axios from "axios";
 import '../css/login.css';
+import { Username } from "../context/UserContext";
 
 export default function Login() {
 
@@ -10,6 +12,8 @@ export default function Login() {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+
+    const { setUsername: setGlobalUsername } = Username();
 
 
     const handleUsernameChange = (event) => {
@@ -23,31 +27,54 @@ export default function Login() {
       const [showError, setShowError] = useState(false);
       const [showSuccess, setShowSuccess] = useState(false);
 
-    const handleSubmit = (e) => {
-      e.preventDefault();
-    
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-      var usernameInput = document.getElementById("username").value;
-      var passwordInput = document.getElementById("password").value;
+  // Get values from form inputs
+  var usernameInput = document.getElementById("username").value;
+  var passwordInput = document.getElementById("password").value;
 
-      if ((usernameInput == null || usernameInput == "") || (passwordInput == null || passwordInput == "")) {
-        console.log("Please fill in all fields");
-        setShowError(true);
-        setTimeout(()=>navigate('/'), 2000);
-        return;
-      }
-      else if (usernameInput === "admin" && passwordInput === "admin") {
-        console.log("Login successful");
-        setShowSuccess(true);
-        setTimeout(()=>navigate('/'), 2500);
-      
-      } else { // change to check database to see if the user exists with the given username and password
-        console.log('(admin only for now) Login attempt with:', {usernameInput, passwordInput});
-        setShowError(true);
-        setTimeout(()=>navigate('/login'), 2500);
-      
-      }
-    };
+  // Check if fields are empty
+  if (!usernameInput || !passwordInput) {
+    console.log("Please fill in all fields");
+    setShowError(true);
+    setTimeout(() => navigate('/'), 2000); // Redirect after showing error
+    return;
+  }
+
+  // Admin login check (for testing purposes)
+  if (usernameInput === "admin" && passwordInput === "admin") {
+    console.log("Login successful");
+    setGlobalUsername(username);
+    setShowSuccess(true);
+    setTimeout(() => navigate("/"), 2500); // Redirect after success
+    return;
+  }
+
+  // Prepareing login data
+  const loginData = { username: usernameInput, password: passwordInput };
+
+  try {
+    // Sending POST request to backend
+    const response = await axios.post("http://localhost:8080/login", loginData);
+
+    // Handling the  successful login
+    if (response.status === 200) {
+      console.log("Login successful");
+      setGlobalUsername(username);
+      setShowSuccess(true);
+      setTimeout(() => navigate("/"), 2500); // Redirect after success
+    } else {
+      // Handling errors returned by the server
+      setShowError(response.data.message || "Login failed, please retry");
+    }
+  } catch (error) {
+    // Handling network or server errors
+    console.error("Error during login:", error);
+    setShowError("An error occurred, please retry");
+  }
+};
+
 
   return (
     <div>
