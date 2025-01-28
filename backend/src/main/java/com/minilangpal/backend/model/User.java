@@ -3,12 +3,14 @@ package com.minilangpal.backend.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Entity
 @Table(name = "users")
 
 public class User {
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long user_id;
@@ -19,19 +21,24 @@ public class User {
     private String email;
     @NotNull
     private String username;
-    @NotNull
+    @Transient
     private String password;
+    @NotNull
+    private String hashedPassword; // to be compared to password upon login
+
     private String phone; // can be null
-//    @NotNull
-//    private String profileImageURL;
 
     public void setUser_id(Long user_id) {
         this.user_id = user_id;
     }
-//
-//    public void setProfileImageURL(String profileImageURL) {
-//        this.profileImageURL = profileImageURL;
-//    }
+
+    public String getHashedPassword() {
+        return hashedPassword;
+    }
+
+    public void setHashedPassword(String hashedPassword) {
+        this.hashedPassword = hashedPassword;
+    }
 
     public void setPassword(String password) {
         this.password = password;

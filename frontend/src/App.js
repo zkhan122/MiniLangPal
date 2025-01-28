@@ -18,6 +18,7 @@ function App() {
             <Route exact path ="/adduser" element={<CreateUser/>}/>
             <Route exact path ="/updateuser/:user_id" element={<UpdateUser/>}/>
             <Route exact path ="/viewuser/:user_id" element={<ReadUser/>}/>
+            <Route exact path="/users/id/:user_id" element={<ReadUser />} />
             <Route exact path="/login/" element={<Login/>}/>
           </Routes>
 
