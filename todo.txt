@@ -1,7 +1,0 @@
--- To-Do -- 
-
--> secure db password in application.properties
--> make the crud operations frontend, admin only view
--> hash register password and do login
--> change from sql to cloud storage (firebase (most likely) vs amazon S3)
--> start designing layout of categories for learning
