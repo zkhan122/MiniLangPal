@@ -1,8 +1,5 @@
 package com.minilangpal.backend.model;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,16 +11,17 @@ import lombok.Getter;
 public class LoginRequest {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(length = 50, nullable = false)
+    private String user_id;
     private String username;
     private String password;
 
-    public Long getUser_id() {
+    public String getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(Long user_id) {
+    public void setUser_id(String user_id) {
         this.user_id = user_id;
     }
 

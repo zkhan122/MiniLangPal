@@ -1,19 +1,21 @@
 package com.minilangpal.backend.model;
 
+import com.minilangpal.backend.configuration.SaltGenerator;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
+@Setter
 @Entity
 @Table(name = "users")
 
 public class User {
-    @Setter
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(length = 50, nullable = false)
+    private String user_id;
     @NotNull
     // user attributes
     private String name;
@@ -28,8 +30,16 @@ public class User {
 
     private String phone; // can be null
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUser_id(String user_id) {
+        SaltGenerator salt = new SaltGenerator();
+        this.user_id = salt.generateSalt();;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        if (this.user_id == null || this.user_id.isEmpty()) {
+            setUser_id("user_" + System.currentTimeMillis());  // Example fallback if not set
+        }
     }
 
     public String getHashedPassword() {
@@ -60,7 +70,7 @@ public class User {
         this.email = email;
     }
 
-    public Long getUser_id() {
+    public String getUser_id() {
         return user_id;
     }
 
