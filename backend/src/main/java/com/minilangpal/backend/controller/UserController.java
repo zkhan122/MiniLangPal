@@ -43,7 +43,7 @@ public class UserController {
 
             String hashedPassword = passwordEncoder.encode(newUser.getPassword());
             newUser.setHashedPassword(hashedPassword); // Set the hashed password
-            newUser.setPassword(null);  // Clear the plaintext password field (don't persist it)
+            //newUser.setPassword(null);  // (Needs revising) Clear the plaintext password field (don't persist it)
 
             // Save the user and return the response
             User savedUser = userRepository.save(newUser);
