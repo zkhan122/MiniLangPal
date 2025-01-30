@@ -91,7 +91,7 @@ public class UserController {
     }
 
     @GetMapping("/users/id/{id}")
-    User getUserById(@PathVariable("id") Long id) {
+    User getUserById(@PathVariable("id") String id) {
         return userRepository.findById(id).orElseThrow(()->new UserNotFoundException(id));
     }
 
@@ -102,7 +102,7 @@ public class UserController {
 
 
     @PutMapping("/users/{id}")
-    User updateUser(@RequestBody User newUser, @PathVariable Long id) {
+    User updateUser(@RequestBody User newUser, @PathVariable String id) {
         return userRepository.findById(id).map(user -> {
             user.setUsername(newUser.getUsername());
             user.setName(newUser.getName());
@@ -117,7 +117,7 @@ public class UserController {
     }
 
     @DeleteMapping("/users/{id}")
-    String deleteUser(@PathVariable Long id) {
+    String deleteUser(@PathVariable String id) {
         Optional<User> userToDelete = userRepository.findById(id);
         if (!userRepository.existsById(id) || userToDelete.isEmpty())  {
             throw new UserNotFoundException(id);
