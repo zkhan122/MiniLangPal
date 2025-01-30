@@ -1,0 +1,9 @@
+.xml
+.cmd
+mvnw
+.vscode
+.idea
+todo.txt
+out
+notes.txt
+backend/src/main/resources
