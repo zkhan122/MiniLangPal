@@ -7,6 +7,7 @@ import CreateUser from "./users/CreateUser"
 import UpdateUser from "./users/UpdateUser"
 import ReadUser from "./users/ReadUser"
 import Login from "./ui/pages/Login"
+import QuizSelection from "./ui/quizzes/QuizSelection"
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route exact path ="/viewuser/:user_id" element={<ReadUser/>}/>
             <Route exact path="/users/id/:user_id" element={<ReadUser />} />
             <Route exact path="/login/" element={<Login/>}/>
+            <Route exact path="/quizzes/" element={<QuizSelection/>}/>
           </Routes>
 
       </Router>

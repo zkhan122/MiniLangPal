@@ -24,8 +24,11 @@ export default function Login() {
       setPassword(event.target.value);
     }
   
-      const [showError, setShowError] = useState(false);
-      const [showSuccess, setShowSuccess] = useState(false);
+    const [showError, setShowError] = useState(false);
+    const [showSuccess, setShowSuccess] = useState(false);
+
+
+
 
 const handleSubmit = async (e) => {
   e.preventDefault();
@@ -50,7 +53,7 @@ const handleSubmit = async (e) => {
     setTimeout(() => navigate("/"), 2500); // Redirect after success
     return;
   }
-
+  
   // Prepareing login data
   const loginData = { username: usernameInput, password: passwordInput };
 
