@@ -23,11 +23,7 @@ public class User {
     private String email;
     @NotNull
     private String username;
-<<<<<<< HEAD
     @Transient
-=======
-    @NotNull
->>>>>>> cf7c5b7772b714ac41aaee5fac8f2e26838b7b5f
     private String password;
     @NotNull
     private String hashedPassword; // to be compared to password upon login
