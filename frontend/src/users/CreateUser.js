@@ -48,7 +48,11 @@ export default function CreateUser() {
             // if password do match, then we can post the user by submitting the form
             await axios.post("http://localhost:8080/users", user);
             setShowSuccess(true);
+<<<<<<< HEAD
             setTimeout(()=>navigate('/login'), 2000);
+=======
+            setTimeout(()=>navigate('/'), 2000);
+>>>>>>> cf7c5b7772b714ac41aaee5fac8f2e26838b7b5f
         }
     }
 

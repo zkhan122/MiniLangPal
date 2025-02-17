@@ -53,7 +53,6 @@ const handleSubmit = async (e) => {
     setTimeout(() => navigate("/"), 2500); // Redirect after success
     return;
   }
-  
   // Prepareing login data
   const loginData = { username: usernameInput, password: passwordInput };
 

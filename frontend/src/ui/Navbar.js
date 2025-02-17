@@ -27,15 +27,9 @@ export default function Navbar() {
                             <li className="nav-item">
                                 <span className="navbar-text me-3">{username}</span>
                             </li>
-
-                            <Link className="btn btn-outline-light" to="/quizzes">My Quizzes</Link>
-                            <Link className="btn btn-outline-light" to="/learning">My Learning</Link>
-
                             <li className="nav-item">
                                 <button className="btn btn-outline-light" onClick={handleLogout}>Log Out</button>
                             </li>
-
-                            
                         </>
 
                     ) : (
