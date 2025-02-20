@@ -60,7 +60,7 @@ public class UserController {
 
 
     // for creating multiple users
-    @Transactional(readOnly = true)
+//    @Transactional(readOnly = true)
     @PostMapping("/users/batch")
     public ResponseEntity<List<User>> createUser(@RequestBody List<User> users) {
         try {
@@ -94,7 +94,7 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @GetMapping("/users/id/{id}")
+    @GetMapping("/users/{id}")
     User getUserById(@PathVariable("id") String id) {
         return userRepository.findById(id).orElseThrow(()->new UserNotFoundException(id));
     }
@@ -105,7 +105,7 @@ public class UserController {
     }
 
 
-    @PutMapping(value = "/users/id/{id}")
+    @PutMapping(value = "/users/{id}")
     public ResponseEntity<?> updateUser(@RequestBody User newUser, @PathVariable String id) {
         return userRepository.findById(id).map(user -> {
 
