@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("http://localhost:3000") // react frontend server running on port 3000
 public class UserController {
 
     // Injecting User repository
@@ -35,6 +34,7 @@ public class UserController {
 
     // posting the data
     @PostMapping("/users")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<?> newUser(@RequestBody User newUser) {
         try {
             if (newUser.getPassword() == null || newUser.getPassword().isEmpty()) {
@@ -89,6 +89,7 @@ public class UserController {
 
 
     @GetMapping("/users")
+    @CrossOrigin(origins = "http://localhost:3000")
     List<User> getAllUsers() {
         return userRepository.findAll();
     }
@@ -105,19 +106,30 @@ public class UserController {
 
 
     @PutMapping(value = "/users/id/{id}")
-    User updateUser(@RequestBody User newUser, @PathVariable String id) {
+    public ResponseEntity<?> updateUser(@RequestBody User newUser, @PathVariable String id) {
         return userRepository.findById(id).map(user -> {
+
+            // Ensure the user has entered a password
+            if (newUser.getPassword() == null || newUser.getPassword().isEmpty()) {
+                throw new RuntimeException("Password is required to update user details.");
+            }
+
             user.setUsername(newUser.getUsername());
             user.setName(newUser.getName());
             user.setEmail(newUser.getEmail());
             user.setPhone(newUser.getPhone());
 
-            if (newUser.getPassword() != null & !newUser.getPassword().isEmpty()) {
-                user.setPassword(newUser.getPassword());
+            // If the entered password is different, hash and update it
+            if (!passwordEncoder.matches(newUser.getPassword(), user.getHashedPassword())) {
+                user.setHashedPassword(passwordEncoder.encode(newUser.getPassword()));
             }
-            return userRepository.save(user);
-        }).orElseThrow(()->new UserNotFoundException(id));
+
+            User updatedUser = userRepository.save(user);
+            return ResponseEntity.ok(updatedUser);
+        }).orElseThrow(() -> new UserNotFoundException(id));
     }
+
+
 
     @DeleteMapping("/users/{id}")
     String deleteUser(@PathVariable String id) {

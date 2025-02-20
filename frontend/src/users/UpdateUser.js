@@ -49,19 +49,35 @@ export default function UpdateUser() {
 
     const onSubmit = async (event) => {
         event.preventDefault();
-
+    
+        if (!password || !confirmPassword) {
+            setShowError(true);
+            return;
+        }
+    
         if (password !== confirmPassword) {
             setShowError(true);
-            // alert("Passwords do not match");
             return;
-        } else {
-            // if password do match, then we can post the user by submitting the form
-            await axios.put(`http://localhost:8080/users/id/${user_id}`, user);
-            setShowSuccess(true);
-            setTimeout(()=>navigate('/'), 2000);
         }
-    }
-
+    
+        try {
+            const response = await axios.put(`http://localhost:8080/users/id/${user_id}`, user);
+            
+            // Update the local state with the new user details
+            setUser(response.data);
+    
+            setShowSuccess(true);
+    
+            // Delay the navigation slightly to ensure the state updates
+            setTimeout(() => {
+                navigate('/');
+            }, 500);
+        } catch (error) {
+            console.error("Error updating user:", error);
+        }
+    };
+    
+    
     const loadUser =async()=> {
         const result = await axios.get(`http://localhost:8080/users/id/${user_id}`);
         setUser(result.data);  
@@ -145,9 +161,11 @@ export default function UpdateUser() {
                                 onChange={onConfirmPasswordChange}
                             />
                         </div>
-                        <button type="submit" className="btn btn-outline-primary" onClick={() => navigate('/')} >Submit</button>
+                        {/* <button type="submit" className="btn btn-outline-primary" onClick={() => navigate('/')} >Submit</button> */}
+                        <button type="submit" className="btn btn-outline-primary" disabled={!password || !confirmPassword || password !== confirmPassword}
+                        > Submit</button>
                         <script>location.reload();</script>
-                        <button type="button" className="btn btn-outline-danger mx-2" onClick={() => navigate('/')}>Cancel</button>
+                        <button type="button" className="btn btn-outline-danger mx-2"  onClick={() => navigate('/')}>Cancel</button>
                     </form>
                 </div>
             </div>
