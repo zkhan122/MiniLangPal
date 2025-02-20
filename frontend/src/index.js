@@ -6,9 +6,9 @@ import UserNameContextProvider from './ui/context/UserContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <UserNameContextProvider>
-      <App />
-    </UserNameContextProvider>
-  </React.StrictMode>
+    <React.StrictMode>
+      <UserNameContextProvider>
+        <App />
+      </UserNameContextProvider>
+    </React.StrictMode>
 );

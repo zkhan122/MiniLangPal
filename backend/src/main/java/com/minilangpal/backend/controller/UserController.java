@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -43,10 +44,9 @@ public class UserController {
 
             String hashedPassword = passwordEncoder.encode(newUser.getPassword());
             newUser.setHashedPassword(hashedPassword); // Set the hashed password
+            newUser.setPassword(null);  // Clear the plaintext password field (don't persist it)
 
             //newUser.setPassword(null);  // (Needs revising) Clear the plaintext password field (don't persist it)
-
-
             // Save the user and return the response
             User savedUser = userRepository.save(newUser);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
@@ -60,6 +60,7 @@ public class UserController {
 
 
     // for creating multiple users
+    @Transactional(readOnly = true)
     @PostMapping("/users/batch")
     public ResponseEntity<List<User>> createUser(@RequestBody List<User> users) {
         try {
@@ -76,7 +77,7 @@ public class UserController {
                 user.setPassword(null);  // Clear the plaintext password field (don't persist it)
             }
 
-            // Save the batch of users and return the response
+            // Save the batch of=== users and return the response
             List<User> savedUsers = userRepository.saveAll(users);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedUsers);
         } catch (Exception e) {
@@ -103,7 +104,7 @@ public class UserController {
     }
 
 
-    @PutMapping("/users/{id}")
+    @PutMapping(value = "/users/id/{id}")
     User updateUser(@RequestBody User newUser, @PathVariable String id) {
         return userRepository.findById(id).map(user -> {
             user.setUsername(newUser.getUsername());
