@@ -1,8 +1,9 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import AnimatedTextForQuizSelection from "../utils/AnimatedTextForQuizSelection"
-import 'bootstrap/dist/css/bootstrap.min.css';
-import {Card, Button} from 'react-bootstrap';
-import fushaImage from '../media/fusha-arabic-card-pic.jpg';
+import "bootstrap/dist/css/bootstrap.min.css";
+import {Card, Button} from "react-bootstrap";
+import fushaImage from "../media/fusha-arabic-card-pic.jpg";
+import cantoneseImg from "../media/cantonese-cover.png";
 
 export default function QuizSelection() {
   return (
@@ -16,7 +17,7 @@ export default function QuizSelection() {
       </Link>
 
       <div class ="row">
-        <div class="col-sm-6  d-flex justify-content-center">
+        <div class="col-sm-6  d-flex justify-content-center m-0 p-0">
           <Card style={{ width: '18rem', marginRight: '1rem' }}>
             <Card.Img variant="top" src={fushaImage} />
             <Card.Body>
@@ -30,14 +31,15 @@ export default function QuizSelection() {
           </Card>
         </div>
 
-        <div class="col-sm-6  d-flex justify-content-center">
+        <div class="col-sm-6  d-flex justify-content-center m-0 p-0">
         <Card style={{ width: '18rem' }}>
-          <Card.Img variant="top" src={fushaImage} />
+          <Card.Img variant="top" src={cantoneseImg} />
           <Card.Body>
-            <Card.Title>Fus'ha Arabic</Card.Title>
+            <Card.Title>Cantonese</Card.Title>
             <Card.Text>
-              Fus'ha or Modern Standard Arabic (MSA) is the variety of standardized, literary Arabic that was developed in the Arab world. 
-              Primarily used in literature, academia, print and mass media, law.
+            Cantonese is a viewed as a vital and inseparable part of the cultural identity for its 
+            native speakers across large swaths of southeastern 
+            China, Hong Kong and Macau, as well as in overseas communities.
             </Card.Text>
             <Button variant="primary">Go somewhere</Button>
           </Card.Body>

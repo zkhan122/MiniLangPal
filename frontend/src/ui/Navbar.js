@@ -28,7 +28,7 @@ export default function Navbar() {
                                 <span className="navbar-text me-3">{username}</span>
                             </li>
 
-                            <Link className="btn btn-outline-light" to="/quizzes">My Quizzes</Link>
+                            <Link className="btn btn-outline-light" to="/quizzes">My Diagnostic Quizzes</Link>
                             <Link className="btn btn-outline-light" to="/learning">My Learning</Link>
 
                             <li className="nav-item">

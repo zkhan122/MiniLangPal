@@ -165,7 +165,7 @@ export default function UpdateUser() {
                         <button type="submit" className="btn btn-outline-primary" disabled={!password || !confirmPassword || password !== confirmPassword}
                         > Submit</button>
                         <script>location.reload();</script>
-                        <button type="button" className="btn btn-outline-danger mx-2"  onClick={() => navigate('/')}>Cancel</button>
+                        <button type="button" className="btn btn-outline-danger mx-2"  onClick={() => navigate('/admin')}>Cancel</button>
                     </form>
                 </div>
             </div>
