@@ -37,16 +37,28 @@ public class UserController {
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<?> newUser(@RequestBody User newUser) {
         try {
+            // Checking for empty password field
             if (newUser.getPassword() == null || newUser.getPassword().isEmpty()) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body("Password cannot be null or empty");
+            }
+
+            // Checking for existing email
+            if (userRepository.findByEmail(newUser.getEmail()).isPresent()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("An account with this email already exists. Please login instead.");
+            }
+
+            // Checking for existing username
+            if (userRepository.findByUsername(newUser.getUsername()).isPresent()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("Username already exists. Please choose another one.");
             }
 
             String hashedPassword = passwordEncoder.encode(newUser.getPassword());
             newUser.setHashedPassword(hashedPassword); // Set the hashed password
             newUser.setPassword(null);  // Clear the plaintext password field (don't persist it)
 
-            //newUser.setPassword(null);  // (Needs revising) Clear the plaintext password field (don't persist it)
             // Save the user and return the response
             User savedUser = userRepository.save(newUser);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
@@ -56,8 +68,6 @@ public class UserController {
                     .body("An error occurred while creating the user");
         }
     }
-
-
 
     // for creating multiple users
 //    @Transactional(readOnly = true)
