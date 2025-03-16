@@ -1,3 +1,0 @@
-CREATE DATABASE IF NOT EXISTS minilangpal;
-
-SELECT * FROM users;
