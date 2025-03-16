@@ -30,6 +30,9 @@ public class User {
 
     private String phone; // can be null
 
+    @NotNull
+    private String role; // role = USER (admin -> role = ADMIN)
+
     public void setUser_id(String user_id) {
         SaltGenerator salt = new SaltGenerator();
         this.user_id = salt.generateSalt();;
@@ -70,6 +73,10 @@ public class User {
         this.email = email;
     }
 
+    public void setRole() {
+        this.role = "USER";
+    }
+
     public String getUser_id() {
         return user_id;
     }
@@ -94,7 +101,6 @@ public class User {
         return password;
     }
 
-//    public String getProfileImageURL() {
-//        return profileImageURL;
-//    }
+    public String getRole() { return role; }
+
 }

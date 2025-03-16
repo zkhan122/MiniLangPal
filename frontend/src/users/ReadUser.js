@@ -51,7 +51,7 @@ export default function ReadUser() {
                             <p>Email: {user.email}</p>
                         </div>
                     </div>
-                    <Link className="btn btn-primary my-3" to={"/"}>Back to Home</Link>  
+                    <Link className="btn btn-primary my-3" to={"/admin"}>Go back</Link>  
                 </div>
             </div>
         </div>

@@ -1,20 +1,25 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState } from "react";
 
-const UserNameContext = createContext();
+const UserContext = createContext();
 
-export default function UserNameContextProvider({ children }) {
-    const [username, setUsername] = useState(0);
+// Renamed from "Username" to "UserProvider"
+export function UserProvider({ children }) {
+  const [user, setUser] = useState(null); // Now stores { username, role }
 
-    return (
-        <UserNameContext.Provider
-            value={{
-                username,
-                setUsername,
-            }}
-            >{children}</UserNameContext.Provider>
-    );
+  const login = (username, role) => {
+    setUser({ username, role });
+  };
+
+  const logout = () => {
+    setUser(null);
+  };
+
+  return (
+    <UserContext.Provider value={{ user, login, logout }}>
+      {children}
+    </UserContext.Provider>
+  );
 }
 
-export const Username = () => {
-    return useContext(UserNameContext);
-};
+// Changed from "Username" to "useUser"
+export const useUser = () => useContext(UserContext);
