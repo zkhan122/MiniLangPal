@@ -26,7 +26,9 @@ export default function QuizSelection() {
                 Fus'ha or Modern Standard Arabic (MSA) is the variety of standardized, literary Arabic that was developed in the Arab world. 
                 Primarily used in literature, academia, print and mass media, law.
               </Card.Text>
-              <Button variant="primary">Go somewhere</Button>
+                <Link to="arabic-diagnostic-quiz/">
+                  <Button variant="primary">Start Learning!</Button>
+                </Link>
             </Card.Body>
           </Card>
         </div>
@@ -41,7 +43,9 @@ export default function QuizSelection() {
             native speakers across large swaths of southeastern 
             China, Hong Kong and Macau, as well as in overseas communities.
             </Card.Text>
-            <Button variant="primary">Go somewhere</Button>
+            <Link to="https:///hi">
+              <Button variant="primary">Start Learning!</Button>
+            </Link>
           </Card.Body>
         </Card>
         </div>

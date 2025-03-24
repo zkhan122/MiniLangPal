@@ -9,6 +9,7 @@ import UpdateUser from "./users/UpdateUser"
 import ReadUser from "./users/ReadUser"
 import Login from "./ui/pages/Login"
 import DiagnosticQuizSelection from "./ui/quizzes/DiagnosticQuizSelection"
+import ArabicDiagnosticQuiz from './ui/quizzes/ArabicDiagnosticQuiz';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route exact path="/users/id/:user_id" element={<ReadUser />} />
             <Route exact path="/login/" element={<Login/>}/>
             <Route exact path="/quizzes/" element={<DiagnosticQuizSelection/>}/>
+            <Route exact path="/quizzes/arabic-diagnostic-quiz/" element={<ArabicDiagnosticQuiz/>}/>
           </Routes>
 
       </Router>

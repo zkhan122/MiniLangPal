@@ -1,0 +1,19 @@
+const SoundQuizQuestion = ({ question }) => {
+    const playSound = () => {
+        // Implement sound playing logic
+    };
+
+    return (
+        <div>
+            <p>{question.questionText}</p>
+            <button onClick={playSound}>
+                {question.soundPlayButton.label}
+            </button>
+            {question.answerOptions.map((option) => (
+                <button key={option.answerText}>
+                    {option.answerText}
+                </button>
+            ))}
+        </div>
+    );
+};
