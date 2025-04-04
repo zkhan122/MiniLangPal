@@ -1,12 +1,39 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useState, useEffect } from "react";
 import AnimatedTextForQuizSelection from "../utils/AnimatedTextForQuizSelection";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/quiz-styling.css";
 import useSound from "use-sound";
 import arabicZaal from "../media/sounds/thaal.mp3";
+import { useUser } from "../context/UserContext"; // Updated context
+
 
 export default function App() {
+
+    const [users, setUsers] = useState([])
+;
+    const { user } = useUser();
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!user || user.role !== "USER" || user.role !== "ADMIN") {
+            navigate("/login");
+        }
+    }, [user, navigate]);
+
+    const loadUsers = async() => { 
+        try {
+            const result = await axios.get("http://localhost:8080/users", {
+                withCredentials: true,
+            });
+            setUsers(result.data);
+        } catch (error) {
+            console.error("Failed to fetch users: ", error);
+        }
+    };
+
     const questions = [
         {
             questionText: "What sound is this?",
@@ -81,41 +108,43 @@ export default function App() {
 
     return (
         <div className='app'>
-            {showScore ? (
-                <div className='score-section'>
-                    You scored {score} out of {questions.length}
-                </div>
+          {user ? (
+            showScore ? (
+              <div className='score-section'>
+                You scored {score} out of {questions.length}
+              </div>
             ) : (
-                <>
-                    <div className='question-section'>
-                        <div className='question-count'>
-                            <span>Question {currentQuestion + 1}</span>/{questions.length}
-                        </div>
-                        <div className='question-text'>{questions[currentQuestion].questionText}</div>
-                        
-                        {/* Sound Play Button - Only show if sound file exists */}
-                        {questions[currentQuestion].soundFile && (
-                            <button 
-                                className="btn btn-primary sound-play-btn"
-                                onClick={play}
-                                disabled={isPlaying}
-                            >
-                                {isPlaying ? 'Playing...' : 'Play Sound'}
-                            </button>
-                        )}
-                    </div>
-                    <div className='answer-section'>
-                        {questions[currentQuestion].answerOptions.map((answerOption, index) => (
-                            <button 
-                                key={index}
-                                onClick={() => handleAnswerOptionClick(answerOption.isCorrect)}
-                            >
-                                {answerOption.answerText}
-                            </button>
-                        ))}
-                    </div>
-                </>
-            )}
+              <>
+                <div className='question-section'>
+                  <div className='question-count'>
+                    <span>Question {currentQuestion + 1}</span>/{questions.length}
+                  </div>
+                  <div className='question-text'>{questions[currentQuestion].questionText}</div>
+      
+                  {/* Sound Play Button - Only show if sound file exists */}
+                  {questions[currentQuestion].soundFile && (
+                    <button 
+                      className="btn btn-primary sound-play-btn"
+                      onClick={play}
+                      disabled={isPlaying}
+                    >
+                      {isPlaying ? 'Playing...' : 'Play Sound'}
+                    </button>
+                  )}
+                </div>
+                <div className='answer-section'>
+                  {questions[currentQuestion].answerOptions.map((answerOption, index) => (
+                    <button 
+                      key={index}
+                      onClick={() => handleAnswerOptionClick(answerOption.isCorrect)}
+                    >
+                      {answerOption.answerText}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )
+          ) : null}
         </div>
-    );
-}
+      );
+    }
