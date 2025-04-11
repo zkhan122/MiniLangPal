@@ -1,10 +1,11 @@
-import { createContext, useContext, useState } from "react";
+import React, { createContext, useState, useContext } from 'react';
+import { redirect, useNavigate } from 'react-router-dom';
 
-const UserContext = createContext();
+const UserContext = createContext(null);
 
-// Renamed from "Username" to "UserProvider"
 export function UserProvider({ children }) {
-  const [user, setUser] = useState(null); // Now stores { username, role }
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   const login = (username, role) => {
     setUser({ username, role });
@@ -12,6 +13,7 @@ export function UserProvider({ children }) {
 
   const logout = () => {
     setUser(null);
+    window.location.replace("/");
   };
 
   return (
@@ -21,5 +23,4 @@ export function UserProvider({ children }) {
   );
 }
 
-// Changed from "Username" to "useUser"
 export const useUser = () => useContext(UserContext);

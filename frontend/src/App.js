@@ -14,21 +14,18 @@ import ArabicDiagnosticQuiz from './ui/quizzes/ArabicDiagnosticQuiz';
 function App() {
   return (
     <div className="App">
-      <Router>
         <Navbar/>
           <Routes>
-            <Route exact path ="/" element={<Home/>}/>
-            <Route exact path = "/admin" element={<AdminView/>}/>
-            <Route exact path ="/adduser" element={<CreateUser/>}/>
-            <Route exact path ="/updateuser/:user_id" element={<UpdateUser/>}/>
-            <Route exact path ="/viewuser/:user_id" element={<ReadUser/>}/>
-            <Route exact path="/users/id/:user_id" element={<ReadUser />} />
-            <Route exact path="/login/" element={<Login/>}/>
-            <Route exact path="/quizzes/" element={<DiagnosticQuizSelection/>}/>
-            <Route exact path="/quizzes/arabic-diagnostic-quiz/" element={<ArabicDiagnosticQuiz/>}/>
+            <Route path ="/" element={<Home/>}/>
+            <Route  path = "/admin" element={<AdminView/>}/>
+            <Route  path ="/adduser" element={<CreateUser/>}/>
+            <Route  path ="/updateuser/:user_id" element={<UpdateUser/>}/>
+            <Route  path ="/viewuser/:user_id" element={<ReadUser/>}/>
+            <Route  path="/users/id/:user_id" element={<ReadUser />} />
+            <Route  path="/login" element={<Login/>}/>
+            <Route  path="/quizzes" element={<DiagnosticQuizSelection/>}/>
+            <Route  path="/quizzes/arabic-diagnostic-quiz" element={<ArabicDiagnosticQuiz/>}/>
           </Routes>
-
-      </Router>
 
     </div>
   );

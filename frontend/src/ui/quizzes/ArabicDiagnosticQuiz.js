@@ -18,8 +18,8 @@ export default function App() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!user || user.role !== "USER" || user.role !== "ADMIN") {
-            navigate("/login");
+        if (!user || !user.role) {
+          window.location.replace("/login");
         }
     }, [user, navigate]);
 
