@@ -1,6 +1,6 @@
 package com.minilangpal.backend.controller;
 
-import com.minilangpal.backend.exception.InvalidCredentialsException;
+import com.minilangpal.backend.dto.ChangePasswordRequest;
 import com.minilangpal.backend.exception.UserNotFoundException;
 import com.minilangpal.backend.model.LoginRequest;
 import com.minilangpal.backend.model.User;
@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -170,5 +169,31 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(Map.of("status", "error", "message", "Invalid credentials"));
         }
+    }
+
+    @PutMapping("/users/change-password")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest request, HttpSession session) {
+        String username = (String) session.getAttribute("user");
+
+        if (username == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("You must be logged in.");
+        }
+
+        Optional<User> optionalUser = userRepository.findByUsername(username);
+        if (optionalUser.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
+        }
+
+        User user = optionalUser.get();
+
+        if (!passwordEncoder.matches(request.getOldPassword(), user.getHashedPassword())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Old password is incorrect.");
+        }
+
+        user.setHashedPassword(passwordEncoder.encode(request.getNewPassword()));
+        userRepository.save(user);
+
+        return ResponseEntity.ok("Password changed successfully.");
     }
 }

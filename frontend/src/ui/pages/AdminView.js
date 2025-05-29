@@ -79,7 +79,7 @@ export default function AdminView() {
 
                 ) : (
                     <>
-                        <p>Admins only -> must be logged in</p>
+                        <p>Admins only must be logged in</p>
                     </>
                 )}
             </div>
