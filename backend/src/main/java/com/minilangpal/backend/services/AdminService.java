@@ -38,12 +38,10 @@ public class AdminService {
         // validation of username for admin
         Admin adminLoggingIn = adminRepository.findByUsername(username)
                 .orElseThrow(() -> new InvalidCredentialsException("User not found"));
-
         // validation of password
         if (!passwordEncoder.matches(password, adminLoggingIn.getPassword())) {
             throw new InvalidCredentialsException("The password provided is invalid");
         }
-
         return true;
     }
 }

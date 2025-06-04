@@ -2,12 +2,11 @@ package com.minilangpal.backend.controller;
 
 import com.minilangpal.backend.exception.InvalidCredentialsException;
 import com.minilangpal.backend.exception.UserNotFoundException;
-import com.minilangpal.backend.model.DiagnosticQuiz;
-import com.minilangpal.backend.model.DiagnosticQuizRequest;
-import com.minilangpal.backend.model.LoginRequest;
-import com.minilangpal.backend.model.User;
+import com.minilangpal.backend.model.*;
+import com.minilangpal.backend.repository.AdminRepository;
 import com.minilangpal.backend.repository.DiagnosticQuizRepository;
 import com.minilangpal.backend.repository.UserRepository;
+import com.minilangpal.backend.services.AdminService;
 import com.minilangpal.backend.services.DiagnosticQuizService;
 import com.minilangpal.backend.services.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -28,17 +27,25 @@ public class DiagnosticQuizController {
     private final DiagnosticQuizService quizService;
     private final UserService userService;
     private final UserRepository userRepository;
+
+    private final AdminService adminService;
+    private final AdminRepository adminRepository;
+
     private static final Logger logger = LoggerFactory.getLogger(DiagnosticQuizController.class);
 
     @Autowired
     public DiagnosticQuizController(DiagnosticQuizRepository quizRepository,
                                     DiagnosticQuizService quizService,
                                     UserService userService,
-                                    UserRepository userRepository) {
+                                    UserRepository userRepository,
+                                    AdminService adminService,
+                                    AdminRepository adminRepository) {
         this.quizRepository = quizRepository;
         this.quizService = quizService;
         this.userService = userService;
         this.userRepository = userRepository;
+        this.adminService = adminService;
+        this.adminRepository = adminRepository;
     }
 
     @PostMapping("/quiz-score")
@@ -89,5 +96,33 @@ public class DiagnosticQuizController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(Map.of("status", "error", "message", "An internal server error occurred."));
         }
+    }
+
+
+    @GetMapping("/check-quiz-score-exists")
+    @CrossOrigin(origins = "http://localhost:3000")
+    ResponseEntity<String> getQuizScore(@RequestBody  DiagnosticQuiz diagnosticQuiz) {
+
+
+        String user_id = diagnosticQuiz.getUser().getUser_id();
+        if (user_id != null) {
+            boolean userScoreExists = quizService.quizScoreExistenceUser(user_id);
+            if (userScoreExists) {
+                return ResponseEntity.ok("Quiz score exists for user");
+            } else {
+                return ResponseEntity.ok("Quiz score does NOT exist for user");
+            }
+        }
+
+        String admin_id = diagnosticQuiz.getAdmin().getAdmin_id();
+        if (admin_id != null) {
+            boolean adminScoreExists = quizService.quizScoreExistenceAdmin(admin_id);
+            if (adminScoreExists) {
+                return ResponseEntity.ok("Quiz score exists for admin");
+            } else {
+                return ResponseEntity.ok("Quiz score does NOT exist for admin");
+            }
+        }
+        return ResponseEntity.badRequest().body("No user or admin found");
     }
 }

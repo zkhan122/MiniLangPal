@@ -41,6 +41,14 @@ public class DiagnosticQuiz {
     @JoinColumn(name = "user_id")
     private User user;
 
+    public Admin getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
+    }
+
     @ManyToOne
     @JoinColumn(name = "admin_id")
     private Admin admin;

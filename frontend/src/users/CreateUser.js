@@ -68,20 +68,16 @@ export default function CreateUser() {
       validationError = "Please use appropriate language.";
     }
 
-    // Update errors state
     setErrors((prev) => ({
       ...prev,
       [name]: validationError,
     }));
-
-    // Update user state with new inputs
     setUser((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   };
 
-  // Handle change for password confirmation field
   const onConfirmPasswordChange = (event) => {
     const value = event.target.value;
     setConfirmPassword(value);

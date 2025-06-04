@@ -7,6 +7,8 @@ import com.minilangpal.backend.model.User;
 import com.minilangpal.backend.repository.UserRepository;
 import com.minilangpal.backend.services.UserService;
 import jakarta.servlet.http.HttpSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,7 @@ public class UserController {
     private final UserRepository userRepository;
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     public UserController(UserRepository userRepository, UserService userService, PasswordEncoder passwordEncoder) {
@@ -165,6 +168,8 @@ public class UserController {
         if (isAuthenticated) {
             // User found
             session.setAttribute("user", loginRequest.getUsername()); // Store user in session
+            session.setAttribute("role", "USER");
+            logger.info("Login successful for user: {}. Stored in session as: '{}', role: '{}'", loginRequest.getUsername(), session.getAttribute("user"), session.getAttribute("role"));
             return ResponseEntity.ok(Map.of("status", "success", "message", "Login successful", "role", "USER"));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)

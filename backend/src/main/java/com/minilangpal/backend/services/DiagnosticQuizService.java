@@ -71,4 +71,18 @@ public class DiagnosticQuizService {
             }
         }
     }
+
+    public boolean quizScoreExistenceUser(String userId) {
+        if (userId == null) {
+            return false;
+        }
+        return quizRepository.existsById(userId);
+    }
+
+    public boolean quizScoreExistenceAdmin(String adminId) {
+        if (adminId == null) {
+            return false;
+        }
+        return quizRepository.existsById(adminId);
+    }
 }

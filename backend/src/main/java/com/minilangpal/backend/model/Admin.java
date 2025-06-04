@@ -5,17 +5,57 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @Entity
 @Table(name = "admin")
 
-public class Admin {
+public class Admin implements Serializable {
 
     @Id
-    @Column(name="id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int admin_id;
+    @Column(name="admin_id", length = 50, nullable = false)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY) -> commented out as static id will
+    private String admin_id;
+
+    @NotNull
+    private String name;
+    @NotNull
+    private String email;
+    @NotNull
+    private String username;
+    @NotNull
+    private String password;
+//    @NotNull
+//    private String hashedPassword;
+    @NotNull
+    private String role;
+
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAdmin_id() {
+        return admin_id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getRole() {
+        return role;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -35,43 +75,6 @@ public class Admin {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    @NotNull
-    private String name;
-    @NotNull
-    private String email;
-    @NotNull
-    private String username;
-    @NotNull
-    private String password;
-//    @NotNull
-//    private String hashedPassword;
-    @NotNull
-    private String role;
-
-    public String getName() {
-        return name;
-    }
-
-    public int getAdmin_id() {
-        return admin_id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getRole() {
-        return role;
     }
 
 //    public String getHashedPassword() {

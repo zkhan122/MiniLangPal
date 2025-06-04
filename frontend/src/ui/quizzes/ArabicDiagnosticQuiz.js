@@ -1,6 +1,6 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useInsertionEffect } from "react";
 import AnimatedTextForQuizSelection from "../utils/AnimatedTextForQuizSelection";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/quiz-styling.css";
@@ -11,8 +11,9 @@ import { useUser } from "../context/UserContext"; // Updated context
 
 export default function App() {
 
-    const [users, setUsers] = useState([])
-;
+  const {id} = useParams();
+
+    const [users, setUsers] = useState([]);
     const { user } = useUser();
 
     const navigate = useNavigate();
@@ -23,16 +24,57 @@ export default function App() {
         }
     }, [user, navigate]);
 
-    const loadUsers = async() => { 
-        try {
-            const result = await axios.get("http://localhost:8080/users", {
-                withCredentials: true,
-            });
-            setUsers(result.data);
-        } catch (error) {
-            console.error("Failed to fetch users: ", error);
+    const sendScoreToDatabase = async(finalScore) => {
+      try {
+        const objectSent = await axios.post("http://localhost:8080/quiz-score", {
+          username: user.username,
+          quizScore: finalScore,
+          role: user.role,
+        }, {
+          withCredentials: true,
+        });
+        console.log("Quiz score sent successfully", objectSent.data);
+      } catch (error) {
+        console.error("Failed to post quiz score", error)
+      }
+    }
+
+      const [quizData, setObtainedQuizData]= useState([]);
+      useEffect( ()=> {
+        const quizScoreRetrieved= async()=>{
+          if (!user) {
+            return;
+          }
+          const userId = user.user_id;
+          console.log("USER ID "  + userId);
+          const isAdmin = user.role === "admin";
+          const adminId = isAdmin ? userId : null;
+          console.log("ADMIN ID "  + adminId);
+
+          let url = "";
+          if (isAdmin) {
+            url += `http://localhost:8080/check-quiz-score-exists?admin_id=${adminId}`;
+          }
+          else {
+            url += `http://localhost:8080/check-quiz-score-exists?user_id=${userId}`;
+          }
+
+          const requestData= await fetch(url, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          const requestJson= await requestData.json();
+          console.log(requestJson); 
+          setObtainedQuizData(requestJson)
         }
-    };
+        quizScoreRetrieved();
+      }, [user]);
+
+
+        
+
 
     const questions = [
         {
@@ -95,20 +137,23 @@ export default function App() {
         // Stop any playing sound when answering
         stop();
 
+        let newScore = score;
         if (isCorrect) {
-            setScore(score + 1);
+            newScore = score + 1;
+            setScore(newScore);
         }
         const nextQuestion = currentQuestion + 1;
         if (nextQuestion < questions.length) {
             setCurrentQuestion(nextQuestion);
         } else {
             setShowScore(true);
+            sendScoreToDatabase(newScore);
         }
     };
 
     return (
         <div className='app'>
-          {user ? (
+          {user && quizData.length === 0 ? (
             showScore ? (
               <div className='score-section'>
                 You scored {score} out of {questions.length}
@@ -144,7 +189,13 @@ export default function App() {
                 </div>
               </>
             )
-          ) : null}
+          ) : (
+            <div>
+              <p>You have already done the diagnostic quiz!</p>
+              <p>Your score on the diagnostic quiz was {score}</p>
+            </div>
+          )}
         </div>
       );
     }
+    

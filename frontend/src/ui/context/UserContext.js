@@ -7,8 +7,8 @@ export function UserProvider({ children }) {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  const login = (username, role) => {
-    setUser({ username, role });
+  const login = (id, username, role) => {
+    setUser({id, username, role });
   };
 
   const logout = () => {
