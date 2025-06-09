@@ -10,15 +10,21 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 @RestController
+@RequestMapping("/users")
 public class UserController {
 
     // Injecting User repository
@@ -34,7 +40,7 @@ public class UserController {
     }
 
     // posting the data
-    @PostMapping("/users")
+    @PostMapping
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<?> newUser(@RequestBody User newUser) {
         try {
@@ -73,7 +79,7 @@ public class UserController {
 
     // for creating multiple users
 //    @Transactional(readOnly = true)
-    @PostMapping("/users/batch")
+    @PostMapping("/batch")
     public ResponseEntity<List<User>> createUser(@RequestBody List<User> users) {
         try {
             // Iterate through each user and hash their password
@@ -100,25 +106,25 @@ public class UserController {
     }
 
 
-    @GetMapping("/users")
+    @GetMapping
     @CrossOrigin(origins = "http://localhost:3000")
     List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("{id}")
     User getUserById(@PathVariable("id") String id) {
         return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 
-    @GetMapping("/users/username/{username}")
+    @GetMapping("username/{username}")
         // fixing ambiguous handler error (spring can't tell whether to user getUserById or getUserByUsername)
     User getUserByUsername(@PathVariable("username") String username) {
         return userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
     }
 
 
-    @PutMapping(value = "/users/{id}")
+    @PutMapping(value = "{id}")
     public ResponseEntity<?> updateUser(@RequestBody User newUser, @PathVariable String id) {
         return userRepository.findById(id).map(user -> {
 
@@ -143,7 +149,7 @@ public class UserController {
     }
 
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("{id}")
     String deleteUser(@PathVariable String id) {
         Optional<User> userToDelete = userRepository.findById(id);
         if (!userRepository.existsById(id) || userToDelete.isEmpty()) {
@@ -157,14 +163,20 @@ public class UserController {
         return "SUCCESS: User deleted with id " + id;
     }
 
-    @PostMapping("/user/login-attempt")
-    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/login-attempt")
+//    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
     public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest loginRequest, HttpSession session) {
         boolean isAuthenticated = userService.authenticate(loginRequest.getUsername(), loginRequest.getPassword());
 
+
         if (isAuthenticated) {
-            // User found
-            session.setAttribute("user", loginRequest.getUsername()); // Store user in session
+
+            List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
+            UsernamePasswordAuthenticationToken auth =
+                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), null, authorities);
+            SecurityContextHolder.getContext().setAuthentication(auth);
+
+            session.setAttribute("user", loginRequest.getUsername());
             return ResponseEntity.ok(Map.of("status", "success", "message", "Login successful", "role", "USER"));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)

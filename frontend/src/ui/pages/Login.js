@@ -38,17 +38,16 @@ export default function Login() {
       setShowError(true);
       return;
     }
-
+    console.log("ROLE: " + role);
     // Determining endpoint based on role
-    const endpoint = role === "ADMIN" ? "admin/login-attempt" : "user/login-attempt";
+    const endpoint = role === "ADMIN" ? "admin/login-attempt" : "users/login-attempt";
 
     try {
       const response = await axios.post(`http://localhost:8080/${endpoint}`, {
         username: username,
         password: password,
       },
-      {withCredentials: true,
-        headers: { "Content-Type": "application/json" }
+      {withCredentials: true
       });
 
       const role = response.data.role;

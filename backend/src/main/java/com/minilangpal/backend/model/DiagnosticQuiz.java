@@ -24,16 +24,6 @@ public class DiagnosticQuiz {
     private String language;
 
 
-//    public String getUserId() {
-//        return userId;
-//    }
-//
-//    public void setUserId(String userId) {
-//        this.userId = userId;
-//    }
-//    @NotNull
-//    private String userId;
-
     @NotNull
     private String username;
 

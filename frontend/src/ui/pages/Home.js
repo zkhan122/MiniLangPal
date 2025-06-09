@@ -9,8 +9,12 @@ export default function Home() {
     const {id} = useParams(); // access parameters from the URL (function to hook into react state)
 
     const loadUsers = async()=>{
-        const result = await axios.get("http://localhost:8080/users")
-        setUsers(result.data);
+  try {
+    const result = await axios.get("http://localhost:8080/users");
+    setUsers(result.data);
+  } catch (error) {
+    console.error("Error loading users:", error);
+  }
     }
 
     useEffect(()=> {

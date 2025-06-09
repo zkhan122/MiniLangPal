@@ -9,6 +9,6 @@ import java.util.Optional;
 
 public interface DiagnosticQuizRepository extends JpaRepository<DiagnosticQuiz, String> {
 
-    List<DiagnosticQuiz> findByUser_UserId(String userId); // _{name_of_entity_id}
+    DiagnosticQuiz findByUser_UserId(String userId); // _{name_of_entity_id}
 
 }
