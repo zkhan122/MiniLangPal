@@ -42,7 +42,6 @@ public class DiagnosticQuizController {
     }
 
     @PostMapping("/quiz-score")
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Map<String, String>> postQuizScore(@RequestBody DiagnosticQuizRequest request,
                                                              HttpSession session) {
         logger.info("Received /quiz-score request. Payload: {}", request);

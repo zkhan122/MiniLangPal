@@ -23,16 +23,22 @@ export default function App() {
         }
     }, [user, navigate]);
 
-    const loadUsers = async() => { 
-        try {
-            const result = await axios.get("http://localhost:8080/users", {
-                withCredentials: true,
-            });
-            setUsers(result.data);
-        } catch (error) {
-            console.error("Failed to fetch users: ", error);
-        }
-    };
+    
+    const sendScoreToDatabase = async(finalScore) => {
+      try {
+        const objectSent = await axios.post("http://localhost:8080/quiz-score", {
+          username: user.username,
+          quizScore: finalScore,
+          role: user.role,
+        }, {
+          withCredentials: true,
+        });
+        console.log("Quiz score stored successfully", objectSent.data);
+      } catch (error) {
+        console.error("Failed to post quiz score", error);
+      }
+    }
+
 
     const questions = [
         {
@@ -95,14 +101,17 @@ export default function App() {
         // Stop any playing sound when answering
         stop();
 
+        let newScore = score;
         if (isCorrect) {
-            setScore(score + 1);
+          newScore = score + 1;
+          setScore(score + 1);
         }
         const nextQuestion = currentQuestion + 1;
         if (nextQuestion < questions.length) {
             setCurrentQuestion(nextQuestion);
         } else {
             setShowScore(true);
+            sendScoreToDatabase(newScore)
         }
     };
 
