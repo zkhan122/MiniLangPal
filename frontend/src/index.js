@@ -5,6 +5,7 @@ import App from './App';
 import { UserProvider } from './ui/context/UserContext';
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom"; 
 import axios from "axios";
+import { LanguageProvider } from './ui/context/LanguageContext';
 
 axios.defaults.withCredentials = true;
 
@@ -13,7 +14,9 @@ root.render(
     <React.StrictMode>
       <Router>
       <UserProvider>
-        <App />
+        <LanguageProvider>
+          <App />
+        </LanguageProvider>
       </UserProvider>
       </Router>
     </React.StrictMode>

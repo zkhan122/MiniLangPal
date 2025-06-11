@@ -45,7 +45,7 @@ public class DiagnosticQuiz {
     }
 
     public String getLanguage() {
-        return language;
+        return this.language;
     }
 
     public void setUser(User user) {
@@ -58,6 +58,10 @@ public class DiagnosticQuiz {
 
     public User getUser() {
         return this.user;
+    }
+
+    public Admin getAdmin() {
+        return this.admin;
     }
 
 
@@ -75,5 +79,9 @@ public class DiagnosticQuiz {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getUsername() {
+        return this.username;
     }
 }

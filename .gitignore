@@ -8,3 +8,5 @@ out
 notes.txt
 backend/src/main/resources
 sql/main.sql
+.env
+docker/

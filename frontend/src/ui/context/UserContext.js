@@ -8,7 +8,7 @@ export function UserProvider({ children }) {
   const navigate = useNavigate();
 
   const login = (username, role) => {
-    setUser({ username, role });
+    setUser({ username, role});
   };
 
   const logout = () => {

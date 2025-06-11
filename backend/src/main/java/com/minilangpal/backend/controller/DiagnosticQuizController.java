@@ -1,11 +1,7 @@
 package com.minilangpal.backend.controller;
 
-import com.minilangpal.backend.exception.InvalidCredentialsException;
-import com.minilangpal.backend.exception.UserNotFoundException;
 import com.minilangpal.backend.model.DiagnosticQuiz;
 import com.minilangpal.backend.model.DiagnosticQuizRequest;
-import com.minilangpal.backend.model.LoginRequest;
-import com.minilangpal.backend.model.User;
 import com.minilangpal.backend.repository.DiagnosticQuizRepository;
 import com.minilangpal.backend.repository.UserRepository;
 import com.minilangpal.backend.services.DiagnosticQuizService;
@@ -17,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
+
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -87,6 +85,32 @@ public class DiagnosticQuizController {
                     request.getUsername(), e.getMessage(), e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(Map.of("status", "error", "message", "An internal server error occurred."));
+        }
+    }
+
+    @GetMapping("/check-diagnostic-quiz-score/{username}/{language}")
+    ResponseEntity<DiagnosticQuiz> checkScoreExists(@PathVariable("username") String username,
+                                                    @PathVariable("language") String language) {
+        Optional<DiagnosticQuiz> quiz = quizRepository.findByUsernameAndLanguage(username, language);
+        if (quiz.isPresent()) {
+            DiagnosticQuiz quizData = quiz.get();
+            DiagnosticQuizRequest response = new DiagnosticQuizRequest();
+            response.setQuizAttemptId(quizData.getQuiz_attempt_id());
+            response.setQuizScore(quizData.getQuiz_score());
+            response.setLanguage(quizData.getLanguage());
+            response.setUsername(quizData.getUsername());
+            if (Objects.equals(response.getRole(), "ADMIN")) {
+                // if the user is admin
+                response.setUserId((quizData.getAdmin() != null ? quizData.getAdmin().getAdmin_id() : null));
+                response.setUsername(quizData.getAdmin() != null ? quizData.getAdmin().getUsername() : null);
+            } else {
+                // if the user is a user (non admin)
+                response.setUserId(quizData.getUser() != null ? quizData.getUser().getUser_id() : null);
+                response.setUsername(quizData.getUser() != null ? quizData.getUser().getUsername() : null);
+            }
+            return ResponseEntity.ok(quiz.get());
+        } else {
+            return ResponseEntity.notFound().build(); // build() is shortcut for populating response body
         }
     }
 }

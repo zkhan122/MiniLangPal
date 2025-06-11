@@ -19,7 +19,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/public/**", "/users", "/users/**", "/user/login-attempt", "/admin/login-attempt", "/admin", "/admin/**", "/quiz-score").permitAll()
+                        .requestMatchers("/public/**", "/users", "/users/**", "/user/login-attempt", "/admin/login-attempt", "/admin", "/admin/**", "/quiz-score", "/check-diagnostic-quiz-score/{username}/{language}").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

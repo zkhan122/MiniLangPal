@@ -7,6 +7,7 @@ import "../css/quiz-styling.css";
 import useSound from "use-sound";
 import arabicZaal from "../media/sounds/thaal.mp3";
 import { useUser } from "../context/UserContext"; // Updated context
+import { useLanguage } from "../context/LanguageContext";
 
 
 export default function App() {
@@ -14,6 +15,8 @@ export default function App() {
     const [users, setUsers] = useState([])
 ;
     const { user } = useUser();
+
+    const { language } = useLanguage();
 
     const navigate = useNavigate();
 
@@ -38,6 +41,48 @@ export default function App() {
         console.error("Failed to post quiz score", error);
       }
     }
+
+    const [hasDoneQuiz, setHasDoneQuiz] = useState(false);
+    const [quizChecked, setQuizChecked] = useState(false); // so to avoid rendering the quiz page before the check happens for if they have done it alreadys
+
+    const checkIfQuizDone = async()=> {
+      try {
+        const {data} = await axios.get(
+          `http://localhost:8080/check-diagnostic-quiz-score/${user.username}/${language}`,
+          { withCredentials: true} // needed this to avoid HTTP 403
+        );
+        
+        if (data && data.quiz_score !==undefined) {
+          setHasDoneQuiz(true);
+          console.log("Existing quiz score:", data);
+        } else {
+          setHasDoneQuiz(false);
+        }
+        
+      } catch (error) {
+        if (error.response?.status === 404) {
+          console.log("No quiz record found for this user");
+          setHasDoneQuiz(false);
+        } else {
+          console.error("Error checking quiz score:", error);
+        }
+      } finally {
+        setQuizChecked(true);
+      }
+    }
+
+    useEffect(() => {
+      if (user?.username && language) {
+        console.log("Checking if the quiz has been done..");
+        checkIfQuizDone();
+      } else {
+        console.log("Missing user or language");
+        setQuizChecked(true);
+
+      }
+    }, [user, language]);
+
+
 
 
     const questions = [
@@ -117,7 +162,13 @@ export default function App() {
 
     return (
         <div className='app'>
-          {user ? (
+          {!quizChecked ? (
+            <div>Loading...</div>
+          ) : hasDoneQuiz ? (
+            <div className="already-done-message">
+              <h2>You have already done this quiz.</h2>
+            </div>
+          ) : user ? (
             showScore ? (
               <div className='score-section'>
                 You scored {score} out of {questions.length}

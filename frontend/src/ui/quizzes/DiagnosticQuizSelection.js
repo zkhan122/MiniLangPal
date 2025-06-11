@@ -1,11 +1,22 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import AnimatedTextForQuizSelection from "../utils/AnimatedTextForQuizSelection"
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Card, Button} from "react-bootstrap";
 import fushaImage from "../media/fusha-arabic-card-pic.jpg";
 import cantoneseImg from "../media/cantonese-cover.png";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function QuizSelection() {
+
+  const { setLanguage } = useLanguage();
+  const navigate = useNavigate();
+
+  const handleSelectLanguage = (lang, path) => {
+    setLanguage(lang);       // Set language in context
+    navigate(path);          // Navigate programmatically
+  };
+
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-8">
       <AnimatedTextForQuizSelection text="Select the language you wish to master!" />
@@ -27,7 +38,7 @@ export default function QuizSelection() {
                 Primarily used in literature, academia, print and mass media, law.
               </Card.Text>
                 <Link to="arabic-diagnostic-quiz/">
-                  <Button variant="primary">Start Learning!</Button>
+                  <Button onClick={() => handleSelectLanguage("Arabic", "/arabic-diagnostic-quiz")}variant="primary">Start Learning!</Button>
                 </Link>
             </Card.Body>
           </Card>
