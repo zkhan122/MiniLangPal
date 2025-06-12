@@ -1,11 +1,22 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import AnimatedTextForQuizSelection from "../utils/AnimatedTextForQuizSelection"
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Card, Button} from "react-bootstrap";
 import fushaImage from "../media/fusha-arabic-card-pic.jpg";
 import cantoneseImg from "../media/cantonese-cover.png";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function QuizSelection() {
+
+  const { setLanguage } = useLanguage();
+  const navigate = useNavigate();
+
+  const handleSelectLanguage = (lang, path) => {
+    setLanguage(lang);       // Set language in context
+    navigate(path);          // Navigate programmatically
+  };
+
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-8">
       <AnimatedTextForQuizSelection text="Select the language you wish to master!" />
@@ -26,7 +37,9 @@ export default function QuizSelection() {
                 Fus'ha or Modern Standard Arabic (MSA) is the variety of standardized, literary Arabic that was developed in the Arab world. 
                 Primarily used in literature, academia, print and mass media, law.
               </Card.Text>
-              <Button variant="primary">Go somewhere</Button>
+                <Link to="arabic-diagnostic-quiz/">
+                  <Button onClick={() => handleSelectLanguage("Arabic", "/arabic-diagnostic-quiz")}variant="primary">Start Learning!</Button>
+                </Link>
             </Card.Body>
           </Card>
         </div>
@@ -41,7 +54,9 @@ export default function QuizSelection() {
             native speakers across large swaths of southeastern 
             China, Hong Kong and Macau, as well as in overseas communities.
             </Card.Text>
-            <Button variant="primary">Go somewhere</Button>
+            <Link to="https:///hi">
+              <Button variant="primary">Start Learning!</Button>
+            </Link>
           </Card.Body>
         </Card>
         </div>

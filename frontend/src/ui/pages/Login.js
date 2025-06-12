@@ -40,29 +40,29 @@ export default function Login() {
     const passwordInput = password;
 
     // Check if fields are empty
-    if (!username || !password || !role) {
+    if (!usernameInput || !passwordInput || !roleInput) {
       setShowError(true);
       return;
     }
-
+    console.log("ROLE: " + roleInput);
     // Determining endpoint based on role
-    const endpoint = role === "ADMIN" ? "admin/login-attempt" : "user/login-attempt";
+    const endpoint = roleInput === "ADMIN" ? "admin/login-attempt" : "users/login-attempt";
 
     try {
       const response = await axios.post(`http://localhost:8080/${endpoint}`, {
-        username: username,
-        password: password,
+        username: usernameInput,
+        password: passwordInput,
+        
       },
       {withCredentials: true,
         headers: { "Content-Type": "application/json" }
       });
 
-      const role = response.data.role;
 
       if (response.status === 200) {
-        login(username, role);
+        login(usernameInput, roleInput);
         setShowSuccess(true);
-        setTimeout(() => navigate(role === "ADMIN" ? "/admin" : "/"), 2500);
+        setTimeout(() => navigate(roleInput === "ADMIN" ? "/admin" : "/"), 2500);
       } else {
         setShowError(true);
       }
