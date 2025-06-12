@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Alert from '@mui/material/Alert';
 import axios from "axios";
 import '../css/login.css';
@@ -16,14 +16,20 @@ export default function Login() {
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
+    setShowError(false);
+    setShowSuccess(false);
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
+    setShowError(false);
+    setShowSuccess(false);
   };
 
   const handleRoleChange = (event) => {
     setRole(event.target.value);
+    setShowError(false);
+    setShowSuccess(false);
   };
 
   const handleSubmit = async (e) => {
@@ -103,9 +109,9 @@ export default function Login() {
             <input type="submit" className="fadeIn fourth" value="Log In" />
           </form>
           <div id="formFooter">
-            <a className="underlineHover" href="/">
+            <Link className="underlineHover" to="/forgot-password">
               Forgot Password?
-            </a>
+            </Link>
           </div>
         </div>
       </div>
