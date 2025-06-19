@@ -46,6 +46,7 @@ export default function ForgotPassword() {
     };
 
     return (
+        <>
         <form onSubmit={handleSubmit}>
             <h2> Forgot Password </h2>
             <input
@@ -58,5 +59,8 @@ export default function ForgotPassword() {
             <button type="submit" disabled={isLoading}> {isLoading ? "Sending..." : "Send Reset Link"} </button>
            <p style={{ color: isError ? "red" : "green" }}>{message}</p>
         </form>
+
+            <p><b>Your password reset link will be sent to an email that is associated with a user account if iyou have signed up before</b></p>
+        </>
     )
 }

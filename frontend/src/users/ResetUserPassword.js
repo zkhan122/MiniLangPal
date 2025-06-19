@@ -21,6 +21,7 @@ export default function ResetUserPassword() {
     };
 
   return (
+    <>
     <div>
       <h2>Reset Password</h2>
       <form onSubmit={handleSubmit}>
@@ -34,6 +35,11 @@ export default function ResetUserPassword() {
         <button type="submit">Reset Password</button>
       </form>
       {message && <p>{message}</p>}
+
+      <p style={{ color: "black", fontSize: "16px", visibility: "visible", display: "block" }}>
+        Please ensure that the new password has a combination of uppercase and lowercase letters, special characters, and numbers.
+      </p>
     </div>
+    </>
   );
 }
