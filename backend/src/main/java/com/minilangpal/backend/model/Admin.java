@@ -13,9 +13,23 @@ import lombok.Setter;
 public class Admin {
 
     @Id
-    @Column(name="id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int admin_id;
+    @Column(name="admin_id", nullable = false)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY) -> not generated as ids are fixed and statically assigned for privacy purposes
+    private String admin_id;
+
+    @NotNull
+    private String name;
+    @NotNull
+    private String email;
+    @NotNull
+    private String username;
+    @NotNull
+    private String password;
+    //    @NotNull
+//    private String hashedPassword;
+    @NotNull
+    @Column(name = "Role")
+    private String role;
 
     public void setName(String name) {
         this.name = name;
@@ -37,24 +51,11 @@ public class Admin {
         this.role = role;
     }
 
-    @NotNull
-    private String name;
-    @NotNull
-    private String email;
-    @NotNull
-    private String username;
-    @NotNull
-    private String password;
-//    @NotNull
-//    private String hashedPassword;
-    @NotNull
-    private String role;
-
     public String getName() {
         return name;
     }
 
-    public int getAdmin_id() {
+    public String getAdmin_id() {
         return admin_id;
     }
 

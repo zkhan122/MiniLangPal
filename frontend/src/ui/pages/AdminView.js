@@ -16,7 +16,7 @@ export default function AdminView() {
 
     useEffect(() => {
         if (!user || user.role !== "ADMIN") {
-          navigate("/login"); // Redirect non-admins
+            window.location.replace("/login"); // Redirect non-admins
         }
       }, [user, navigate]);
 
@@ -79,7 +79,7 @@ export default function AdminView() {
 
                 ) : (
                     <>
-                        <p>Admins only -> must be logged in</p>
+                        <p>Admins only must be logged in</p>
                     </>
                 )}
             </div>

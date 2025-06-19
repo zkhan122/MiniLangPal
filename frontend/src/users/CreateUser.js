@@ -40,7 +40,7 @@ export default function CreateUser() {
   const validateEmail = (email) =>
     /^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/.test(email);
   const validatePassword = (password) =>
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&#]{8,}$/.test(
       password
     );
   const validateName = (name) => /^[A-Za-z]+(?: [A-Za-z]+)*$/.test(name.trim());
@@ -60,7 +60,7 @@ export default function CreateUser() {
       validationError = "Invalid email format.";
     } else if (name === "password" && !validatePassword(value)) {
       validationError =
-        "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one digit, and one special character.";
+        "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one digit, and one special character from this selection: @$!%*?&.";
     } else if (name === "name" && !validateName(value)) {
       validationError =
         "Your name must only contain alphabetical characters and single spaces.";
