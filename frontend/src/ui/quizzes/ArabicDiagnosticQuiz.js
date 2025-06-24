@@ -205,6 +205,12 @@ export default function App() {
               </>
             )
           ) : null}
+          <div>
+        <button className="btn btn-primary" id="quiz-go-back-button" onClick={() => navigate("/learning")}>
+          Go back
+        </button>
+
+          </div>
         </div>
       );
     }

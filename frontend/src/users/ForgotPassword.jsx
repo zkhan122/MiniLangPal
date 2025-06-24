@@ -60,7 +60,7 @@ export default function ForgotPassword() {
            <p style={{ color: isError ? "red" : "green" }}>{message}</p>
         </form>
 
-            <p><b>Your password reset link will be sent to an email that is associated with a user account if iyou have signed up before</b></p>
+            <p><b>Your password reset link will be sent to an email that is associated with a user account if you have signed up before</b></p>
         </>
     )
 }

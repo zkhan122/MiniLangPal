@@ -25,6 +25,11 @@ export default function ResetPassword() {
             if (response.ok) {
                 setMessage(data.message || "Success");
                 setIsError(false);
+                window.location.replace("/login");
+                var delayInMilliseconds = 2000;
+                setTimeout(function() {
+                }, delayInMilliseconds);
+
             } else {
                 setMessage(data.message || "Reset failed.");
                 setIsError(true);
@@ -39,17 +44,22 @@ export default function ResetPassword() {
     const isValid = validatePassword(password);
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h2> Reset Password </h2>
-            <input
-                type="password"
-                placeholder="New Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-            />
-            <button type="submit" disabled={!isValid}> Reset </button>
-            <p> {message} </p>
-        </form>
+        <div>
+            <form onSubmit={handleSubmit}>
+                <h2> Reset Password </h2>
+                <input
+                    type="password"
+                    placeholder="New Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
+                <button type="submit" disabled={!isValid} red> Reset </button>
+                <p> {message} </p>
+            </form>
+
+      {/* <p style={{ color: "black", fontSize: "16px", visibility: "visible", display: "block" }}> */}
+        <p><b>Please ensure that the new password has a combination of uppercase and lowercase letters, special characters, and numbers.</b></p>
+        </div>
     );
 }

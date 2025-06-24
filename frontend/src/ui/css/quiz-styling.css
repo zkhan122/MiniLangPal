@@ -107,3 +107,9 @@ body {
 .app .answer-section button svg {
   margin-right: 5px;
 }
+
+#quiz-go-back-button {
+  position: absolute;
+  top: 100;
+  left: 100;
+}
