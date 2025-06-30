@@ -4,6 +4,7 @@ import Alert from '@mui/material/Alert';
 import axios from "axios";
 import '../css/login.css';
 import { useUser } from "../context/UserContext";
+import Cookies from "js-cookie";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -27,6 +28,7 @@ export default function Login() {
   };
 
   const handleRoleChange = (event) => {
+    
     setRole(event.target.value);
     setShowError(false);
     setShowSuccess(false);
@@ -60,8 +62,15 @@ export default function Login() {
 
 
       if (response.status === 200) {
+        // setting token to be stored in cookie to persist user login
+        const token = response.data.token;
+        localStorage.setItem("token", token);
+        Cookies.set("token", token, {secure: true, sameSite: "strict"});
+
         login(usernameInput, roleInput);
         setShowSuccess(true);
+
+
         setTimeout(() => navigate(roleInput === "ADMIN" ? "/admin" : "/"), 2500);
       } else {
         setShowError(true);

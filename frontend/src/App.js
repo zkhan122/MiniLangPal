@@ -13,6 +13,7 @@ import ResetPassword from './users/ResetPassword';
 import ForgotPassword from './users/ForgotPassword';
 import DiagnosticQuizSelection from "./ui/quizzes/DiagnosticQuizSelection"
 import ArabicDiagnosticQuiz from './ui/quizzes/ArabicDiagnosticQuiz';
+import Contents from './ui/pages/Contents';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/change-password" element={<ChangePassword />} />
+        <Route path="/learning" element={<Contents />} />
       </Routes>
     </div>
   );

@@ -12,6 +12,8 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
+    "bootstrap-table": "^1.24.1",
+    "js-cookie": "^3.0.5",
     "next": "^15.3.4",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
