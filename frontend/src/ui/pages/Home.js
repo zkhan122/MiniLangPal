@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
+import background from "../media/main-logo.png";
+import 'animate.css';
+import AnimatedHello from "../component/AnimatedHello";
 
 export default function Home() {
 
@@ -30,7 +33,16 @@ export default function Home() {
     return (
         <div className="container">
             <div className="py-4">
-                <p>Hello World</p>
+              <div className="animate__animated animate__fadeInLeft" style={{ backgroundImage: `url(${background})`,
+                            backgroundSize: "cover",
+                            backgroundRepeat: "no-repeat",
+                            backgroundPosition: "center",
+                            height: "550px",
+                            width: "100%",
+                          }}>
+              <AnimatedHello />
+              </div>
+              <p><b>Your mini language learning companion for learning dialects!</b></p>
             </div>
         </div>
     )

@@ -63,9 +63,9 @@ export default function Login() {
 
       if (response.status === 200) {
         // setting token to be stored in cookie to persist user login
-        const token = response.data.token;
-        localStorage.setItem("token", token);
-        Cookies.set("token", token, {secure: true, sameSite: "strict"});
+        // const token = response.data.token;
+        // localStorage.setItem("token", token);
+        // Cookies.set("token", token, {secure: true, sameSite: "strict"});
 
         login(usernameInput, roleInput);
         setShowSuccess(true);
