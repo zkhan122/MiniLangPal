@@ -28,7 +28,7 @@ public class EmailService {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-        helper.setFrom("noreply@minilangpal.com");
+        helper.setFrom(System.getenv("spring.mail.username"));
         helper.setTo(to);
         helper.setSubject(subject);
         helper.setText(text,true); // enable HTML content
