@@ -15,6 +15,7 @@ import DiagnosticQuizSelection from "./ui/quizzes/DiagnosticQuizSelection"
 import ArabicDiagnosticQuiz from './ui/quizzes/ArabicDiagnosticQuiz';
 import Contents from './ui/pages/Contents';
 import Welcome from './ui/pages/arabic/Welcome';
+import GreetingsAndIntro from './ui/pages/arabic/GreetingAndIntro';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <Route path="/change-password" element={<ChangePassword />} />
         <Route path="/learning" element={<Contents />} />
         <Route path="/learning/welcome" element={<Welcome />} />
+        <Route path="/learning/greetings-intro" element={<GreetingsAndIntro />} />
         <Route path="/learning/describing-background" element={<Contents />} />
         <Route path="/learning/this-that" element={<Contents />} />
         <Route path="/learning/pronouns" element={<Contents />} />
