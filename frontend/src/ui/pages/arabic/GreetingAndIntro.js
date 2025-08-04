@@ -1,26 +1,99 @@
 import React from "react";
 import "../../css/text-styling.css";
-import background from "../../media/cream-bg.jpg";
-import arabMalesTalking from "../../media/arab-males-talking.jpg";
-import arabMaleFemaleWork from "../../media/arab-male-female-work.jpg";
+import "../../css/greetings-intro.css";
 
 export default function GreetingsAndIntro() {
 
     return (
-        <div>
+        <div className="container">
+          <h1 className="title">
+            Arabic Greetings & Introductions
+          </h1>
+      
+          {/* Greetings */}
+          <div className="section">
+            <h2 className="greetings-title">Greetings</h2>
+            <div className="card-container">
+                <div>
+              <div className="greeting-card">
+                <p className="arabic-text">ٱلسَّلَامُ عَلَيْكُمْ</p>
+                <p className="greeting-romanization">Assalamu Aleikum</p>
+                <p className="translation">"Peace be upon you"</p>
+              </div>
+              <div className="greeting-card">
+                <p className="arabic-text">وَعَلَيْكُم ٱلسَّلَامُ</p>
+                <p className="greeting-romanization">Waleikum-As-Salam</p>
+                <p className="translation">"And upon you be Peace"</p>
+              </div>
+              </div>
+              <div className="greeting-card">
+                <p className="arabic-text">مَرْحَبَا</p>
+                <p className="greeting-romanization">Marhaban</p>
+                <p className="translation">Hello</p>
+              </div>
+              <div className="greeting-card">
+                <p className="arabic-text">صَبَاح الْخَيْر</p>
+                <p className="greeting-romanization">Sabah al-khayr</p>
+                <p className="translation">Good morning</p>
+              </div>
+              <div className="greeting-card">
+                <p className="arabic-text">طاب مساؤك </p>
+                <p className="greeting-romanization">Taab moosa ik</p>
+                <p className="translation">Good afternoon</p>
+              </div>
+              <div className="greeting-card">
+                <p className="arabic-text">طابت ليلتك</p>
+                <p className="greeting-romanization">Taabat layla took</p>
+                <p className="translation">Good night</p>
+              </div>
+              <div>
+              <div className="greeting-card">
+                <p className="arabic-text">كيف حالُكَ؟</p>
+                <p className="greeting-romanization">Kayfa-halooka?</p>
+                <p className="translation">How are you? (Asking Male)</p>
+              </div>
+             
+              <div className="greeting-card">
+                <p className="arabic-text">كيف حالُكِ؟</p>
+                <p className="greeting-romanization">Kayfa-halookee?</p>
+                <p className="translation">How are you? (Asking Female)</p>
+              </div>
 
-            <div style={{ backgroundImage: `url(require(""../../media/cream-bg.jpg""))` }}> </div>
-            
-            <h1 style={{textAlign: "center", lineHeight: "150px", fontSize: "50px"}}><b>Lesson 1</b></h1>
-            <p style={{textAlign: "left", marginLeft: "100px", fontSize: "20px"}}>This is our first lesson in the course! Congratulations on taking a big step towards learning something new!</p>
-            <p style={{textAlign: "left", marginLeft: "100px", fontSize: "20px"}}> ⚫ In this lesson we will cover how to <b>greet someone</b> as well as <b>introduce yourself</b> in Fus'ha Arabic. Don't worry, we will make sure the learning is as smooth of a process as possible :) </p>
-            <img style={{width: "450px", paddingRight: "100px", marginTop: "20px"}} src={arabMalesTalking} alt="logo" />
-            <img style={{width: "420px", height: "230px", paddingLeft: "20px"}}src={arabMaleFemaleWork} alt="logo" />
-            <div style={{marginTop: "30px"}}>
-            <p> In the Arab world a very common greeting anyone will understand is </p>
-            <p style={{textAlign: "center", lineHeight: "30px", fontSize: "50px"}}>ٱلسَّلَامُ عَلَيْكُمْ</p>
-            <p> The romanization of this is <p style={{textAlign: "center", lineHeight: "30px", fontSize: "50px"}}>"Assalamu Aleikum"</p> which means "May Peace Be Upon You"</p>
+              <div className="greeting-card">
+                <p className="arabic-text">انا بخير الحمد لله</p>
+                <p className="greeting-romanization">Ana bi-khayr Alhamdulilah</p>
+                <p className="translation">I am good Alhamdulilah</p>
+              </div>
+              </div>
             </div>
+          </div>
+      
+          {/* how to introduce yourself*/}
+          <h2 className="intros-title">Introductions</h2>
+          <div className="intro-card">
+                <p className="arabic-text">مَا اسْمُك؟</p>
+                <p className="intro-romanization">Ma ismuk?</p>
+                <p className="translation">What is your name?</p>
+              </div>
+              <div className="card-container">
+              <div className="intro-card">
+                <p className="arabic-text"> اسْمِي...</p>
+                <p className="intro-romanization">Ismi...</p>
+                <p className="translation">My name is...</p>
+              </div>
+            <div>
+              <div className="intro-card">
+                <p className="arabic-text">من أين أنت ؟</p>
+                <p className="intro-romanization">Min ayna ant?...</p>
+                <p className="translation">Where are you from?</p>
+              </div>
+              <div className="intro-card">
+                <p className="arabic-text">أَنَا مِن ...</p>
+                <p className="intro-romanization">Ana min...</p>
+                <p className="translation">I am from...</p>
+              </div>
+            </div>
+          </div>
         </div>
     );
-}
+};
