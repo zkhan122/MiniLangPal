@@ -36,7 +36,7 @@
   .greeting-card {
     text-align: center;
     padding: 16px;
-    background-color: #eff6ff;
+    background-color: #c2dcff;
     border-radius: 8px;
   }
   
@@ -44,6 +44,13 @@
     text-align: center;
     padding: 16px;
     background-color: #f3e8ff;
+    border-radius: 8px;
+  }
+
+  .terms-card {
+    text-align: center;
+    padding: 16px;
+    background-color: #faffe4;
     border-radius: 8px;
   }
   

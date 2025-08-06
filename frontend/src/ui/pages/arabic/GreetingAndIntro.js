@@ -28,7 +28,7 @@ export default function GreetingsAndIntro() {
               </div>
               <div className="greeting-card">
                 <p className="arabic-text">مَرْحَبَا</p>
-                <p className="greeting-romanization">"Marhaban"</p>
+                <p className="greeting-romanization">"Mar-haban"</p>
                 <p className="translation">Hello</p>
               </div>
               <div className="greeting-card">
@@ -72,7 +72,7 @@ export default function GreetingsAndIntro() {
           <h2 className="intros-title">Section: Introductions</h2>
           <div className="intro-card">
                 <p className="arabic-text">مَا اسْمُك؟</p>
-                <p className="intro-romanization">"Ma ismuk?"</p>
+                <p className="intro-romanization">"Ma is-muk?"</p>
                 <p className="translation">What is your name?</p>
               </div>
               <div className="card-container">
@@ -82,11 +82,11 @@ export default function GreetingsAndIntro() {
                 <p className="translation">My name is...</p>
               </div>
             <div>
-              <div className="intro-card">
+              {/* <div className="intro-card">
                 <p className="arabic-text">من أين أنت ؟</p>
                 <p className="intro-romanization">"Min ayna ant?"</p>
                 <p className="translation">Where are you from?</p>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
