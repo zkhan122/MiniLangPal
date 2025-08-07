@@ -1,6 +1,6 @@
 import React from "react";
 import "../../css/text-styling.css";
-import "../../css/greetings-intro.css";
+import "../../css/content-card-styling.css";
 
 export default function GreetingsAndIntro() {
 
@@ -37,36 +37,37 @@ export default function GreetingsAndIntro() {
                 <p className="translation">Good morning</p>
               </div>
               <div className="greeting-card">
-                <p className="arabic-text">طاب مساؤك </p>
+                <p className="arabic-text">طَابَ مَسَاؤُكَ</p>
                 <p className="greeting-romanization">"Taab moosa ik"</p>
                 <p className="translation">Good afternoon</p>
               </div>
               <div className="greeting-card">
-                <p className="arabic-text">طابت ليلتك</p>
+                <p className="arabic-text">طَابَت لَيْلَتُكَ</p>
                 <p className="greeting-romanization">"Taabat layla took"</p>
                 <p className="translation">Good night</p>
               </div>
-              <div>
-              <div className="greeting-card">
-                <p className="arabic-text">كيف حالُكَ؟</p>
+            </div>
+
+            {/* Asking how someone is */}
+            <h2 className="intros-title">Asking how someone is ("haal")</h2>
+            <div className="card-container">
+              <div className="green-card">
+                <p className="arabic-text">كَيْفَ حالُكَ؟</p>
                 <p className="greeting-romanization">"Kayfa-halooka?"</p>
                 <p className="translation">How are you? (Asking Male)</p>
               </div>
-             
-              <div className="greeting-card">
-                <p className="arabic-text">كيف حالُكِ؟</p>
+              <div className="green-card">
+                <p className="arabic-text">كَيْفَ حالُكِ؟</p>
                 <p className="greeting-romanization">"Kayfa-halookee?"</p>
                 <p className="translation">How are you? (Asking Female)</p>
               </div>
 
-              <div className="greeting-card">
-                <p className="arabic-text">انا بخير الحمد لله</p>
+              <div className="green-card">
+                <p className="arabic-text">أَنا بِخَيْرٍ، الْحَمْدُ لِلَّهِ</p>
                 <p className="greeting-romanization">"Ana bi-khayr Alhamdulilah"</p>
                 <p className="translation">I am good, praise be to God</p>
               </div>
-              </div>
             </div>
-          </div>
       
           {/* how to introduce yourself*/}
           <h2 className="intros-title">Section: Introductions</h2>
@@ -77,7 +78,7 @@ export default function GreetingsAndIntro() {
               </div>
               <div className="card-container">
               <div className="intro-card">
-                <p className="arabic-text"> اسْمِي...</p>
+                <p className="arabic-text">... اسْمِي</p>
                 <p className="intro-romanization">"Ismi..."</p>
                 <p className="translation">My name is...</p>
               </div>
@@ -89,6 +90,7 @@ export default function GreetingsAndIntro() {
               </div> */}
             </div>
           </div>
+        </div>
         </div>
     );
 };
