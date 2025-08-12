@@ -62,6 +62,7 @@ export default function ForgotPassword() {
         </form>
 
             <p><b>Your password reset link will be sent to an email that is associated with a user account if you have signed up before</b></p>
+            <p><b>The reset link will be valid for only 30 minutes</b></p>
         </>
     )
 }

@@ -8,7 +8,6 @@ import CreateUser from "./users/CreateUser"
 import UpdateUser from "./users/UpdateUser"
 import ReadUser from "./users/ReadUser"
 import Login from "./ui/pages/Login"
-import ChangePassword from './users/ChangePassword';
 import ResetPassword from './users/ResetPassword';
 import ForgotPassword from './users/ForgotPassword';
 import DiagnosticQuizSelection from "./ui/quizzes/DiagnosticQuizSelection"
@@ -34,7 +33,6 @@ function App() {
         <Route path="/quizzes/arabic-diagnostic-quiz" element={<ArabicDiagnosticQuiz />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
-        <Route path="/change-password" element={<ChangePassword />} />
         <Route path="/learning" element={<Contents />} />
         <Route path="/learning/welcome" element={<Welcome />} />
         <Route path="/learning/greetings-intro" element={<GreetingsAndIntro />} />

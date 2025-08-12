@@ -27,6 +27,7 @@ export default function ResetPassword() {
                 setIsError(false);
                 window.location.replace("/login");
                 var delayInMilliseconds = 2000;
+                
                 setTimeout(function() {
                 }, delayInMilliseconds);
 
