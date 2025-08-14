@@ -1,5 +1,6 @@
 package com.minilangpal.backend.services;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -7,9 +8,14 @@ import org.springframework.stereotype.Service;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage; // Multipurpose Internet Mail Extensions Message
 
+import java.util.Objects;
+
 @Service
 public class EmailService {
     private final JavaMailSender mailSender;
+
+    @Autowired
+    private Environment environment;
 
     // Constructor-based dependency injection
     public EmailService(JavaMailSender mailSender) {
@@ -28,7 +34,8 @@ public class EmailService {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-        helper.setFrom("noreply@minilangpal.com");
+//        helper.setFrom(System.getenv("spring.mail.username"));
+        helper.setFrom(Objects.requireNonNull(environment.getProperty("spring.mail.username")));
         helper.setTo(to);
         helper.setSubject(subject);
         helper.setText(text,true); // enable HTML content

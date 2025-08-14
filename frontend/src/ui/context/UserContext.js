@@ -1,17 +1,36 @@
-import React, { createContext, useState, useContext } from 'react';
-import { redirect, useNavigate } from 'react-router-dom';
+import { createContext, useState, useContext, useEffect } from 'react';
 
 const UserContext = createContext(null);
 
 export function UserProvider({ children }) {
   const [user, setUser] = useState(null);
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+
+    const handleStorageChange = (event) => {
+      if (event.key === "user" && !event.newValue) {
+        setUser(null);
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
 
   const login = (username, role) => {
-    setUser({ username, role});
+    const userObj = { username, role };
+    localStorage.setItem("user", JSON.stringify(userObj));
+    setUser(userObj);
   };
 
   const logout = () => {
+    localStorage.removeItem("user");
     setUser(null);
     window.location.replace("/");
   };

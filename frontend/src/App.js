@@ -8,11 +8,14 @@ import CreateUser from "./users/CreateUser"
 import UpdateUser from "./users/UpdateUser"
 import ReadUser from "./users/ReadUser"
 import Login from "./ui/pages/Login"
-import ChangePassword from './users/ChangePassword';
 import ResetPassword from './users/ResetPassword';
 import ForgotPassword from './users/ForgotPassword';
 import DiagnosticQuizSelection from "./ui/quizzes/DiagnosticQuizSelection"
 import ArabicDiagnosticQuiz from './ui/quizzes/ArabicDiagnosticQuiz';
+import Contents from './ui/pages/Contents';
+import Welcome from './ui/pages/arabic/Welcome';
+import GreetingsAndIntro from './ui/pages/arabic/GreetingAndIntro';
+import DescribingBackground from './ui/pages/arabic/DescribingBackground';
 
 function App() {
   return (
@@ -30,7 +33,15 @@ function App() {
         <Route path="/quizzes/arabic-diagnostic-quiz" element={<ArabicDiagnosticQuiz />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
-        <Route path="/change-password" element={<ChangePassword />} />
+        <Route path="/learning" element={<Contents />} />
+        <Route path="/learning/welcome" element={<Welcome />} />
+        <Route path="/learning/greetings-intro" element={<GreetingsAndIntro />} />
+        <Route path="/learning/describing-background" element={<DescribingBackground />} />
+        <Route path="/learning/this-that" element={<Contents />} />
+        <Route path="/learning/pronouns" element={<Contents />} />
+        <Route path="/learning/verbs" element={<Contents />} />
+        <Route path="/learning/describing-family" element={<Contents />} />
+        <Route path="/learning/asking-questions" element={<Contents />} />
       </Routes>
     </div>
   );

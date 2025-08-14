@@ -166,7 +166,7 @@ export default function App() {
             <div>Loading...</div>
           ) : hasDoneQuiz ? (
             <div className="already-done-message">
-              <h2>You have already done this quiz.</h2>
+              <h2>You have already done this quiz. Go to My Learning</h2>
             </div>
           ) : user ? (
             showScore ? (
@@ -205,6 +205,12 @@ export default function App() {
               </>
             )
           ) : null}
+          <div>
+        <button className="btn btn-primary" id="quiz-go-back-button" onClick={() => navigate("/learning")}>
+          Go back
+        </button>
+
+          </div>
         </div>
       );
     }

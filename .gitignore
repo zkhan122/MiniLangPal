@@ -10,3 +10,12 @@ backend/src/main/resources
 sql/main.sql
 .env
 docker/
+main.sql
+.DS_Store
+backend/.DS_Store
+backend/src/.DS_Store
+backend/src/main/.DS_Store
+backend/src/main/java/.DS_Store
+backend/src/main/java/com/.DS_Store
+backend/src/main/java/com/minilangpal/.DS_Store
+venv/

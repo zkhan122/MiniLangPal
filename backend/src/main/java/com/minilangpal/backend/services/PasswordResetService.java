@@ -27,7 +27,7 @@ public class PasswordResetService {
         PasswordResetToken prt = new PasswordResetToken();
         prt.setToken(token);
         prt.setUser(user);
-        prt.setExpiration(LocalDateTime.now().plusHours(1));
+        prt.setExpiration(LocalDateTime.now().plusMinutes(30));
         tokenRepository.save(prt);
         return token;
     }
@@ -35,6 +35,6 @@ public class PasswordResetService {
     public void sendResetEmail(String email, String token) throws MessagingException {
         String url = "http://localhost:3000/reset-password/" + token;
 
-        emailService.sendEmail(email, "Password Reset Request", "Click: " + url);
+        emailService.sendEmail(email, "Password Reset Request - VALID FOR 30 MINUTES", "Click or copy into browser: " + url);
     }
 }

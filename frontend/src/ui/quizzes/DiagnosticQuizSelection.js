@@ -54,9 +54,10 @@ export default function QuizSelection() {
             native speakers across large swaths of southeastern 
             China, Hong Kong and Macau, as well as in overseas communities.
             </Card.Text>
-            <Link to="https:///hi">
-              <Button variant="primary">Start Learning!</Button>
-            </Link>
+            {/* <Link to="https:///hi">
+              <Button variant="primary" disabled={true}>Start Learning!</Button>
+            </Link> */}
+            <Button variant="primary" disabled={true}>Coming Soon!</Button>
           </Card.Body>
         </Card>
         </div>
