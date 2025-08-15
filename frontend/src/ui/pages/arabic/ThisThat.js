@@ -63,19 +63,19 @@ export default function ThisThat() {
       <div className="card-container">
         <div className="terms-card">
           <p className="arabic-text">هَذِهِ سَيَّارَةٌ</p>
-          <p className="intro-romanization">"Ha-zee-hee say-yaa-ra-<b><u>tun</u></b>"</p>
+          <p className="intro-romanization">"<b><u>Ha-zee-hee</u></b> say-yaa-ra-<b><u>tun</u></b>"</p>
           <p className="translation">This is a car.</p>
         </div>
 
         <div className="terms-card">
           <p className="arabic-text">هَذِهِ مَدْرَسَةٌ</p>
-          <p className="intro-romanization">"Ha-zee-hee mad-ra-sa-<b><u>tun</u></b>"</p>
+          <p className="intro-romanization">"<b><u>Ha-zee-hee</u></b> mad-ra-sa-<b><u>tun</u></b>"</p>
           <p className="translation">This is a school.</p>
         </div>
 
         <div className="terms-card">
           <p className="arabic-text">هَذِهِ نَظَّارَةٌ</p>
-          <p className="intro-romanization">"Ha-zee-hee naz-zaa-ra-<b><u>tun</u></b>"</p>
+          <p className="intro-romanization">"<b><u>Ha-zee-hee</u></b> naz-zaa-ra-<b><u>tun</u></b>"</p>
           <p className="translation">This is a pair of glasses.</p>
         </div>
       </div>
@@ -94,7 +94,7 @@ export default function ThisThat() {
         </div>
         <div className="intro-card">
           <p className="arabic-text">هَذِهِ أُمِّي</p>
-          <p className="intro-romanization">"Ha-zee-hee um-mee"</p>
+          <p className="intro-romanization">"<b><u>Ha-zee-hee</u></b> um-mee"</p>
           <p className="translation">This is my mother.</p>
         </div>
       </div>
@@ -107,7 +107,7 @@ export default function ThisThat() {
         </div>
         <div className="intro-card">
           <p className="arabic-text">هَذِهِ أُخْتِي</p>
-          <p className="intro-romanization">"Ha-zee-hee ukh-<b><u>tee</u></b>"</p>
+          <p className="intro-romanization">"<b><u>Ha-zee-hee</u></b> ukh-<b><u>tee</u></b>"</p>
           <p className="translation">This is my sister.</p>
         </div>
       </div>
@@ -120,7 +120,7 @@ export default function ThisThat() {
         </div>
         <div className="intro-card">
           <p className="arabic-text">هَذِهِ صَدِيقَتِي</p>
-          <p className="intro-romanization">"Ha-zee-hee sa-deeq-a-<b><u>tee</u></b>"</p>
+          <p className="intro-romanization">"<b><u>Ha-zee-hee</u></b> sa-deeq-a-<b><u>tee</u></b>"</p>
           <p className="translation">This is my friend (female).</p>
         </div>
       </div>
@@ -133,7 +133,7 @@ export default function ThisThat() {
         </div>
         <div className="intro-card">
           <p className="arabic-text">هَذِهِ أُسْتَاذَتِي</p>
-          <p className="intro-romanization">"Ha-zee-hee us-taath-a-<b><u>tee</u></b>"</p>
+          <p className="intro-romanization">"<b><u>Ha-zee-hee</u></b> us-taath-a-<b><u>tee</u></b>"</p>
           <p className="translation">This is my professor (female).</p>
         </div>
       </div>
