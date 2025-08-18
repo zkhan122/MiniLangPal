@@ -9,17 +9,23 @@ export function UserProvider({ children }) {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       setUser(JSON.parse(storedUser));
+    } else {
+      setUser(null);
     }
 
     const handleStorageChange = (event) => {
-      if (event.key === "user" && !event.newValue) {
-        setUser(null);
+      if (event.key === "user") {
+        if (event.newValue) {
+          setUser(JSON.parse(event.newValue));
+        } else {
+          setUser(null);
+        }
       }
     };
 
-    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener("storage", handleStorageChange);
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener("storage", handleStorageChange);
     };
   }, []);
 
@@ -30,9 +36,8 @@ export function UserProvider({ children }) {
   };
 
   const logout = () => {
-    localStorage.removeItem("user");
     setUser(null);
-    window.location.replace("/");
+    localStorage.removeItem("user");
   };
 
   return (
