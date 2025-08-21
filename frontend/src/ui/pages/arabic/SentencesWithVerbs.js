@@ -19,17 +19,17 @@ export default function SentencesWithVerbs() {
                         <div className="green-card">
                             <p className="arabic-text">أَنَا أَعْمَلُ</p>
                             <p className="intro-romanization">"Ana a3-malu"</p>
-                            <p className="translation">I work.</p>
+                            <p className="translation">I work / I am working.</p>
                         </div>
                         <div className="green-card">
                             <p className="arabic-text">هُوَ يَعْمَلُ</p>
                             <p className="intro-romanization">"Hu-wa <b><u>ya</u></b>-malu"</p>
-                            <p className="translation">He works.</p>
+                            <p className="translation">He works / He is working .</p>
                         </div>
                         <div className="green-card">
                             <p className="arabic-text">هِيَ تَعْمَلُ</p>
                             <p className="intro-romanization">"Hi-ya <b><u>ta</u></b>-malu"</p>
-                            <p className="translation">She works.</p>
+                            <p className="translation">She works / She is working.</p>
                         </div>
                     </div>
 
@@ -38,17 +38,17 @@ export default function SentencesWithVerbs() {
                         <div className="terms-card">
                             <p className="arabic-text">أَنَا أَسْكُنُ</p>
                             <p className="intro-romanization">"Ana as-kunoo"</p>
-                            <p className="translation">I live.</p>
+                            <p className="translation">I live / I am living.</p>
                         </div>
                         <div className="terms-card">
                             <p className="arabic-text">هُوَ يَسْكُنُ</p>
                             <p className="intro-romanization">"Hu-wa <b><u>ya</u></b>s-kunoo"</p>
-                            <p className="translation">He lives.</p>
+                            <p className="translation">He lives / He is living.</p>
                         </div>
                         <div className="terms-card">
                             <p className="arabic-text">هِيَ تَسْكُنُ</p>
                             <p className="intro-romanization">"Hi-ya <b><u>ta</u></b>-skun-oo"</p>
-                            <p className="translation">She lives.</p>
+                            <p className="translation">She lives / She is living.</p>
                         </div>
                     </div>
 
@@ -57,17 +57,17 @@ export default function SentencesWithVerbs() {
                         <div className="intro-card">
                             <p className="arabic-text">أَنَا آكُلُ</p>
                             <p className="intro-romanization">"Ana aakuloo"</p>
-                            <p className="translation">I eat.</p>
+                            <p className="translation">I eat / I am eating.</p>
                         </div>
                         <div className="intro-card">
                             <p className="arabic-text">هُوَ يَأْكُلُ</p>
                             <p className="intro-romanization">"Hu-wa <b><u>ya</u></b>'-kul-oo"</p>
-                            <p className="translation">He eats.</p>
+                            <p className="translation">He eats / He is eating.</p>
                         </div>
                         <div className="intro-card">
                             <p className="arabic-text">هِيَ تَأْكُلُ</p>
                             <p className="intro-romanization">"Hi-ya <b><u>ta</u></b>-kul-oo"</p>
-                            <p className="translation">She eats.</p>
+                            <p className="translation">She eats / She is eating.</p>
                         </div>
                     </div>
 
@@ -76,17 +76,17 @@ export default function SentencesWithVerbs() {
                         <div className="green-card">
                             <p className="arabic-text">أَنَا أَشْرَبُ</p>
                             <p className="intro-romanization">"Ana ash-raboo"</p>
-                            <p className="translation">I drink.</p>
+                            <p className="translation">I drink / I am drinking.</p>
                         </div>
                         <div className="green-card">
                             <p className="arabic-text">هُوَ يَشْرَبُ</p>
                             <p className="intro-romanization">"Hu-wa <b><u>ya</u></b>sh-raboo"</p>
-                            <p className="translation">He drinks.</p>
+                            <p className="translation">He drinks / He is drinking</p>
                         </div>
                         <div className="green-card">
                             <p className="arabic-text">هِيَ تَشْرَبُ</p>
                             <p className="intro-romanization">"Hi-ya <b><u>ta</u></b>sh-raboo"</p>
-                            <p className="translation">She drinks.</p>
+                            <p className="translation">She drinks / She is drinking</p>
                         </div>
                     </div>
 
@@ -95,17 +95,17 @@ export default function SentencesWithVerbs() {
                         <div className="terms-card">
                             <p className="arabic-text">أَنَا أَدْرُسُ</p>
                             <p className="intro-romanization">"Ana ad-rus-oo"</p>
-                            <p className="translation">I study.</p>
+                            <p className="translation">I study / I am studying</p>
                         </div>
                         <div className="terms-card">
                             <p className="arabic-text">هُوَ يَدْرُسُ</p>
                             <p className="intro-romanization">"Hu-wa <b><u>ya</u></b>d-rus-oo"</p>
-                            <p className="translation">He studies.</p>
+                            <p className="translation">He studies / He is studying</p>
                         </div>
                         <div className="terms-card">
                             <p className="arabic-text">هِيَ تَدْرُسُ</p>
                             <p className="intro-romanization">"Hi-ya <b><u>ta</u></b>d-rus-oo"</p>
-                            <p className="translation">She studies.</p>
+                            <p className="translation">She studies / She is studying</p>
                         </div>
                     </div>
 
@@ -114,17 +114,17 @@ export default function SentencesWithVerbs() {
                         <div className="intro-card">
                             <p className="arabic-text">أَنَا أَكْتُبُ</p>
                             <p className="intro-romanization">"Ana ak-tu-boo"</p>
-                            <p className="translation">I write.</p>
+                            <p className="translation">I write / I am writing</p>
                         </div>
                         <div className="intro-card">
                             <p className="arabic-text">هُوَ يَكْتُبُ</p>
                             <p className="intro-romanization">"Hu-wa <b><u>ya</u></b>k-tu-boo"</p>
-                            <p className="translation">He writes.</p>
+                            <p className="translation">He writes / He is writing</p>
                         </div>
                         <div className="intro-card">
                             <p className="arabic-text">هِيَ تَكْتُبُ</p>
                             <p className="intro-romanization">"Hi-ya <b><u>ta</u></b>k-tu-boo"</p>
-                            <p className="translation">She writes.</p>
+                            <p className="translation">She writes / She is writing</p>
                         </div>
                     </div>
                 </div>
