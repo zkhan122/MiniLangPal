@@ -18,6 +18,9 @@ import GreetingsAndIntro from './ui/pages/arabic/GreetingAndIntro';
 import DescribingBackground from './ui/pages/arabic/DescribingBackground';
 import ThisThat from './ui/pages/arabic/ThisThat';
 import SentencesWithPronouns from './ui/pages/arabic/SentencesWithPronouns';
+import SentencesWithVerbs from './ui/pages/arabic/SentencesWithVerbs';
+import DescribingFamily from './ui/pages/arabic/DescribingFamily';
+import AskingQuestions from './ui/pages/arabic/AskingQuestions';
 
 function App() {
   return (
@@ -41,9 +44,9 @@ function App() {
         <Route path="/learning/describing-background" element={<DescribingBackground />} />
         <Route path="/learning/this-that" element={<ThisThat />} />
         <Route path="/learning/pronouns" element={<SentencesWithPronouns />} />
-        <Route path="/learning/verbs" element={<Contents />} />
-        <Route path="/learning/describing-family" element={<Contents />} />
-        <Route path="/learning/asking-questions" element={<Contents />} />
+        <Route path="/learning/verbs" element={<SentencesWithVerbs />} />
+        <Route path="/learning/describing-family" element={<DescribingFamily />} />
+        <Route path="/learning/asking-questions" element={<AskingQuestions />} />
       </Routes>
     </div>
   );

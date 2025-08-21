@@ -18,36 +18,43 @@ export default function Contents() {
                         <td className="px-4 py-2">-</td>
                         <td className="px-4 py-2">A warm welcome to the course!!</td>
                     </tr>
+                    <br></br>
                     <tr>
                         <td className="px-4 py-2"><Link to="/learning/greetings-intro" className="btn btn-primary">Greetings & Introduction</Link></td>
                         <td className="px-4 py-2">Beginner</td>
                         <td className="px-4 py-2">How to greet someone and introduce yourself</td>
                     </tr>
+                    <br></br>
                     <tr>
                         <td className="px-4 py-2"><Link to="/learning/describing-background" className="btn btn-primary">Describing Background</Link></td>
                         <td className="px-4 py-2">Beginner</td>
                         <td className="px-4 py-2">How to describe your background such as your country, nationality</td>
                     </tr>
+                    <br></br>
                     <tr>
                         <td className="px-4 py-2"><Link to="/learning/this-that" className="btn btn-primary">"This is" & "That is"</Link></td>
                         <td className="px-4 py-2">Beginner</td>
                         <td className="px-4 py-2">Describing something or someone</td>
                     </tr>
+                    <br></br>
                     <tr>
                         <td className="px-4 py-2"><Link to="/learning/pronouns" className="btn btn-primary">Sentences With Pronouns</Link></td>
                         <td className="px-4 py-2">Beginner</td>
                         <td className="px-4 py-2">Using pronouns</td>
                     </tr>
+                    <br></br>
                     <tr>
                         <td className="px-4 py-2"><Link to="/learning/verbs" className="btn btn-primary">Sentences With Verbs</Link></td>
                         <td className="px-4 py-2">Beginner</td>
                         <td className="px-4 py-2">Different verbs and using them in sentences</td>
                     </tr>
+                    <br></br>
                     <tr>
                         <td className="px-4 py-2"><Link to="/learning/describing-family" className="btn btn-primary">Describing Family</Link></td>
                         <td className="px-4 py-2">Beginner</td>
                         <td className="px-4 py-2">Describing your family</td>
                     </tr>
+                    <br></br>
                     <tr>
                         <td className="px-4 py-2"><Link to="/learning/asking-questions" className="btn btn-primary">Asking Questions</Link></td>
                         <td className="px-4 py-2">Beginner</td>
