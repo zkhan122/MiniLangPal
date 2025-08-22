@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import background from "../media/main-logo.png";
 import 'animate.css';
 import AnimatedHello from "../component/AnimatedHello";
+import "../css/themes.css";
 
 export default function Home() {
 
@@ -37,13 +38,18 @@ export default function Home() {
                             backgroundSize: "cover",
                             backgroundRepeat: "no-repeat",
                             backgroundPosition: "center",
-                            height: "550px",
+                            height: "400px",
                             width: "100%",
                           }}>
               <AnimatedHello />
               </div>
-              <p><b>Your mini language learning companion for learning dialects!</b></p>
-            </div>
+              <p className="lora-subtitle"><b>Your mini language learning companion for learning dialects!</b></p>
         </div>
+        <div className="btn-wrapper">
+          <button className="block-btn lora-subtitle">
+            <span>Explore the language catalogue</span>
+          </button>
+        </div>
+      </div>
     )
 }
