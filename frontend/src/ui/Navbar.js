@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useUser } from "./context/UserContext";
 import "./css/navbar.css";
+import "./css/themes.css";
 import logo from "./media/logo-pic.png";
 
 export default function Navbar() {
@@ -11,7 +12,7 @@ export default function Navbar() {
         <div>
             <nav className="navbar navbar-expand-lg gradient-custom">
                 <div className="container-fluid">
-                    <Link className="navbar-brand" to={"/"}><img src={logo} height="50" className="d-inline-block d-align-top"/> MiniLangPal</Link>
+                    <Link className="navbar-brand lora-logo" to={"/"}><img src={logo} height="50" className="d-inline-block d-align-top"/> MiniLangPal</Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" 
                             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
                             aria-expanded="false" aria-label="Toggle navigation">
