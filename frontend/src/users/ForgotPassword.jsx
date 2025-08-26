@@ -1,6 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import {useNavigate } from "react-router-dom";
+import { useUser } from "../ui/context/UserContext";
 
 export default function ForgotPassword() {
+
+    const { user } = useUser();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!user || !user.role) {
+            window.location.replace("/login");
+        }
+    }, [user, navigate]);
+
+
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
     const [isError, setIsError] = useState(false);

@@ -1,3 +1,7 @@
+import { useState, useEffect } from "react";
+import {useNavigate } from "react-router-dom";
+import { useUser } from "../../context/UserContext";
+
 import AudioSynthesizer  from "../../utils/AudioTTSSynthesizer";
 import audio1 from "../../media/sounds/verbs-1.mp3";
 import audio2 from "../../media/sounds/verbs-2.mp3";
@@ -19,6 +23,16 @@ import audio17 from "../../media/sounds/verbs-17.mp3";
 import audio18 from "../../media/sounds/verbs-18.mp3";
 
 export default function SentencesWithVerbs() {
+
+    const { user } = useUser();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!user || !user.role) {
+            window.location.replace("/login");
+        }
+    }, [user, navigate]);
+
     return (
         <div className="container">
             <h1>Using Sentences With Verbs</h1>

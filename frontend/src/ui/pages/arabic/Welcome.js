@@ -1,7 +1,20 @@
-import React from "react";
+import { useState, useEffect } from "react";
+import {useNavigate } from "react-router-dom";
+import { useUser } from "../../context/UserContext";
 import "../../css/text-styling.css";
 
 export default function Introduction() {
+
+  const { user } = useUser();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+      if (!user || !user.role) {
+        window.location.replace("/login");
+      }
+  }, [user, navigate]);
+
+
     const introStyle = {
         backgroundImage: "url('/media/cream-bg.jpg')",
         height: "100vh",

@@ -1,3 +1,6 @@
+import { useState, useEffect } from "react";
+import {useNavigate } from "react-router-dom";
+import { useUser } from "../../context/UserContext";
 import AudioSynthesizer  from "../../utils/AudioTTSSynthesizer";
 import audio1 from "../../media/sounds/questions-1.mp3";
 import audio2 from "../../media/sounds/questions-2.mp3";
@@ -17,6 +20,15 @@ import audio15 from "../../media/sounds/questions-15.mp3";
 import audio16 from "../../media/sounds/questions-16.mp3";
 
 export default function AskingQuestions() {
+
+    const { user } = useUser();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!user || !user.role) {
+            window.location.replace("/login");
+        }
+    }, [user, navigate]);
 
     return (
         <div className="container">

@@ -1,4 +1,6 @@
-import React from "react";
+import { useState, useEffect } from "react";
+import {useNavigate } from "react-router-dom";
+import { useUser } from "../../context/UserContext";
 import "../../css/text-styling.css";
 import "../../css/content-card-styling.css";
 import AudioSynthesizer  from "../../utils/AudioTTSSynthesizer";
@@ -29,6 +31,16 @@ import audio23 from "../../media/sounds/background-23.mp3";
 
 
 export default function DescribingBackground() {
+
+    const { user } = useUser();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!user || !user.role) {
+          window.location.replace("/login");
+        }
+    }, [user, navigate]);
+
 
     return (
         <div className="container">

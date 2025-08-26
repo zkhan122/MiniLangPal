@@ -10,7 +10,7 @@ import { useUser } from "../context/UserContext"; // Updated context
 import { useLanguage } from "../context/LanguageContext";
 
 
-export default function App() {
+export default function ArabicDiagnosticQuiz() {
 
     const [users, setUsers] = useState([])
 ;

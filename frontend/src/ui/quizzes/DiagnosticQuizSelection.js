@@ -1,4 +1,7 @@
 import { Link, useNavigate} from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useUser } from "../context/UserContext";
+
 import AnimatedTextForQuizSelection from "../utils/AnimatedTextForQuizSelection"
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Card, Button} from "react-bootstrap";
@@ -8,12 +11,21 @@ import { useLanguage } from "../context/LanguageContext";
 
 export default function QuizSelection() {
 
-  const { setLanguage } = useLanguage();
+  const { user } = useUser();
   const navigate = useNavigate();
 
+  useEffect(() => {
+      if (!user || !user.role) {
+        window.location.replace("/login");
+      }
+  }, [user, navigate]);
+
+
+  const { setLanguage } = useLanguage();
+
   const handleSelectLanguage = (lang, path) => {
-    setLanguage(lang);       // Set language in context
-    navigate(path);          // Navigate programmatically
+    setLanguage(lang);      
+    navigate(path);          
   };
 
 
