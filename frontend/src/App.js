@@ -42,8 +42,8 @@ function App() {
         <Route path="/viewuser/:user_id" element={<ReadUser />} />
         <Route path="/users/id/:user_id" element={<ReadUser />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/quizzes" element={<DiagnosticQuizSelection />} />
-        <Route path="/quizzes/arabic-diagnostic-quiz" element={<ArabicDiagnosticQuiz />} />
+        <Route path="/languages" element={<DiagnosticQuizSelection />} />
+        <Route path="/languages/arabic-diagnostic-quiz" element={<ArabicDiagnosticQuiz />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/learning" element={<Contents />} />

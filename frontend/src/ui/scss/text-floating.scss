@@ -8,8 +8,9 @@ ul#elements {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vw;
+  width: 80%;
+  height: 80%;
+  min-height: 100vh;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -46,17 +47,17 @@ ul#elements {
       }
       25% {
         color: $color2;
-        transform: rotate(#{random(360)}deg) scale(#{0.3 + $i * 0.1}) translateY(#{random(20)}px) translateX(#{random(20)}px);
+        transform: rotate(#{random(360)}deg) scale(#{0.3 + $i * 0.1}) translateY(#{random(100) - 50}px) translateX(#{random(100) - 50}px);
         opacity: #{random(10) * 0.1};
       }
       50% {
         color: $color3;
-        transform: rotate(#{random(360)}deg) scale(#{0.3 + $i * 0.1}) translateY(#{random(20)}px) translateX(#{random(20)}px);
+        transform: rotate(#{random(360)}deg) scale(#{0.3 + $i * 0.1}) translateY(#{random(100) - 50}px) translateX(#{random(100) - 50}px);
         opacity: #{random(10) * 0.1};
       }
       75% {
         color: $color4;
-        transform: rotate(#{random(360)}deg) scale(#{0.2 + $i * 0.1}) translateY(#{random(30)}px) translateX(#{random(30)}px);
+        transform: rotate(#{random(360)}deg) scale(#{0.2 + $i * 0.1}) translateY(#{random(100) - 50}px) translateX(#{random(100) - 50}px);        
         opacity: #{random(10) * 0.1};
       }
       100% {
