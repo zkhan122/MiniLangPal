@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
-import background from "../media/main-logo.png";
+import logo from "../media/logo-pic.png";
+import background from "../media/bg-image.png";
 import 'animate.css';
 import AnimatedHello from "../component/AnimatedHello";
 import "../css/themes.css";
@@ -32,24 +33,41 @@ export default function Home() {
     }
 
     return (
-        <div className="container">
-            <div className="py-4">
-              <div className="animate__animated animate__fadeInLeft" style={{ backgroundImage: `url(${background})`,
-                            backgroundSize: "cover",
-                            backgroundRepeat: "no-repeat",
-                            backgroundPosition: "center",
-                            height: "400px",
-                            width: "100%",
-                          }}>
-              <AnimatedHello />
-              </div>
-              <p className="lora-subtitle"><b>Your mini language learning companion for learning dialects!</b></p>
-        </div>
-        <div className="btn-wrapper">
-          <button className="block-btn lora-subtitle">
-            <span>Explore the language catalogue</span>
-          </button>
+      <div>
+        <div>
+          <div
+            className="animate__animated animate__fadeIn"
+            style={{
+              backgroundImage: `url(${background})`,
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
+              height: "100vh",
+              width: "100%",
+            }}
+          >
+            
+            <img
+              src={logo}
+              style={{
+                maxHeight: "300px",
+                maxWidth: "100%",
+                paddingTop: 30,
+              }}
+            /><AnimatedHello />
+            <h1 className="lora-logo">MiniLangPal</h1>
+            <p className="lora-subtitle" style={{ paddingTop: "45px" }}>
+              <b>
+                Your mini language learning companion for learning dialects!
+              </b>
+            </p>
+            <div className="btn-wrapper">
+              <button className="block-btn lora-subtitle">
+                <span>Explore the language catalogue</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-    )
+    );
 }

@@ -5,7 +5,11 @@ $color4: #4FBBDD;
 $color5: #84991C;
 
 ul#elements {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vw;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -19,8 +23,8 @@ ul#elements {
 
   @for $i from 1 through 14 {
     $opacity: (random(4) * 0.2) + 0.2;
-    $left: random(60) + 20;
-    $top: random(50) + 20;
+    $left: random(100);
+    $top: random(100);
     $fontSize: 25 + random(30);
     $duration: $i * 1.8s;
 

@@ -85,7 +85,9 @@ export default function Login() {
 
   return (
     <div>
-      <h1>Login Page</h1>
+      <h1 style={{ paddingTop: 44 }}>
+        Login
+      </h1>
       {showError && <Alert severity="error">Login Failed</Alert>}
       {showSuccess && <Alert severity="success">Login Successful</Alert>}
 
@@ -93,8 +95,14 @@ export default function Login() {
         <p> You are already logged in.</p>
       ) : (
         <div className="wrapper fadeInDown">
-          <div id="formContent">
-            <form onSubmit={handleSubmit}>
+          <div
+            id="formContent"
+            style={{ backgroundColor: "rgba(255, 255, 255, 0.3)" }}
+          >
+              <form onSubmit={handleSubmit}>
+                <label htmlFor="username" className="form-label">
+                  Username:
+                </label>
               <input
                 type="text"
                 id="username"
@@ -103,7 +111,10 @@ export default function Login() {
                 value={username}
                 onChange={handleUsernameChange}
                 required
-              />
+                />
+                <label htmlFor="password" className="form-label">
+                  Password:
+                </label>
               <input
                 type="password"
                 id="password"
@@ -119,13 +130,11 @@ export default function Login() {
               </select>
               <input type="submit" className="fadeIn fourth" value="Log In" />
             </form>
-            <div id="formFooter">
-              <Link className="underlineHover" to="/forgot-password">
+              <button className="forgot-password" onClick={() => navigate("/forgot-password")}>
                 Forgot Password?
-              </Link>
+              </button>
             </div>
           </div>
-        </div>
       )}
     </div>
   );
