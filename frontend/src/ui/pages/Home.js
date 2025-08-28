@@ -27,10 +27,6 @@ export default function Home() {
         loadUsers();
     }, []); 
 
-    const deleteUser = async (user_id) => {
-        await axios.delete(`http://localhost:8080/users/${user_id}`);
-        loadUsers();
-    }
 
     return (
       <div>
@@ -62,9 +58,11 @@ export default function Home() {
               </b>
             </p>
             <div className="btn-wrapper">
+              <Link to="/languages">
               <button className="block-btn lora-subtitle">
                 <span>Explore the language catalogue</span>
               </button>
+              </Link>
             </div>
           </div>
         </div>

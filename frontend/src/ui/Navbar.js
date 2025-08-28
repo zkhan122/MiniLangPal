@@ -1,12 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useUser } from "./context/UserContext";
+import {useLanguage} from "./context/LanguageContext";
 import "./css/navbar.css";
 import "./css/themes.css";
 import logo from "./media/logo-pic.png";
 
 export default function Navbar() {
     const { user, logout } = useUser();
+    const { language } = useLanguage();
 
     return (
       <div>
@@ -35,13 +37,17 @@ export default function Navbar() {
               {user ? (
                 <>
                   <li className="nav-item d-flex align-items-center me-3">
-                    <span className="navbar-text">{user.username}</span>
+                    <span className="navbar-text"><b>User:  [{user.username}]</b></span>
+                  </li>
+                  
+                  <li className="nav-item d-flex align-items-center me-3">
+                    <span className="navbar-text"><b>Language: [{language ? language : "Select language from 'Languages' tab!"}]</b></span>
                   </li>
 
-                  <Link className="nav-link" to="/quizzes">
-                    My Diagnostic Quizzes
+                  <Link className="nav-link" to="/languages" style={{fontWeight: "bold"}}>
+                    Languages
                   </Link>
-                  <Link className="nav-link" to="/learning">
+                  <Link className="nav-link" to="/learning" style={{fontWeight: "bold"}}>
                     My Learning
                   </Link>
 
