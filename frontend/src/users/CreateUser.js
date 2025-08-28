@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Alert from "@mui/material/Alert";
+import "../ui/css/login.css";
 import profanityPackage from "@dsojevic/profanity-list";
 
 export default function CreateUser() {
@@ -144,11 +145,14 @@ export default function CreateUser() {
 
   return (
     <div className="container">
-      <h1>User Page</h1>
-
+      <h1 className="text-center m-4">
+        Register User
+      </h1>
       <div className="row">
-        <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
-          <h2 className="text-center m-4">Register User</h2>
+        <div
+          id="formContent"
+          style={{ backgroundColor: "rgba(255, 255, 255, 0.3)", outline: "none" }}
+        >
           <form onSubmit={onSubmit}>
             <div className="mb-3">
               <label htmlFor="name" className="form-label">

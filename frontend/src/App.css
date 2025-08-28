@@ -1,10 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+
 .App {
   text-align: center;
+  font-family: "Lora", serif;
+}
+
+.App h1 {
+  color: #a2463d;
+  font-weight: 800;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.App h1.lora-logo {
+  font-family: "Lora", serif;
+  font-weight: 700;
+  font-style: normal;
+  color: rgb(99, 73, 73);
 }
 
 @media (prefers-reduced-motion: no-preference) {

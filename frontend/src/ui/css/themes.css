@@ -37,7 +37,7 @@
     position: relative;
     display: inline-block;
     padding: 12px 30px;
-    background: #80e880;
+    background: #61dd91;
     color: rgb(62, 50, 50);
     font-size: 16px;
     font-weight: bold;
@@ -48,14 +48,13 @@
     z-index: 1;
 }
 
-/* keep text upright */
 .block-btn span {
     display: inline-block;
     transform: skew(20deg);
 }
 
 .block-btn:hover {
-    background: rgb(93, 225, 93);
+    background: rgb(85, 189, 121);
     border-color: #000000;
     color: rgb(194, 252, 198);
 }
