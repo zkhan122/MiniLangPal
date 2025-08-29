@@ -11,7 +11,7 @@ const helloWords = [
   "مرحبا بك",
   "Aloha",
   "Kamusta",
-  "Annyeong",
+  "안녕하세요",
 ];
 
 export default function AnimatedHello() {
