@@ -17,6 +17,9 @@ export default function Contents() {
 
   return (
     <div className="w-screen overflow-x-auto">
+      <Link 
+        className="px-6 py-2 text-lg border-2 border-white text-black hover:bg-white hover:text-black transition-colors duration-300 rounded-lg bg-blue-500 font-bold" 
+        to="/home">🡨 Home</Link>
       <h1 className="text-lg font-bold mb-2 text-left table-title">
         My Learning
       </h1>
