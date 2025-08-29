@@ -108,6 +108,23 @@ body {
   margin-right: 5px;
 }
 
+.lesson-btn {
+    background-color: rgba(65, 205, 212, 0.688);
+    color: black;
+    border: none;
+}
+
+.lesson-btn:hover {
+    background-color: rgba(35, 163, 169, 0.688);
+    color: black;
+    border: none;
+}
+
+.table-title {
+  padding-top: 15px;
+  padding-bottom: 20px;
+}
+
 #quiz-go-back-button {
   position: absolute;
   top: 100;

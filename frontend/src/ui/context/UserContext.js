@@ -1,18 +1,16 @@
-import { createContext, useState, useContext, useEffect } from 'react';
+import { createContext, useState, useContext, useEffect } from "react";
 
 const UserContext = createContext(null);
 
 export function UserProvider({ children }) {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
+  const [user, setUser] = useState(() => {
+    // Lazy initialization from localStorage
     const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    } else {
-      setUser(null);
-    }
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
 
+  // Listen to changes in localStorage across tabs
+  useEffect(() => {
     const handleStorageChange = (event) => {
       if (event.key === "user") {
         if (event.newValue) {
@@ -24,9 +22,7 @@ export function UserProvider({ children }) {
     };
 
     window.addEventListener("storage", handleStorageChange);
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
+    return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
   const login = (username, role) => {
