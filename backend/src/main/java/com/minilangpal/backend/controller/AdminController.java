@@ -3,6 +3,7 @@ package com.minilangpal.backend.controller;
 import com.minilangpal.backend.exception.UserNotFoundException;
 import com.minilangpal.backend.model.Admin;
 import com.minilangpal.backend.model.LoginRequest;
+import com.minilangpal.backend.model.User;
 import com.minilangpal.backend.repository.AdminRepository;
 import com.minilangpal.backend.services.AdminService;
 import jakarta.servlet.http.HttpServlet;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/admin")
@@ -68,6 +70,45 @@ public class AdminController {
                             "error",
                             "message",
                             "Invalid credentials"));
+        }
+    }
+
+    @GetMapping("/validate/admin/username")
+    public ResponseEntity<?> validateUserExists(@PathVariable String username) {
+        try {
+            Optional<Admin> userCheck = adminRepository.findByUsername(username);
+            if (userCheck.isPresent()) {
+                Admin admin = userCheck.get();
+                return ResponseEntity.ok(Map.of(
+                        "user_id", admin.getAdmin_id(),
+                        "username", admin.getUsername(),
+                        "name", admin.getName(),
+                        "email", admin.getEmail(),
+                        "role", admin.getRole()
+                ));
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            logger.error("Error validating user: {}", username, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("status", "error", "message", "User not found - Validation failed"));
+        }
+    }
+
+    @PostMapping("/admin/logout")
+    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+    public ResponseEntity<?> logout(HttpSession session) {
+        try {
+            String username = (String) session.getAttribute("admin");
+            if (username != null) {
+                logger.info("Logging out user: {}", username);
+            }
+            session.invalidate();
+            return ResponseEntity.ok(Map.of("status", "success", "message", "Logout successful"));
+        } catch (Exception e) {
+            logger.error("Error during logout", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("status", "error", "message", "Logout failed"));
         }
     }
 }

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/quiz-styling.css";
 import useSound from "use-sound";
@@ -106,6 +107,19 @@ export default function QuizFamily() {
   };
 
   return (
+    <div className="container">
+      <Link
+        className="px-6 py-2 text-lg border-2 border-white text-black hover:bg-white hover:text-black transition-colors duration-300 rounded-lg bg-blue-500 font-bold"
+        to="/"
+      >
+        🡨 Home
+      </Link>{" "}
+      <Link
+        className="px-6 py-2 text-lg border-2 border-white text-black hover:bg-white hover:text-black transition-colors duration-300 rounded-lg bg-blue-500 font-bold"
+        to="/learning"
+      >
+        🡨 Back
+      </Link>
     <div className='app'>
       {showScore ? (
         <div className='score-section'>
@@ -147,5 +161,6 @@ export default function QuizFamily() {
         </>
       )}
     </div>
+        </div>
   );
 }

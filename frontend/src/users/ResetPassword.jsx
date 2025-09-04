@@ -6,13 +6,6 @@ import { useUser } from "../ui/context/UserContext";
 export default function ResetPassword() {
 
     const { user } = useUser();
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (!user || !user.role) {
-            window.location.replace("/login");
-        }
-    }, [user, navigate]);
 
 
     const { token } = useParams();

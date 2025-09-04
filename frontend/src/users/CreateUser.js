@@ -71,7 +71,7 @@ export default function CreateUser() {
       validationError = "Invalid email format.";
     } else if (name === "password" && !validatePassword(inputValue)) {
       validationError =
-        "Password must be at least 8 chars, with upper, lower, digit, and special character.";
+        "Password must be at least 8 chars, with upper, lower, digit, and special character (best to use '!').";
     } else if (name === "name" && !validateName(inputValue)) {
       validationError =
         "Your name must only contain alphabetical characters, single spaces, no leading/trailing spaces, and cannot exceed 20 characters.";

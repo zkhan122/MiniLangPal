@@ -3,6 +3,10 @@ import { createContext, useState, useContext, useEffect } from "react";
 const UserContext = createContext(null);
 
 export function UserProvider({ children }) {
+
+  // localStorage.clear();
+  // sessionStorage.clear();
+
   const [user, setUser] = useState(() => {
     // Lazy initialization from localStorage
     const storedUser = localStorage.getItem("user");
@@ -44,3 +48,5 @@ export function UserProvider({ children }) {
 }
 
 export const useUser = () => useContext(UserContext);
+
+

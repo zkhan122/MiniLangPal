@@ -144,7 +144,7 @@ export default function Contents() {
             </td>
             <td className="px-32 py-2 d-flex justify-content-end">
               <Link to="/learning/quiz-verbs" className="btn btn-success">
-                Quiz 4
+                Quiz 5
               </Link>
             </td>
           </tr>
@@ -162,7 +162,7 @@ export default function Contents() {
             <td className="px-4 py-2">Describing your family</td>
             <td className="px-32 py-2 d-flex justify-content-end">
               <Link to="/learning/quiz-family" className="btn btn-success">
-                Quiz 5
+                Quiz 6
               </Link>
             </td>
           </tr>
@@ -182,7 +182,7 @@ export default function Contents() {
             </td>
             <td className="px-32 py-2 d-flex justify-content-end">
               <Link to="/learning/quiz-questions" className="btn btn-success">
-                Quiz 6
+                Quiz 7
               </Link>
             </td>
           </tr>

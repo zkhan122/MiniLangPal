@@ -161,6 +161,44 @@ public class UserController {
         return "SUCCESS: User deleted with id " + id;
     }
 
+    @GetMapping("/validate/user/username")
+    public ResponseEntity<?> validateUserExists(@PathVariable String username) {
+        try {
+            Optional<User> userCheck = userRepository.findByUsername(username);
+            if (userCheck.isPresent()) {
+                User user = userCheck.get();
+                return ResponseEntity.ok(Map.of(
+                        "user_id", user.getUser_id(),
+                        "username", user.getUsername(),
+                        "name", user.getName(),
+                        "email", user.getEmail(),
+                        "role", user.getRole()
+                ));
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            logger.error("Error validating user: {}", username, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("status", "error", "message", "User not found - Validation failed"));
+        }
+    }
+    @PostMapping("/user/logout")
+    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+    public ResponseEntity<?> logout(HttpSession session) {
+        try {
+            String username = (String) session.getAttribute("user");
+            if (username != null) {
+                logger.info("Logging out user: {}", username);
+            }
+            session.invalidate();
+            return ResponseEntity.ok(Map.of("status", "success", "message", "Logout successful"));
+        } catch (Exception e) {
+            logger.error("Error during logout", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("status", "error", "message", "Logout failed"));
+        }
+    }
+
     @PostMapping("/login-attempt")
 //    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
     public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest loginRequest, HttpSession session, HttpServletRequest request) {
