@@ -43,7 +43,7 @@ export default function ResetPassword() {
             }
         } catch (error) {
             console.log(error);
-            setMessage("Network error. Please try again.");
+            setMessage("Error. Please make sure you are using the latest link or try again.");
             setIsError(true);
     }
     };

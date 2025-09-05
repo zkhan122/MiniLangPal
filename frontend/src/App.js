@@ -1,7 +1,6 @@
 import './App.css';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom";
-import {Redirect} from "react";
 import Navbar from "./ui/Navbar";
 import Home from "./ui/pages/Home";
 import AdminView from "./ui/pages/AdminView";

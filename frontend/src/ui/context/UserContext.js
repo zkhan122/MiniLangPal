@@ -1,52 +1,137 @@
+// import { createContext, useState, useContext, useEffect } from "react";
+
+// const UserContext = createContext(null);
+
+// export function UserProvider({ children }) {
+
+//   // localStorage.clear();
+//   // sessionStorage.clear();
+
+//   const [user, setUser] = useState(() => {
+//     // Lazy initialization from localStorage
+//     const storedUser = localStorage.getItem("user");
+//     return storedUser ? JSON.parse(storedUser) : null;
+//   });
+
+//   // Listen to changes in localStorage across tabs
+//   useEffect(() => {
+//     const handleStorageChange = (event) => {
+//       if (event.key === "user") {
+//         if (event.newValue) {
+//           setUser(JSON.parse(event.newValue));
+//         } else {
+//           setUser(null);
+//         }
+//       }
+//     };
+
+//     window.addEventListener("storage", handleStorageChange);
+//     return () => window.removeEventListener("storage", handleStorageChange);
+//   }, []);
+
+//   const login = (username, role) => {
+//     const userObj = { username, role };
+//     localStorage.setItem("user", JSON.stringify(userObj));
+//     setUser(userObj);
+//   };
+
+//   const logout = () => {
+//     setUser(null);
+//     localStorage.removeItem("user");
+//   };
+
+//   return (
+//     <UserContext.Provider value={{ user, login, logout }}>
+//       {children}
+//     </UserContext.Provider>
+//   );
+// }
+
+// export const useUser = () => useContext(UserContext);
+
+
 import { createContext, useState, useContext, useEffect } from "react";
 
 const UserContext = createContext(null);
 
 export function UserProvider({ children }) {
+ const [user, setUser] = useState(null);
+ const [isValidating, setIsValidating] = useState(true);
 
-  // localStorage.clear();
-  // sessionStorage.clear();
+ useEffect(() => {
+   const validateCachedUser = async () => {
+     const storedUser = localStorage.getItem("user");
+     
+     if (!storedUser) {
+       setIsValidating(false);
+       return;
+     }
 
-  const [user, setUser] = useState(() => {
-    // Lazy initialization from localStorage
-    const storedUser = localStorage.getItem("user");
-    return storedUser ? JSON.parse(storedUser) : null;
-  });
+     try {
+       const parsedUser = JSON.parse(storedUser);
+       const { username, role } = parsedUser;
 
-  // Listen to changes in localStorage across tabs
-  useEffect(() => {
-    const handleStorageChange = (event) => {
-      if (event.key === "user") {
-        if (event.newValue) {
-          setUser(JSON.parse(event.newValue));
-        } else {
-          setUser(null);
-        }
-      }
-    };
+       const endpoint = role === 'admin' 
+         ? `/admin/validate/${username}`
+         : `/users/validate/${username}`;
 
-    window.addEventListener("storage", handleStorageChange);
-    return () => window.removeEventListener("storage", handleStorageChange);
-  }, []);
+       const response = await fetch(endpoint);
+       
+       if (response.ok) {
+         const validatedUser = await response.json();
+         setUser(validatedUser);
+       } else if (response.status === 404) {
+         localStorage.removeItem("user");
+         setUser(null);
+       } else {
+         setUser(parsedUser);
+       }
+     } catch (error) {
+       const parsedUser = JSON.parse(storedUser);
+       setUser(parsedUser);
+     }
+     
+     setIsValidating(false);
+   };
 
-  const login = (username, role) => {
-    const userObj = { username, role };
-    localStorage.setItem("user", JSON.stringify(userObj));
-    setUser(userObj);
-  };
+   validateCachedUser();
+ }, []);
 
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem("user");
-  };
+ useEffect(() => {
+   const handleStorageChange = (event) => {
+     if (event.key === "user") {
+       if (event.newValue) {
+         setUser(JSON.parse(event.newValue));
+       } else {
+         setUser(null);
+       }
+     }
+   };
 
-  return (
-    <UserContext.Provider value={{ user, login, logout }}>
-      {children}
-    </UserContext.Provider>
-  );
+   window.addEventListener("storage", handleStorageChange);
+   return () => window.removeEventListener("storage", handleStorageChange);
+ }, []);
+
+ const login = (username, role) => {
+   const userObj = { username, role };
+   localStorage.setItem("user", JSON.stringify(userObj));
+   setUser(userObj);
+ };
+
+ const logout = () => {
+   setUser(null);
+   localStorage.removeItem("user");
+ };
+
+ if (isValidating) {
+   return <div>Validating user...</div>;
+ }
+
+ return (
+   <UserContext.Provider value={{ user, login, logout }}>
+     {children}
+   </UserContext.Provider>
+ );
 }
 
 export const useUser = () => useContext(UserContext);
-
-

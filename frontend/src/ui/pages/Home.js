@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import logo from "../media/logo-pic.png";
-import background from "../media/bg-image.png";
+import background from "../media/polly.jpg";
 import "animate.css";
 import AnimatedHello from "../component/AnimatedHello";
 import "../css/themes.css";

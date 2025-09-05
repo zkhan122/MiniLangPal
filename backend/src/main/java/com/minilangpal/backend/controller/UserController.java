@@ -161,8 +161,8 @@ public class UserController {
         return "SUCCESS: User deleted with id " + id;
     }
 
-    @GetMapping("/validate/user/username")
-    public ResponseEntity<?> validateUserExists(@PathVariable String username) {
+    @GetMapping("/validate/{username}")
+    public ResponseEntity<?> validateUserExists(@PathVariable("username") String username) {
         try {
             Optional<User> userCheck = userRepository.findByUsername(username);
             if (userCheck.isPresent()) {

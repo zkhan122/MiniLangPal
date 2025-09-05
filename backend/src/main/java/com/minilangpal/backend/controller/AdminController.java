@@ -73,8 +73,8 @@ public class AdminController {
         }
     }
 
-    @GetMapping("/validate/admin/username")
-    public ResponseEntity<?> validateUserExists(@PathVariable String username) {
+    @GetMapping("/validate/{username}")
+    public ResponseEntity<?> validateUserExists(@PathVariable("username") String username) {
         try {
             Optional<Admin> userCheck = adminRepository.findByUsername(username);
             if (userCheck.isPresent()) {
