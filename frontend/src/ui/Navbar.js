@@ -51,6 +51,10 @@ export default function Navbar() {
                     My Learning
                   </Link>
 
+                  <Link className="nav-link" to="/faq" style={{fontWeight: "bold"}}>
+                    FAQs
+                  </Link>
+
                   <li className="nav-item">
                     <button className="nav-link" onClick={logout}>
                       Log Out

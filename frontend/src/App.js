@@ -28,6 +28,7 @@ import QuizPronouns from './ui/quizzes/QuizSentencesWithPronouns';
 import QuizVerbs from './ui/quizzes/QuizSentencesWithVerbs';
 import QuizFamily from './ui/quizzes/QuizFamily';
 import QuizQuestions from './ui/quizzes/QuizQuestions';
+import FAQ from './ui/pages/FAQ';
 
 function App() {
   return (
@@ -61,6 +62,7 @@ function App() {
         <Route path="/learning/quiz-verbs" element={<QuizVerbs />} />
         <Route path="/learning/quiz-family" element={<QuizFamily />} />
         <Route path="/learning/quiz-questions" element={<QuizQuestions />} />
+        <Route path="/faq" element={<FAQ />} />
 
         <Route path="*" element={<Navigate to="/" replace />} /> {/* If user tries to access invalid route */}
       </Routes>
