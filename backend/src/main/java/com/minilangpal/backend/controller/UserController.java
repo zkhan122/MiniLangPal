@@ -1,30 +1,34 @@
 package com.minilangpal.backend.controller;
 
-import com.minilangpal.backend.exception.InvalidCredentialsException;
+import com.minilangpal.backend.dto.ChangePasswordRequest;
 import com.minilangpal.backend.exception.UserNotFoundException;
 import com.minilangpal.backend.model.LoginRequest;
 import com.minilangpal.backend.model.User;
 import com.minilangpal.backend.repository.UserRepository;
 import com.minilangpal.backend.services.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("http://localhost:3000") // react frontend server running on port 3000
+@RequestMapping("/users")
 public class UserController {
 
     // Injecting User repository
     private final UserRepository userRepository;
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     public UserController(UserRepository userRepository, UserService userService, PasswordEncoder passwordEncoder) {
@@ -34,19 +38,32 @@ public class UserController {
     }
 
     // posting the data
-    @PostMapping("/users")
+    @PostMapping
     public ResponseEntity<?> newUser(@RequestBody User newUser) {
         try {
+            // Checking for empty password field
             if (newUser.getPassword() == null || newUser.getPassword().isEmpty()) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body("Password cannot be null or empty");
             }
 
+            // Checking for existing email
+            if (userRepository.findByEmail(newUser.getEmail()).isPresent()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("An account with this email already exists. Please login instead.");
+            }
+
+            // Checking for existing username
+            if (userRepository.findByUsername(newUser.getUsername()).isPresent()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("Username already exists. Please choose another one.");
+            }
+
             String hashedPassword = passwordEncoder.encode(newUser.getPassword());
             newUser.setHashedPassword(hashedPassword); // Set the hashed password
             newUser.setPassword(null);  // Clear the plaintext password field (don't persist it)
+            newUser.setRole(); // set the role to be USER
 
-            //newUser.setPassword(null);  // (Needs revising) Clear the plaintext password field (don't persist it)
             // Save the user and return the response
             User savedUser = userRepository.save(newUser);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
@@ -57,11 +74,9 @@ public class UserController {
         }
     }
 
-
-
     // for creating multiple users
-    @Transactional(readOnly = true)
-    @PostMapping("/users/batch")
+//    @Transactional(readOnly = true)
+    @PostMapping("/batch")
     public ResponseEntity<List<User>> createUser(@RequestBody List<User> users) {
         try {
             // Iterate through each user and hash their password
@@ -88,41 +103,52 @@ public class UserController {
     }
 
 
-    @GetMapping("/users")
+    @GetMapping
     List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    @GetMapping("/users/id/{id}")
+    @GetMapping("{id}")
     User getUserById(@PathVariable("id") String id) {
-        return userRepository.findById(id).orElseThrow(()->new UserNotFoundException(id));
+        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 
-    @GetMapping("/users/username/{username}") // fixing ambiguous handler error (spring can't tell whether to user getUserById or getUserByUsername)
+    @GetMapping("username/{username}")
+        // fixing ambiguous handler error (spring can't tell whether to user getUserById or getUserByUsername)
     User getUserByUsername(@PathVariable("username") String username) {
-        return userRepository.findByUsername(username).orElseThrow(()->new UserNotFoundException(username));
+        return userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
     }
 
 
-    @PutMapping(value = "/users/id/{id}")
-    User updateUser(@RequestBody User newUser, @PathVariable String id) {
+    @PutMapping(value = "{id}")
+    public ResponseEntity<?> updateUser(@RequestBody User newUser, @PathVariable String id) {
         return userRepository.findById(id).map(user -> {
+
+            // Ensure the user has entered a password
+            if (newUser.getPassword() == null || newUser.getPassword().isEmpty()) {
+                throw new RuntimeException("Password is required to update user details.");
+            }
+
             user.setUsername(newUser.getUsername());
             user.setName(newUser.getName());
             user.setEmail(newUser.getEmail());
             user.setPhone(newUser.getPhone());
 
-            if (newUser.getPassword() != null & !newUser.getPassword().isEmpty()) {
-                user.setPassword(newUser.getPassword());
+            // If the entered password is different, hash and update it
+            if (!passwordEncoder.matches(newUser.getPassword(), user.getHashedPassword())) {
+                user.setHashedPassword(passwordEncoder.encode(newUser.getPassword()));
             }
-            return userRepository.save(user);
-        }).orElseThrow(()->new UserNotFoundException(id));
+
+            User updatedUser = userRepository.save(user);
+            return ResponseEntity.ok(updatedUser);
+        }).orElseThrow(() -> new UserNotFoundException(id));
     }
 
-    @DeleteMapping("/users/{id}")
+
+    @DeleteMapping("{id}")
     String deleteUser(@PathVariable String id) {
         Optional<User> userToDelete = userRepository.findById(id);
-        if (!userRepository.existsById(id) || userToDelete.isEmpty())  {
+        if (!userRepository.existsById(id) || userToDelete.isEmpty()) {
             throw new UserNotFoundException(id);
         }
         if (!(userToDelete.get().getUser_id().equals(id))) {
@@ -133,20 +159,83 @@ public class UserController {
         return "SUCCESS: User deleted with id " + id;
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest, HttpSession session) {
+    @GetMapping("/validate/{username}")
+    public ResponseEntity<?> validateUserExists(@PathVariable("username") String username) {
         try {
-            boolean isAuthenticated = userService.authenticate(loginRequest.getUsername(), loginRequest.getPassword());
-
-            if (isAuthenticated) {
-                // user found
-                session.setAttribute("user", loginRequest.getUsername()); // we can display session details in header or user profile
-                return ResponseEntity.ok("Login was successful"); // status code 200
+            Optional<User> userCheck = userRepository.findByUsername(username);
+            if (userCheck.isPresent()) {
+                User user = userCheck.get();
+                return ResponseEntity.ok(Map.of(
+                        "user_id", user.getUser_id(),
+                        "username", user.getUsername(),
+                        "name", user.getName(),
+                        "email", user.getEmail(),
+                        "role", user.getRole()
+                ));
             } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+                return ResponseEntity.notFound().build();
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unknown error occurred");
+            logger.error("Error validating user: {}", username, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("status", "error", "message", "User not found - Validation failed"));
         }
+    }
+    @PostMapping("/user/logout")
+    public ResponseEntity<?> logout(HttpSession session) {
+        try {
+            String username = (String) session.getAttribute("user");
+            if (username != null) {
+                logger.info("Logging out user: {}", username);
+            }
+            session.invalidate();
+            return ResponseEntity.ok(Map.of("status", "success", "message", "Logout successful"));
+        } catch (Exception e) {
+            logger.error("Error during logout", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("status", "error", "message", "Logout failed"));
+        }
+    }
+
+    @PostMapping("/login-attempt")
+    public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest loginRequest, HttpSession session, HttpServletRequest request) {
+        boolean isAuthenticated = userService.authenticate(loginRequest.getUsername(), loginRequest.getPassword());
+
+        if (isAuthenticated) {
+            session.invalidate();
+            session = request.getSession(true);
+            // User found
+            session.setAttribute("user", loginRequest.getUsername()); // Store user in session
+            session.setAttribute("role", "USER");
+            logger.info("Login successful for user: {}. Stored in session as: '{}', role: '{}'", loginRequest.getUsername(), session.getAttribute("user"), session.getAttribute("role"));
+            return ResponseEntity.ok(Map.of("status", "success", "message", "Login successful", "role", "USER"));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("status", "error", "message", "Invalid credentials"));
+        }
+    }
+
+    @PutMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest request, HttpSession session) {
+        String username = (String) session.getAttribute("user");
+
+        if (username == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("You must be logged in.");
+        }
+
+        Optional<User> optionalUser = userRepository.findByUsername(username);
+        if (optionalUser.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
+        }
+
+        User user = optionalUser.get();
+
+        if (!passwordEncoder.matches(request.getOldPassword(), user.getHashedPassword())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Old password is incorrect.");
+        }
+
+        user.setHashedPassword(passwordEncoder.encode(request.getNewPassword()));
+        userRepository.save(user);
+
+        return ResponseEntity.ok("Password changed successfully.");
     }
 }

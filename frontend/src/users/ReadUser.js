@@ -18,7 +18,7 @@ export default function ReadUser() {
         try {
             setLoading(true);
             setError(null);
-            const result = await axios.get(`http://localhost:8080/users/id/${user_id}`);
+            const result = await axios.get(`/users/${user_id}`);
             setUser(result.data);
         } catch (err) {
             setError(err.response?.data?.message || "Error loading user");
@@ -51,7 +51,7 @@ export default function ReadUser() {
                             <p>Email: {user.email}</p>
                         </div>
                     </div>
-                    <Link className="btn btn-primary my-3" to={"/"}>Back to Home</Link>  
+                    <Link className="btn btn-primary my-3" to={"/admin"}>Go back</Link>  
                 </div>
             </div>
         </div>

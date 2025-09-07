@@ -1,63 +1,67 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
+import logo from "../media/logo-pic.png";
+import background from "../media/polly.jpg";
+import "animate.css";
+import AnimatedHello from "../component/AnimatedHello";
+import "../css/themes.css";
 
 export default function Home() {
+  const [users, setUsers] = useState([]);
 
-    const [users, setUsers] = useState([])
+  const { id } = useParams(); // access parameters from the URL (function to hook into react state)
 
-    const {id} = useParams(); // access parameters from the URL (function to hook into react state)
-
-    const loadUsers = async()=>{
-        const result = await axios.get("http://localhost:8080/users")
-        setUsers(result.data);
+  const loadUsers = async () => {
+    try {
+      const result = await axios.get("/users");
+      setUsers(result.data);
+    } catch (error) {
+      console.error("Error loading users:", error);
     }
+  };
 
-    useEffect(()=> {
-        console.log("Console: MiniLangApp loaded..")
-        loadUsers();
-    }, []); 
+  useEffect(() => {
+    console.log("Console: MiniLangApp loaded..");
+    loadUsers();
+  }, []);
 
-    const deleteUser = async (user_id) => {
-        await axios.delete(`http://localhost:8080/users/${user_id}`);
-        loadUsers();
-    }
-
-    return (
-        <div className="container">
-            <div className="py-4">
-            <table className="table border shadow">
-                <thead>
-                    <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Phone</th>
-                    <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    {
-                        users.map((user, index)=> (
-                            <tr>
-                            <th scope="row" key={index}>Record{index+1}</th>
-                            <td>{user.name}</td>
-                            <td>{user.username}</td>
-                            <td>{user.email}</td>
-                            <td>{user.phone}</td>
-                            <td>
-                                <Link className="btn btn-primary mx-2" to={`/viewuser/${user.user_id}`}>View</Link>
-                                <Link className="btn btn-outline-primary mx-2" to={`/updateuser/${user.user_id}`}>Edit</Link>
-                                <button className="btn btn-danger mx-2" onClick={()=> deleteUser(user.user_id)}>Delete</button>
-                            </td>
-                            </tr>
-                        ))
-                    }
-                </tbody>
-                </table>
-            </div>
+  return (
+    <div>
+      <div>
+        <div
+          className="animate__animated animate__fadeIn"
+          style={{
+            backgroundImage: `url(${background})`,
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+            height: "100vh",
+            width: "100%",
+          }}
+        >
+          <img
+            src={logo}
+            style={{
+              maxHeight: "300px",
+              maxWidth: "100%",
+              paddingTop: 30,
+            }}
+          />
+          <AnimatedHello />
+          <h1 className="lora-logo">MiniLangPal</h1>
+          <p style={{ paddingTop: "40px" }}>
+            <b>Your mini language learning companion for learning dialects!</b>
+          </p>
+          <div className="btn-wrapper">
+            <Link to="/languages">
+              <button className="block-btn lora-subtitle">
+                <span>Explore the language catalogue</span>
+              </button>
+            </Link>
+          </div>
         </div>
-    )
+      </div>
+    </div>
+  );
 }

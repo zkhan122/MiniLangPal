@@ -26,17 +26,13 @@ public class UserService {
     public boolean authenticate(String username, String password) {
 
         // validation of username
-        Optional<User> user = userRepository.findByUsername(username);
-
-        if (!user.get().getUsername().equals(username)) {
-            throw new UserNotFoundException(username);
-        }
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
 
         // validation of password
-        if (!passwordEncoder.matches(password, user.get().getHashedPassword())) {
+        if (!passwordEncoder.matches(password, user.getHashedPassword())) {
             throw new InvalidCredentialsException("The password provided is invalid");
         }
-
         return true;
     }
 }

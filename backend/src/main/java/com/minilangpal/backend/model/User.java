@@ -14,30 +14,33 @@ import lombok.Setter;
 public class User {
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(length = 50, nullable = false)
-    private String user_id;
+    @Column(name="user_id", length = 50, nullable = false)
+    private String userId;
     @NotNull
     // user attributes
     private String name;
-    @NotNull
+
     private String email;
     @NotNull
     private String username;
-    @NotNull
+    @Transient
     private String password;
     @NotNull
     private String hashedPassword; // to be compared to password upon login
 
     private String phone; // can be null
 
+    @NotNull
+    private String role; // role = USER (admin -> role = ADMIN)
+
     public void setUser_id(String user_id) {
         SaltGenerator salt = new SaltGenerator();
-        this.user_id = salt.generateSalt();;
+        this.userId = salt.generateSalt();;
     }
 
     @PrePersist
     public void prePersist() {
-        if (this.user_id == null || this.user_id.isEmpty()) {
+        if (this.userId == null || this.userId.isEmpty()) {
             setUser_id("user_" + System.currentTimeMillis());  // Example fallback if not set
         }
     }
@@ -70,8 +73,12 @@ public class User {
         this.email = email;
     }
 
+    public void setRole() {
+        this.role = "USER";
+    }
+
     public String getUser_id() {
-        return user_id;
+        return userId;
     }
 
     public String getName() {
@@ -94,7 +101,6 @@ public class User {
         return password;
     }
 
-//    public String getProfileImageURL() {
-//        return profileImageURL;
-//    }
+    public String getRole() { return role; }
+
 }
