@@ -25,7 +25,7 @@ Current websites which teach dialects (taking Fus'ha Arabic as an example - Madi
 
 ### Developers:
 
-Zayaan Khan: Lead FullStack Developer (full time)
+Zayaan Khan: Lead Full Stack Developer (full time)
 
 Rita San: Frontend Developer (part time)
 
