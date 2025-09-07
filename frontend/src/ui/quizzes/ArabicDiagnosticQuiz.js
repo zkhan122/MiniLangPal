@@ -29,7 +29,7 @@ export default function ArabicDiagnosticQuiz() {
     
     const sendScoreToDatabase = async(finalScore) => {
       try {
-        const objectSent = await axios.post("http://localhost:8080/quiz-score", {
+        const objectSent = await axios.post("/quiz-score", {
           username: user.username,
           quizScore: finalScore,
           role: user.role,
@@ -48,7 +48,7 @@ export default function ArabicDiagnosticQuiz() {
     const checkIfQuizDone = async()=> {
       try {
         const {data} = await axios.get(
-          `http://localhost:8080/check-diagnostic-quiz-score/${user.username}/${language}`,
+          `/check-diagnostic-quiz-score/${user.username}/${language}`,
           { withCredentials: true} // needed this to avoid HTTP 403
         );
         

@@ -61,7 +61,7 @@ export default function UpdateUser() {
         }
     
         try {
-            const response = await axios.put(`http://localhost:8080/users/${user_id}`, user);
+            const response = await axios.put(`/users/${user_id}`, user);
             
             // Update the local state with the new user details
             setUser(response.data);
@@ -79,7 +79,7 @@ export default function UpdateUser() {
     
     
     const loadUser =async()=> {
-        const result = await axios.get(`http://localhost:8080/users/${user_id}`);
+        const result = await axios.get(`/users/${user_id}`);
         setUser(result.data);  
     }
 

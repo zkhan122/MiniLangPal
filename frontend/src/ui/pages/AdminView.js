@@ -22,7 +22,7 @@ export default function AdminView() {
 
       const loadUsers = async () => {
         try {
-          const result = await axios.get("http://localhost:8080/users", {
+          const result = await axios.get("/users", {
             withCredentials: true, // Include session cookie
           });
           setUsers(result.data);
@@ -37,7 +37,7 @@ export default function AdminView() {
     }, []); 
 
     const deleteUser = async (user_id) => {
-        await axios.delete(`http://localhost:8080/users/${user_id}`);
+        await axios.delete(`/users/${user_id}`);
         loadUsers();
     }
 

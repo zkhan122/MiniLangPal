@@ -163,7 +163,9 @@ export default function CreateUser() {
 
     // If no errors, proceed with API call
     try {
-      const response = await axios.post("http://localhost:8080/users", user);
+      const delay = ms => new Promise(res => setTimeout(res, ms));
+      await delay(2000);
+      const response = await axios.post("/users", user);
       if (response.status === 201) {
         setShowSuccess(true);
         setTimeout(() => navigate("/login"), 2000);

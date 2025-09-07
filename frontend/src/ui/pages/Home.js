@@ -14,7 +14,7 @@ export default function Home() {
 
   const loadUsers = async () => {
     try {
-      const result = await axios.get("http://localhost:8080/users");
+      const result = await axios.get("/users");
       setUsers(result.data);
     } catch (error) {
       console.error("Error loading users:", error);

@@ -39,7 +39,6 @@ public class UserController {
 
     // posting the data
     @PostMapping
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<?> newUser(@RequestBody User newUser) {
         try {
             // Checking for empty password field
@@ -105,7 +104,6 @@ public class UserController {
 
 
     @GetMapping
-    @CrossOrigin(origins = "http://localhost:3000")
     List<User> getAllUsers() {
         return userRepository.findAll();
     }
@@ -183,7 +181,6 @@ public class UserController {
         }
     }
     @PostMapping("/user/logout")
-    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
     public ResponseEntity<?> logout(HttpSession session) {
         try {
             String username = (String) session.getAttribute("user");
@@ -200,7 +197,6 @@ public class UserController {
     }
 
     @PostMapping("/login-attempt")
-//    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
     public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest loginRequest, HttpSession session, HttpServletRequest request) {
         boolean isAuthenticated = userService.authenticate(loginRequest.getUsername(), loginRequest.getPassword());
 

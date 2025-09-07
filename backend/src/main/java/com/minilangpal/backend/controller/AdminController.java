@@ -33,7 +33,6 @@ public class AdminController {
     }
 
     @GetMapping("/admin")
-    @CrossOrigin(origins = "http://localhost:3000")
     List<Admin> getAllUsers() {
         return adminRepository.findAll();
     }
@@ -44,7 +43,6 @@ public class AdminController {
     }
 
     @PostMapping("/login-attempt")
-//    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
     public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest loginRequest, HttpSession session, HttpServletRequest request) {
         boolean isAdminAuthenticated = adminService.authenticate(loginRequest.getUsername(), loginRequest.getPassword());
 
@@ -96,7 +94,6 @@ public class AdminController {
     }
 
     @PostMapping("/admin/logout")
-    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
     public ResponseEntity<?> logout(HttpSession session) {
         try {
             String username = (String) session.getAttribute("admin");

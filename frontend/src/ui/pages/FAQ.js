@@ -74,7 +74,7 @@ const onSubmit = async (event) => {
         </ul>
       </CollapsibleCard>
 
-      <form onSubmit={onSubmit} className="contact-form">
+      {/* <form onSubmit={onSubmit} className="contact-form">
         <div className="form-group">
           <label htmlFor="name">Name:</label>
           <input type="text" id="name" name="name" required />
@@ -88,8 +88,9 @@ const onSubmit = async (event) => {
           <textarea id="message" name="message" required></textarea>
         </div>
         <button type="submit" className="btn btn-primary">Submit Form</button>
-      </form>
+      </form> */}
 
+        <p>If you have any additional queries or bug reports, please forward them to: zayaankashif246@gmail.com</p>
     </div>
   );
 }
