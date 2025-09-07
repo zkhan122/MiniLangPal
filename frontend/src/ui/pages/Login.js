@@ -47,7 +47,7 @@ export default function Login() {
     const endpoint = roleInput === "ADMIN" ? "admin/login-attempt" : "users/login-attempt";
 
     try {
-      const response = await axios.post(`http://localhost:8080/${endpoint}`, {
+      const response = await axios.post(`/${endpoint}`, {
         username: usernameInput,
         password: passwordInput,
       },

@@ -1,14 +1,13 @@
 package com.minilangpal.backend.services;
 
+import org.springframework.beans.factory.annotation.Value;
 import com.minilangpal.backend.model.PasswordResetToken;
 import com.minilangpal.backend.model.User;
 import com.minilangpal.backend.repository.PasswordResetTokenRepository;
 import com.minilangpal.backend.repository.UserRepository;
 import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
@@ -21,6 +20,8 @@ public class PasswordResetService {
     @Autowired private UserRepository userRepository;
     @Autowired private EmailService emailService;
     @Autowired private JavaMailSender mailSender;
+    @Value("${app.frontend-base-url}")
+    private String appBaseUrl;
 
     public String createToken(User user) {
         String token = UUID.randomUUID().toString();
@@ -33,7 +34,7 @@ public class PasswordResetService {
     }
 
     public void sendResetEmail(String email, String token) throws MessagingException {
-        String url = "http://localhost:3000/reset-password/" + token;
+        String url = appBaseUrl + "/reset-password/" + token;
 
         emailService.sendEmail(email, "Password Reset Request - VALID FOR 30 MINUTES", "Click or copy into browser: " + url);
     }

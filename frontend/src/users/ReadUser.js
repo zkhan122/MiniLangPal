@@ -18,7 +18,7 @@ export default function ReadUser() {
         try {
             setLoading(true);
             setError(null);
-            const result = await axios.get(`http://localhost:8080/users/${user_id}`);
+            const result = await axios.get(`/users/${user_id}`);
             setUser(result.data);
         } catch (err) {
             setError(err.response?.data?.message || "Error loading user");

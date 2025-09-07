@@ -19,7 +19,6 @@ import java.util.Objects;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
 public class DiagnosticQuizController {
 
     private final DiagnosticQuizRepository quizRepository;
