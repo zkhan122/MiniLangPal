@@ -28,5 +28,6 @@ tech stack:
 Zayaan Khan: Lead FullStack Developer (full time)
 
 Rita San: Frontend Developer (part time)
-
+-----------------------------------------
 Development Time in Months: 9
+-----------------------------------------
