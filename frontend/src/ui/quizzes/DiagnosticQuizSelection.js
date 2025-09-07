@@ -1,4 +1,7 @@
 import { Link, useNavigate} from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useUser } from "../context/UserContext";
+
 import AnimatedTextForQuizSelection from "../utils/AnimatedTextForQuizSelection"
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Card, Button} from "react-bootstrap";
@@ -8,12 +11,21 @@ import { useLanguage } from "../context/LanguageContext";
 
 export default function QuizSelection() {
 
-  const { setLanguage } = useLanguage();
+  const { user } = useUser();
   const navigate = useNavigate();
 
+  useEffect(() => {
+      if (!user || !user.role) {
+        window.location.replace("/login");
+      }
+  }, [user, navigate]);
+
+
+  const { setLanguage } = useLanguage();
+
   const handleSelectLanguage = (lang, path) => {
-    setLanguage(lang);       // Set language in context
-    navigate(path);          // Navigate programmatically
+    setLanguage(lang);      
+    navigate(path);          
   };
 
 
@@ -21,10 +33,10 @@ export default function QuizSelection() {
     <div className="flex flex-col items-center justify-center min-h-screen gap-8">
       <AnimatedTextForQuizSelection text="Select the language you wish to master!" />
       <Link 
-        className="px-6 py-2 text-lg border-2 border-white text-white hover:bg-white hover:text-black transition-colors duration-300 rounded-lg bg-blue-500" 
-        to="/learning"
+        className="px-6 py-2 text-lg border-2 border-white text-black hover:bg-white hover:text-black transition-colors duration-300 rounded-lg bg-blue-500 font-bold" 
+        to="/"
       >
-        My Learning
+        🡨 Home
       </Link>
 
       <div class ="row">
@@ -54,9 +66,10 @@ export default function QuizSelection() {
             native speakers across large swaths of southeastern 
             China, Hong Kong and Macau, as well as in overseas communities.
             </Card.Text>
-            <Link to="https:///hi">
-              <Button variant="primary">Start Learning!</Button>
-            </Link>
+            {/* <Link to="https:///hi">
+              <Button variant="primary" disabled={true}>Start Learning!</Button>
+            </Link> */}
+            <Button variant="primary" disabled={true}>Coming Soon!</Button>
           </Card.Body>
         </Card>
         </div>

@@ -22,10 +22,12 @@ public class SecurityConfig {
                         .requestMatchers("/public/**",
                                 "/users",
                                 "/users/**",
-                                "/user/login-attempt",
+                                "/users/validate/**",
+                                "/users/login-attempt",
                                 "/admin/login-attempt",
                                 "/admin",
                                 "/admin/**",
+                                "/admin/validate/**",
                                 "/quiz-score",
                                 "/check-diagnostic-quiz-score/{username}/{language}",
                                 "/api/auth/**").permitAll()

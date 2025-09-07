@@ -6,24 +6,19 @@ import com.minilangpal.backend.model.LoginRequest;
 import com.minilangpal.backend.model.User;
 import com.minilangpal.backend.repository.UserRepository;
 import com.minilangpal.backend.services.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 @RestController
 @RequestMapping("/users")
@@ -44,7 +39,6 @@ public class UserController {
 
     // posting the data
     @PostMapping
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<?> newUser(@RequestBody User newUser) {
         try {
             // Checking for empty password field
@@ -110,7 +104,6 @@ public class UserController {
 
 
     @GetMapping
-    @CrossOrigin(origins = "http://localhost:3000")
     List<User> getAllUsers() {
         return userRepository.findAll();
     }
@@ -166,14 +159,50 @@ public class UserController {
         return "SUCCESS: User deleted with id " + id;
     }
 
+    @GetMapping("/validate/{username}")
+    public ResponseEntity<?> validateUserExists(@PathVariable("username") String username) {
+        try {
+            Optional<User> userCheck = userRepository.findByUsername(username);
+            if (userCheck.isPresent()) {
+                User user = userCheck.get();
+                return ResponseEntity.ok(Map.of(
+                        "user_id", user.getUser_id(),
+                        "username", user.getUsername(),
+                        "name", user.getName(),
+                        "email", user.getEmail(),
+                        "role", user.getRole()
+                ));
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            logger.error("Error validating user: {}", username, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("status", "error", "message", "User not found - Validation failed"));
+        }
+    }
+    @PostMapping("/user/logout")
+    public ResponseEntity<?> logout(HttpSession session) {
+        try {
+            String username = (String) session.getAttribute("user");
+            if (username != null) {
+                logger.info("Logging out user: {}", username);
+            }
+            session.invalidate();
+            return ResponseEntity.ok(Map.of("status", "success", "message", "Logout successful"));
+        } catch (Exception e) {
+            logger.error("Error during logout", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("status", "error", "message", "Logout failed"));
+        }
+    }
+
     @PostMapping("/login-attempt")
-//    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
-    public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest loginRequest, HttpSession session) {
+    public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest loginRequest, HttpSession session, HttpServletRequest request) {
         boolean isAuthenticated = userService.authenticate(loginRequest.getUsername(), loginRequest.getPassword());
 
-
         if (isAuthenticated) {
-
+            session.invalidate();
+            session = request.getSession(true);
             // User found
             session.setAttribute("user", loginRequest.getUsername()); // Store user in session
             session.setAttribute("role", "USER");

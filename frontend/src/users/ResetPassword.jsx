@@ -1,7 +1,13 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import {useNavigate } from "react-router-dom";
+import { useUser } from "../ui/context/UserContext";
 
 export default function ResetPassword() {
+
+    const { user } = useUser();
+
+
     const { token } = useParams();
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
@@ -14,7 +20,7 @@ export default function ResetPassword() {
         e.preventDefault();
 
         try {
-            const response = await fetch(`http://localhost:3000/api/auth/reset-password/${token}`, {
+            const response = await fetch(`/api/auth/reset-password/${token}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ password }),
@@ -27,6 +33,7 @@ export default function ResetPassword() {
                 setIsError(false);
                 window.location.replace("/login");
                 var delayInMilliseconds = 2000;
+                
                 setTimeout(function() {
                 }, delayInMilliseconds);
 
@@ -36,7 +43,7 @@ export default function ResetPassword() {
             }
         } catch (error) {
             console.log(error);
-            setMessage("Network error. Please try again.");
+            setMessage("Error. Please make sure you are using the latest link or try again.");
             setIsError(true);
     }
     };

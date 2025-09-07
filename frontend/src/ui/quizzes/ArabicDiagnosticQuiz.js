@@ -10,7 +10,7 @@ import { useUser } from "../context/UserContext"; // Updated context
 import { useLanguage } from "../context/LanguageContext";
 
 
-export default function App() {
+export default function ArabicDiagnosticQuiz() {
 
     const [users, setUsers] = useState([])
 ;
@@ -29,7 +29,7 @@ export default function App() {
     
     const sendScoreToDatabase = async(finalScore) => {
       try {
-        const objectSent = await axios.post("http://localhost:8080/quiz-score", {
+        const objectSent = await axios.post("/quiz-score", {
           username: user.username,
           quizScore: finalScore,
           role: user.role,
@@ -48,7 +48,7 @@ export default function App() {
     const checkIfQuizDone = async()=> {
       try {
         const {data} = await axios.get(
-          `http://localhost:8080/check-diagnostic-quiz-score/${user.username}/${language}`,
+          `/check-diagnostic-quiz-score/${user.username}/${language}`,
           { withCredentials: true} // needed this to avoid HTTP 403
         );
         
@@ -98,32 +98,92 @@ export default function App() {
         },
         {
             questionText: "Beautiful is to جميل as ugly is to?",
-            soundFile: null, // No sound for this question
+            soundFile: null,
             answerOptions: [
-                { answerText: 'سعيد', isCorrect: false },
-                { answerText: 'قبيح', isCorrect: true },
-                { answerText: 'طويل', isCorrect: false },
-                { answerText: 'مجنون', isCorrect: false },
+                { answerText: 'سعيد (sa`eed)', isCorrect: false },
+                { answerText: 'قبيح (qabih)', isCorrect: true },
+                { answerText: 'طويل (taweel)', isCorrect: false },
+                { answerText: 'مجنون (majnoon)', isCorrect: false },
             ],
         },
         {
-            questionText: 'The iPhone was created by which company?',
-            soundFile: null, // No sound for this question
+            questionText: "What does 'Kitab' (كتاب) mean?",
+            soundFile: null,
             answerOptions: [
-                { answerText: 'Apple', isCorrect: true },
-                { answerText: 'Intel', isCorrect: false },
-                { answerText: 'Amazon', isCorrect: false },
-                { answerText: 'Microsoft', isCorrect: false },
+                { answerText: 'House', isCorrect: false },
+                { answerText: 'Book', isCorrect: true },
+                { answerText: 'Car', isCorrect: false },
+                { answerText: 'Door', isCorrect: false },
             ],
         },
         {
-            questionText: 'How many Harry Potter books are there?',
-            soundFile: null, // No sound for this question
+            questionText: "How do you say 'Good morning' in Fush'a?",
+            soundFile: null,
             answerOptions: [
-                { answerText: '1', isCorrect: false },
-                { answerText: '4', isCorrect: false },
-                { answerText: '6', isCorrect: false },
-                { answerText: '7', isCorrect: true },
+                { answerText: 'Marhaban (مرحبا)', isCorrect: false },
+                { answerText: 'Masaa’ al-khayr (مساء الخير)', isCorrect: false },
+                { answerText: 'Sabah al-khayr (صباح الخير)', isCorrect: true },
+                { answerText: 'Ahlan (أهلا)', isCorrect: false },
+            ],
+        },
+        {
+            questionText: "What is the plural of 'bayt' (بيت)?",
+            soundFile: null,
+            answerOptions: [
+                { answerText: 'Baytaat (بيتات)', isCorrect: false },
+                { answerText: 'Abaayt (أبيت)', isCorrect: false },
+                { answerText: 'Buyoot (بيوت)', isCorrect: true },
+                { answerText: 'Buyyutan (بيوتا)', isCorrect: false },
+            ],
+        },
+        {
+            questionText: "What does the phrase 'Kaifa haluka?' (كيف حالك؟) mean?",
+            soundFile: null,
+            answerOptions: [
+                { answerText: 'What is your name?', isCorrect: false },
+                { answerText: 'How are you?', isCorrect: true },
+                { answerText: 'Where are you from?', isCorrect: false },
+                { answerText: 'What is this?', isCorrect: false },
+            ],
+        },
+        {
+            questionText: "What is the Arabic word for 'Thank you'?",
+            soundFile: null,
+            answerOptions: [
+                { answerText: 'Afwan (عفوا)', isCorrect: false },
+                { answerText: 'Shukran (شكراً)', isCorrect: true },
+                { answerText: 'Min fadlik (من فضلك)', isCorrect: false },
+                { answerText: 'Na`am (نعم)', isCorrect: false },
+            ],
+        },
+        {
+            questionText: "What does the pronoun 'Huwa' (هو) mean?",
+            soundFile: null,
+            answerOptions: [
+                { answerText: 'I', isCorrect: false },
+                { answerText: 'You', isCorrect: false },
+                { answerText: 'He', isCorrect: true },
+                { answerText: 'She', isCorrect: false },
+            ],
+        },
+        {
+            questionText: "Which word means 'school'?",
+            soundFile: null,
+            answerOptions: [
+                { answerText: 'Jaami`a (جامعة)', isCorrect: false },
+                { answerText: 'Mustashfa (مستشفى)', isCorrect: false },
+                { answerText: 'Madrasa (مدرسة)', isCorrect: true },
+                { answerText: 'Bayt (بيت)', isCorrect: false },
+            ],
+        },
+        {
+            questionText: "Which word means 'cat'?",
+            soundFile: null,
+            answerOptions: [
+                { answerText: 'Kalib (كلب)', isCorrect: false },
+                { answerText: 'Jamal (جمل)', isCorrect: false },
+                { answerText: 'Qit (قط)', isCorrect: true },
+                { answerText: 'Faras (فرس)', isCorrect: false },
             ],
         },
     ];
@@ -166,7 +226,7 @@ export default function App() {
             <div>Loading...</div>
           ) : hasDoneQuiz ? (
             <div className="already-done-message">
-              <h2>You have already done this quiz.</h2>
+              <h2>You have already done this quiz. Go to My Learning</h2>
             </div>
           ) : user ? (
             showScore ? (

@@ -5,6 +5,7 @@ import com.minilangpal.backend.repository.PasswordResetTokenRepository;
 import com.minilangpal.backend.repository.UserRepository;
 import com.minilangpal.backend.services.PasswordResetService;
 import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpSession;
 import org.aspectj.apache.bcel.classfile.ExceptionTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -86,5 +87,14 @@ public class AuthController {
         tokenRepo.delete(prt);
 
         return ResponseEntity.ok(Map.of("message", "Password successfully reset"));
+    }
+
+    @GetMapping("/current-session-id")
+    public ResponseEntity<String> getCurrentSessionId(HttpSession session) {
+        if (session != null && session.getId() != null) {
+            return ResponseEntity.ok(session.getId());
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No active session");
+        }
     }
 }
