@@ -15,7 +15,7 @@ Current websites which teach dialects (taking Fus'ha Arabic as an example - Madi
 ![Alt text](media-files/examplepage.jpg)
 
 
-tech stack:
+### Tech Stack:
 
 - Backend: Java SpringBoot
 - Frontend: ReactJS
@@ -23,11 +23,11 @@ tech stack:
 - Frameworks: Bootstrap, TailwindCSS
 - Deployment: Docker multi-containerization + Railway
 
-**Developers:**
+### Developers:
 
 Zayaan Khan: Lead FullStack Developer (full time)
 
 Rita San: Frontend Developer (part time)
------------------------------------------
-Development Time in Months: 9
------------------------------------------
+
+### Development Time:
+9 Months
