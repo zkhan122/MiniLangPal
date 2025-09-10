@@ -19,3 +19,5 @@ backend/src/main/java/.DS_Store
 backend/src/main/java/com/.DS_Store
 backend/src/main/java/com/minilangpal/.DS_Store
 venv/
+sql-scripts
+frontend/.docker/nginx.conf

@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  mysql-db:
+    image: mysql:8.0
+    container_name: minilangpal-mysql-db
+    restart: unless-stopped
+    ports: 
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./sql-scripts:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p$$MYSQL_ROOT_PASSWORD"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+  
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: minilangpal-springboot-backend
+    restart: unless-stopped
+    ports: 
+      - "8080:8080"
+    environment:
+      db_url: jdbc:mysql://mysql-db:3306/${MYSQL_DATABASE}?allowPublicKeyRetrieval=true&useSSL=false
+      db_username: ${MYSQL_USER}
+      db_password: ${MYSQL_PASSWORD}
+      mail_sender_email: ${MAIL_SENDER_EMAIL}
+      mail_sender_app_password: ${MAIL_SENDER_APP_PASSWORD}
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    command: [ "sh", "-c", "sleep 15 && java -jar backend.jar" ] 
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: minilangpal-react-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  mysql_data:
