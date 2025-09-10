@@ -1,3 +1,6 @@
+import {useNavigate , Link} from "react-router-dom";
+import { useUser } from "../ui/context/UserContext.js";
+
 import { useState, useEffect } from "react";
 
 export default function ForgotPassword() {
@@ -5,6 +8,15 @@ export default function ForgotPassword() {
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  // const { user } = useUser();
+  // const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   if (user || user.role) {
+  //     window.location.replace("/login");
+  //   }
+  // }, [user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
