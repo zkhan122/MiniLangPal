@@ -161,11 +161,13 @@ export default function CreateUser() {
     // If any error exists, stop submission
     if (allErrors.some((err) => err && err.trim() !== "")) return;
 
+    const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://minilangpal-backend-production.up.railway.app';
+
     // If no errors, proceed with API call
     try {
       const delay = ms => new Promise(res => setTimeout(res, ms));
       await delay(2000);
-      const response = await axios.post("/users", user);
+      const response = await axios.post(`${API_BASE_URL}/users`, user);
       if (response.status === 201) {
         setShowSuccess(true);
         setTimeout(() => navigate("/login"), 2000);

@@ -13,6 +13,9 @@ export default function ResetPassword() {
     const [message, setMessage] = useState("");
     const [isError, setIsError] = useState(false);
 
+    const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://minilangpal-backend-production.up.railway.app';
+
+
     const validatePassword = (password) =>
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&#]{8,}$/.test(password);
 
@@ -20,7 +23,7 @@ export default function ResetPassword() {
         e.preventDefault();
 
         try {
-            const response = await fetch(`/api/auth/reset-password/${token}`, {
+            const response = await fetch(`${API_BASE_URL}/api/auth/reset-password/${token}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ password }),

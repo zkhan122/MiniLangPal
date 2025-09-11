@@ -44,10 +44,10 @@ export default function Login() {
       return;
     }
 
-    const endpoint = roleInput === "ADMIN" ? "admin/login-attempt" : "users/login-attempt";
-
     try {
-      const response = await axios.post(`/${endpoint}`, {
+        const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://minilangpal-backend-production.up.railway.app';
+        const endpoint = roleInput === "ADMIN" ? "admin/login-attempt" : "users/login-attempt";
+        const response = await axios.post(`${API_BASE_URL}/${endpoint}`, {
         username: usernameInput,
         password: passwordInput,
       },

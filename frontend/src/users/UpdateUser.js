@@ -47,6 +47,9 @@ export default function UpdateUser() {
     const [showError, setShowError] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
 
+    const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://minilangpal-backend-production.up.railway.app';
+
+
     const onSubmit = async (event) => {
         event.preventDefault();
     
@@ -59,9 +62,9 @@ export default function UpdateUser() {
             setShowError(true);
             return;
         }
-    
+        
         try {
-            const response = await axios.put(`/users/${user_id}`, user);
+            const response = await axios.put(`${API_BASE_URL}/users/${user_id}`, user);
             
             // Update the local state with the new user details
             setUser(response.data);
@@ -79,7 +82,9 @@ export default function UpdateUser() {
     
     
     const loadUser =async()=> {
-        const result = await axios.get(`/users/${user_id}`);
+        const result = await axios.get(`${API_BASE_URL}/users/${user_id}`, {
+            withCredentials: true,
+        });
         setUser(result.data);  
     }
 

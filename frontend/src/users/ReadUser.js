@@ -14,11 +14,13 @@ export default function ReadUser() {
     
     const { user_id } = useParams();
 
+    const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://minilangpal-backend-production.up.railway.app';
+
     const loadUser = useCallback(async () => {
         try {
             setLoading(true);
             setError(null);
-            const result = await axios.get(`/users/${user_id}`);
+            const result = await axios.get(`${API_BASE_URL}/users/${user_id}`);
             setUser(result.data);
         } catch (err) {
             setError(err.response?.data?.message || "Error loading user");
