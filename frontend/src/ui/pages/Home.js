@@ -12,7 +12,7 @@ export default function Home() {
 
   const { id } = useParams(); // access parameters from the URL (function to hook into react state)
 
-  const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://minilangpal-backend-production.up.railway.app';
+  const API_BASE_URL = "https://minilangpal-backend-production.up.railway.app";
 
   const loadUsers = async () => {
     try {

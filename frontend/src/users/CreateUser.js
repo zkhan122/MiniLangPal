@@ -8,6 +8,8 @@ import profanityPackage from "@dsojevic/profanity-list";
 export default function CreateUser() {
   const navigate = useNavigate();
 
+  const API_BASE_URL = "https://minilangpal-backend-production.up.railway.app";
+
   const [user, setUser] = useState({
     name: "",
     username: "",
@@ -160,8 +162,6 @@ export default function CreateUser() {
 
     // If any error exists, stop submission
     if (allErrors.some((err) => err && err.trim() !== "")) return;
-
-    const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://minilangpal-backend-production.up.railway.app';
 
     // If no errors, proceed with API call
     try {
