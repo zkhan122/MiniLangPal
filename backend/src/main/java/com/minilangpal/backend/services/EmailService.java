@@ -1,5 +1,10 @@
 package com.minilangpal.backend.services;
+import com.resend.Resend;
+import com.resend.core.exception.ResendException;
+import com.resend.services.emails.model.CreateEmailOptions;
+import com.resend.services.emails.model.CreateEmailResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -12,34 +17,25 @@ import java.util.Objects;
 
 @Service
 public class EmailService {
-    private final JavaMailSender mailSender;
+    private final Resend resend;
+    private final String fromEmail;
 
-    @Autowired
-    private Environment environment;
-
-    // Constructor-based dependency injection
-    public EmailService(JavaMailSender mailSender) {
-        this.mailSender = mailSender;
+    public EmailService(
+            @Value("${resend.api-key}") String apiKey,
+            @Value("${resend.from-email}") String fromEmail
+    ) {
+        this.resend = new Resend(apiKey);
+        this.fromEmail = fromEmail;
     }
 
-    /**
-     * Sends an email with the given details.
-     *
-     * @param to      Recipient email address
-     * @param subject Subject of the email
-     * @param text    Email content (supports HTML)
-     * @throws MessagingException if email sending fails
-     */
-    public void sendEmail(String to, String subject, String text) throws MessagingException {
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+    public void sendEmail(String to, String subject, String text) throws ResendException {
+        CreateEmailOptions mailParams = CreateEmailOptions.builder()
+                .from(fromEmail)
+                .to(to)
+                .subject(subject)
+                .html(text)
+                .build();
 
-//        helper.setFrom(System.getenv("spring.mail.username"));
-        helper.setFrom(Objects.requireNonNull(environment.getProperty("spring.mail.username")));
-        helper.setTo(to);
-        helper.setSubject(subject);
-        helper.setText(text,true); // enable HTML content
-
-        mailSender.send(message);
+        resend.emails().send(mailParams);
     }
 }

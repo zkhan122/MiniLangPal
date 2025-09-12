@@ -12,9 +12,11 @@ export default function Home() {
 
   const { id } = useParams(); // access parameters from the URL (function to hook into react state)
 
+  const API_BASE_URL = "https://minilangpal-backend-production.up.railway.app";
+
   const loadUsers = async () => {
     try {
-      const result = await axios.get("/users");
+      const result = await axios.get(`${API_BASE_URL}/users`);
       setUsers(result.data);
     } catch (error) {
       console.error("Error loading users:", error);

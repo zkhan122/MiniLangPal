@@ -14,6 +14,8 @@ export default function AdminView() {
 
     const navigate = useNavigate();
 
+    const API_BASE_URL = "https://minilangpal-backend-production.up.railway.app";
+
     useEffect(() => {
         if (!user || user.role !== "ADMIN") {
             window.location.replace("/login"); // Redirect non-admins
@@ -22,7 +24,7 @@ export default function AdminView() {
 
       const loadUsers = async () => {
         try {
-          const result = await axios.get("/users", {
+          const result = await axios.get(`${API_BASE_URL}/users`, {
             withCredentials: true, // Include session cookie
           });
           setUsers(result.data);
@@ -37,7 +39,7 @@ export default function AdminView() {
     }, []); 
 
     const deleteUser = async (user_id) => {
-        await axios.delete(`/users/${user_id}`);
+        await axios.delete(`${API_BASE_URL}/users/${user_id}`);
         loadUsers();
     }
 

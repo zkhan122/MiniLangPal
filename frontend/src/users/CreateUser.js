@@ -8,6 +8,8 @@ import profanityPackage from "@dsojevic/profanity-list";
 export default function CreateUser() {
   const navigate = useNavigate();
 
+  const API_BASE_URL = "https://minilangpal-backend-production.up.railway.app";
+
   const [user, setUser] = useState({
     name: "",
     username: "",
@@ -165,7 +167,7 @@ export default function CreateUser() {
     try {
       const delay = ms => new Promise(res => setTimeout(res, ms));
       await delay(2000);
-      const response = await axios.post("/users", user);
+      const response = await axios.post(`${API_BASE_URL}/users`, user);
       if (response.status === 201) {
         setShowSuccess(true);
         setTimeout(() => navigate("/login"), 2000);

@@ -14,6 +14,8 @@ export default function Login() {
   const [showError, setShowError] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
+  const API_BASE_URL = "https://minilangpal-backend-production.up.railway.app";
+
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
     setShowError(false);
@@ -44,10 +46,9 @@ export default function Login() {
       return;
     }
 
-    const endpoint = roleInput === "ADMIN" ? "admin/login-attempt" : "users/login-attempt";
-
     try {
-      const response = await axios.post(`/${endpoint}`, {
+        const endpoint = roleInput === "ADMIN" ? "admin/login-attempt" : "users/login-attempt";
+        const response = await axios.post(`${API_BASE_URL}/${endpoint}`, {
         username: usernameInput,
         password: passwordInput,
       },

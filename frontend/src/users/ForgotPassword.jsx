@@ -17,6 +17,8 @@ export default function ForgotPassword() {
   //     window.location.replace("/login");
   //   }
   // }, [user, navigate]);
+    
+  const API_BASE_URL = "https://minilangpal-backend-production.up.railway.app";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +29,7 @@ export default function ForgotPassword() {
 
     try {
       const response = await fetch(
-        "/api/auth/forgot-password",
+        `${API_BASE_URL}/api/auth/forgot-password`,
         {
           credentials: "include",
           method: "POST",

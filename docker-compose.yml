@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
   mysql-db:
-    image: mysql:8.0
+    build:
+      context: ./db
+      dockerfile: Dockerfile
     container_name: minilangpal-mysql-db
     restart: unless-stopped
     ports: 
@@ -14,7 +16,6 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./sql-scripts:/docker-entrypoint-initdb.d
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p$$MYSQL_ROOT_PASSWORD"]
       interval: 10s

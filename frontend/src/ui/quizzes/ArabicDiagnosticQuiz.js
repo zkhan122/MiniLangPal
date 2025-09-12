@@ -26,10 +26,12 @@ export default function ArabicDiagnosticQuiz() {
         }
     }, [user, navigate]);
 
+    const API_BASE_URL = "https://minilangpal-backend-production.up.railway.app";
+
     
     const sendScoreToDatabase = async(finalScore) => {
       try {
-        const objectSent = await axios.post("/quiz-score", {
+        const objectSent = await axios.post(`${API_BASE_URL}/quiz-score`, {
           username: user.username,
           quizScore: finalScore,
           role: user.role,
@@ -48,7 +50,7 @@ export default function ArabicDiagnosticQuiz() {
     const checkIfQuizDone = async()=> {
       try {
         const {data} = await axios.get(
-          `/check-diagnostic-quiz-score/${user.username}/${language}`,
+          `${API_BASE_URL}/check-diagnostic-quiz-score/${user.username}/${language}`,
           { withCredentials: true} // needed this to avoid HTTP 403
         );
         
