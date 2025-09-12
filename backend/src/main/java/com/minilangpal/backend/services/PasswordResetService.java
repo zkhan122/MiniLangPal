@@ -1,5 +1,6 @@
 package com.minilangpal.backend.services;
 
+import com.resend.core.exception.ResendException;
 import org.springframework.beans.factory.annotation.Value;
 import com.minilangpal.backend.model.PasswordResetToken;
 import com.minilangpal.backend.model.User;
@@ -33,7 +34,7 @@ public class PasswordResetService {
         return token;
     }
 
-    public void sendResetEmail(String email, String token) throws MessagingException {
+    public void sendResetEmail(String email, String token) throws MessagingException, ResendException {
         String url = appBaseUrl + "/reset-password/" + token;
 
         emailService.sendEmail(email, "Password Reset Request - VALID FOR 30 MINUTES", "Click or copy into browser: " + url);
