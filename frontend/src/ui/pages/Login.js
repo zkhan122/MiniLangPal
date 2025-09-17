@@ -14,7 +14,7 @@ export default function Login() {
   const [showError, setShowError] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
-  const API_BASE_URL = "https://minilangpal-backend-production.up.railway.app";
+  const API_BASE_URL = "http://localhost:8080"; // "https://minilangpal-backend-production.up.railway.app";
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);

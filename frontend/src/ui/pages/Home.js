@@ -1,18 +1,27 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import logo from "../media/logo-pic.png";
 import background from "../media/polly.jpg";
 import "animate.css";
 import AnimatedHello from "../component/AnimatedHello";
+import { useUser } from "../context/UserContext";
 import "../css/themes.css";
 
 export default function Home() {
   const [users, setUsers] = useState([]);
 
-  const { id } = useParams(); // access parameters from the URL (function to hook into react state)
+  const { user } = useUser();
 
-  const API_BASE_URL = "https://minilangpal-backend-production.up.railway.app";
+  const navigate = useNavigate();
+
+//   useEffect(() => {
+//     if (!user || !user.role) {
+//       window.location.replace("/login");
+//     }
+// }, [user, navigate]);
+
+  const API_BASE_URL = "http://localhost:8080"; // "https://minilangpal-backend-production.up.railway.app";
 
   const loadUsers = async () => {
     try {

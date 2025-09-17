@@ -13,7 +13,7 @@ export default function ResetPassword() {
     const [message, setMessage] = useState("");
     const [isError, setIsError] = useState(false);
 
-    const API_BASE_URL = "https://minilangpal-backend-production.up.railway.app";
+    const API_BASE_URL = "http://localhost:8080"; // "https://minilangpal-backend-production.up.railway.app";
 
 
     const validatePassword = (password) =>

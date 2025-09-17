@@ -23,16 +23,13 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/public/**",
                                 "/users",
-                                "/users/**",
-                                "/users/validate/**",
                                 "/users/login-attempt",
                                 "/admin/login-attempt",
-                                "/admin",
-                                "/admin/**",
-                                "/admin/validate/**",
                                 "/quiz-score",
                                 "/check-diagnostic-quiz-score/{username}/{language}",
                                 "/api/auth/**").permitAll()
+                        .requestMatchers("/admin", "/admin/**", "/admin/validate/**").hasRole("ADMIN")
+                        .requestMatchers("/users/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
@@ -49,7 +46,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost", "https://minilangpal-frontend-production.up.railway.app", "https://minilangpal-backend-production.up.railway.app", "https://minilangpal.xyz"));
+        config.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost", "http://localhost:8080", "https://minilangpal-frontend-production.up.railway.app", "https://minilangpal-backend-production.up.railway.app", "https://minilangpal.xyz"));
         config.setAllowCredentials(true);
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));

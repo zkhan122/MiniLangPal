@@ -18,7 +18,7 @@ export default function ForgotPassword() {
   //   }
   // }, [user, navigate]);
     
-  const API_BASE_URL = "https://minilangpal-backend-production.up.railway.app";
+  const API_BASE_URL ="http://localhost"; // "https://minilangpal-backend-production.up.railway.app";
 
   const handleSubmit = async (e) => {
     e.preventDefault();

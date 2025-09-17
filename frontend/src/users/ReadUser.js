@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function ReadUser() {
@@ -14,7 +14,16 @@ export default function ReadUser() {
     
     const { user_id } = useParams();
 
-    const API_BASE_URL = "https://minilangpal-backend-production.up.railway.app";
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!user || user.role !== "ADMIN") {
+            window.location.replace("/login"); // Redirect non-admins
+        }
+    }, [user, navigate]);
+
+
+    const API_BASE_URL = "http://localhost:8080"; //"https://minilangpal-backend-production.up.railway.app";
 
     const loadUser = useCallback(async () => {
         try {

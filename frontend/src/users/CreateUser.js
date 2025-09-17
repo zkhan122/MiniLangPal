@@ -8,7 +8,7 @@ import profanityPackage from "@dsojevic/profanity-list";
 export default function CreateUser() {
   const navigate = useNavigate();
 
-  const API_BASE_URL = "https://minilangpal-backend-production.up.railway.app";
+  const API_BASE_URL = "http://localhost:8080"; // "https://minilangpal-backend-production.up.railway.app";
 
   const [user, setUser] = useState({
     name: "",
