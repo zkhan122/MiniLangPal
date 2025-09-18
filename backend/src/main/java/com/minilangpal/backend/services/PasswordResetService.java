@@ -10,8 +10,11 @@ import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDateTime;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -25,6 +28,10 @@ public class PasswordResetService {
     private String appBaseUrl;
 
     public String createToken(User user) {
+        // deleting any existing tokens for user first as multiple tokens for same user not allowed
+        Optional<PasswordResetToken> existingToken = tokenRepository.findByUser(user);
+        existingToken.ifPresent(tokenRepository::delete);
+
         String token = UUID.randomUUID().toString();
         PasswordResetToken prt = new PasswordResetToken();
         prt.setToken(token);

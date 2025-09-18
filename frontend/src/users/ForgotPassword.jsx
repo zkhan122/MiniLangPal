@@ -1,13 +1,15 @@
 import {useNavigate , Link} from "react-router-dom";
 import { useUser } from "../ui/context/UserContext.js";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [disable, setDisable] = useState(false);
+  const [countdown, setCountdown] = useState(0);
 
   // const { user } = useUser();
   // const navigate = useNavigate();
@@ -18,10 +20,17 @@ export default function ForgotPassword() {
   //   }
   // }, [user, navigate]);
     
-  const API_BASE_URL ="http://localhost"; // "https://minilangpal-backend-production.up.railway.app";
+  const API_BASE_URL ="http://localhost:8080"; // "https://minilangpal-backend-production.up.railway.app";
+
+  const handleDisable = () => {
+    setDisable(true);
+    setTimeout(() => { setDisable(false); }, 120000); // 2 minutes
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (disable) return;
 
     setMessage("");
     setIsError(false);
@@ -51,6 +60,7 @@ export default function ForgotPassword() {
       if (response.ok) {
         setMessage(data.message || "Success!");
         setIsError(false);
+        handleDisable();
       } else {
         setMessage(data.message || "Something went wrong.");
         setIsError(true);
@@ -76,7 +86,7 @@ export default function ForgotPassword() {
         />
         <button type="submit" disabled={isLoading}>
           {" "}
-          {isLoading ? "Sending..." : "Send Reset Link"}{" "}
+          {isLoading ? "Sending..." : disable ? `Wait 2 minutes` : "Send Reset Link"}
         </button>
         <p style={{ color: isError ? "red" : "green" }}>{message}</p>
       </form>
